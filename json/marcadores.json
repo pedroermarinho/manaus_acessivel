@@ -1,0 +1,54 @@
+[
+    {
+        "id":"terminal4",
+        "type":"Terminal de Ônibus",
+        "title":"Terminal 4 / T4",
+        "icon":"",
+        "latitude":-3.035067, 
+        "longitude":-59.945099,
+        "dm":true,
+        "dv":false,
+        "da":false,
+        "di":false,
+        "info":"Terminal 4, localizado na Avenida Camapuã, s/n°, Jorge Teixeira, zona Leste"
+    },
+    {
+        "id":"marcador-casa3",
+        "type":"casa 3",
+        "title":"minha casa",
+        "icon":"",
+        "latitude":-3.092666,
+        "longitude":-59.9470017,
+        "dm":true,
+        "dv":true,
+        "da":true,
+        "di":true,
+        "info":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+    },
+    {
+        "id":"marcador-casa2",
+        "type":"casa 2",
+        "title":"minha casa",
+        "icon":"",
+        "latitude":-3.032561,
+        "longitude":-59.9470017,
+        "dm":true,
+        "dv":true,
+        "da":true,
+        "di":true,
+        "info":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+    },
+    {
+        "id":"marcador-casa1",
+        "type":"casa 1",
+        "title":"minha casa",
+        "icon":"",
+        "latitude":-3.082560,
+        "longitude":-57.9470012,
+        "dm":true,
+        "dv":true,
+        "da":true,
+        "di":true,
+        "info":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
+    }
+]
