@@ -1,32 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:manausacessivel/Home.dart';
-import 'package:manausacessivel/controller/carregarDados.dart';
-import 'dart:async';
+import 'package:manausacessivel/SplashScreen.dart';
+
 void main() => runApp(
   MaterialApp(
+    debugShowCheckedModeBanner: false,
     title: "Manaus Acessível",
-    home: Home(),
+    home: SplashScreen(),
   )
 );
-
-// void main() async{
-//   runApp(
-//     MaterialApp(
-//       title: "Manaus Acessível",
-//       home: Home(),
-//     )
-//   );
-
-  // for(var data in await carregarDadosMarcadores()){
-  //   print(data["title"]);
-  //   print(data["id"]);
-  //   print(data["type"]);
-  //   print(data["icon"]);
-  //   print(data["latitude"]);
-  //   print(data["longitude"]);
-  //   print(data["dm"]);
-  //   print(data["dv"]);
-  //   print(data["da"]);
-  //   print(data["di"]);
-  // }
-// }

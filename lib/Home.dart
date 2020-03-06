@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Completer<GoogleMapController> _controller = Completer();
-  Set<Marker> _marcadores = {};
+  Set<Marker> _marcadores = new Set();
   CameraPosition _cameraPosition =CameraPosition(
     target: LatLng(-3.0970296, -60.0285807),
     zoom: 15
@@ -26,9 +26,8 @@ class _HomeState extends State<Home> {
   }
 
   _carregarMarcadores() async{
-    Set<Marker> marcadoresLocal={};
+    Set<Marker> marcadoresLocal=new Set<Marker>();
     for(var data in await carregarDadosMarcadores()){
-    
       Marker marcadorCasa = Marker(
         markerId: MarkerId(data["id"]),
         position: LatLng(data["latitude"],data["longitude"]),
@@ -77,7 +76,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _carregarMarcadores();
     _recuperarLocaizacaoAtual();

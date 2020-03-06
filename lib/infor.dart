@@ -11,6 +11,45 @@ class Infor extends StatefulWidget {
 }
 
 class _InforState extends State<Infor> {
+
+  List<Widget> iconsAss(){
+    List<Widget> children = List();
+    
+    if(widget.data["dm"]){
+      children.add(
+        FaIcon(
+          FontAwesomeIcons.accessibleIcon,
+          size: 50,
+          )
+      );
+    }
+    if(widget.data["dv"]){
+      children.add(
+        FaIcon(
+          FontAwesomeIcons.blind,
+          size: 50,
+          )
+      );
+    }
+    if(widget.data["da"]){
+      children.add(
+        FaIcon(
+          FontAwesomeIcons.signLanguage,
+          size: 50,
+          )
+      );
+    }
+    if(widget.data["di"]){
+      children.add(
+        FaIcon(
+          FontAwesomeIcons.brain,
+          size: 50,
+          )
+      );
+    }
+    return children;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,38 +77,7 @@ class _InforState extends State<Infor> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[   
-                Visibility(
-                  child: FaIcon(
-                    FontAwesomeIcons.accessibleIcon,
-                    size: 50,
-                    ),
-                    visible: widget.data["dm"] ,
-                  ),
-                  Visibility(
-                  child: FaIcon(
-                    FontAwesomeIcons.blind,
-                    size: 50,
-                    ),
-                    visible: widget.data["dv"] ,
-                  ),
-                  Visibility(
-                  child: FaIcon(
-                    FontAwesomeIcons.signLanguage,
-                    size: 50,
-                    ),
-                    visible: widget.data["da"] ,
-                  ),
-                  Visibility(
-                  child: FaIcon(
-                    FontAwesomeIcons.brain,
-                    size: 50,
-                    ),
-                    visible: widget.data["di"] ,
-                  ),
-                  
-                
-              ],
+              children: iconsAss(),
             ),
             Padding(
               padding:EdgeInsets.only(top: 20,bottom: 10),
