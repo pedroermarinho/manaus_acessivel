@@ -66,11 +66,11 @@ abstract class _GoogleMapCustomControllerBase with Store {
 
   @action
   onMapCreated(GoogleMapController googleMapController){
-    if(googleMapCompleter == null) {
+//    if(googleMapCompleter == null) {
       print("googleMapController");
       googleMapCompleter = Completer();
       googleMapCompleter.complete(googleMapController);
-    }
+//    }
   }
 
   loadMarkers() async {

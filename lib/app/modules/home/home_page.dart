@@ -1,14 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
-import 'package:manausacessivel/app/models/marker.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -99,8 +94,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
               ),
             ),
-
-//
           ],
         ),
       ),

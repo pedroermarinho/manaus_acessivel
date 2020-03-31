@@ -8,6 +8,10 @@ class GoogleMapCustomWidget extends StatelessWidget {
   final GoogleMapCustomController controller =
       Modular.get<GoogleMapCustomController>();
 
+  final bool onMapCreated;
+
+  GoogleMapCustomWidget({Key key, this.onMapCreated=true}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     controller.context = context;
@@ -20,7 +24,7 @@ class GoogleMapCustomWidget extends StatelessWidget {
           : GoogleMap(
               mapType: MapType.normal,
               initialCameraPosition: controller.cameraPosition,
-              onMapCreated: controller.onMapCreated,
+              onMapCreated: onMapCreated ?controller.onMapCreated:null,
               markers: controller.markers.values.toSet(),
 
 //              myLocationEnabled: true,

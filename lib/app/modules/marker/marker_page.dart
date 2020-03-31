@@ -44,7 +44,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                   child: Container(
                     width: 150,
                     height: 150,
-                    child: GoogleMapCustomWidget(),
+                    child: GoogleMapCustomWidget(onMapCreated: false,),
                   ),
                 ),
                 Padding(
