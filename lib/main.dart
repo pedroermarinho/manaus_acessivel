@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manausacessivel/SplashScreen.dart';
+import 'package:manausacessivel/app/app_module.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-void main() => runApp(
-  MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Manaus Acessível",
-    home: SplashScreen(),
-  )
-);
+void main() => runApp(ModularApp(module: AppModule()));

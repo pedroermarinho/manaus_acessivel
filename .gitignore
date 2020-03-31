@@ -307,3 +307,27 @@ fabric.properties
 
 
 /*/key.properties
+
+# Created by https://www.gitignore.io/api/firebase
+# Edit at https://www.gitignore.io/?templates=firebase
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
+# End of https://www.gitignore.io/api/firebase
+
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+google-services.json
+.slidy
