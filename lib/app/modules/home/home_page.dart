@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
+import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,35 +24,36 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     controller.context = context;
     return Scaffold(
       backgroundColor: Color(0xffefeeec),
-      appBar: AppBar(
-        title: Text("Manaus Acessível"),
-        backgroundColor: Colors.black,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: controller.selectMenuItem,
-            itemBuilder: (context) {
-              return controller.itensMenu.map((String item) {
-                return PopupMenuItem<String>(value: item, child: Text(item));
-              }).toList();
-            },
-          )
-        ],
-      ),
+//appBar: ,
+//      appBar: AppBar(
+//        title: Text("Manaus Acessível"),
+//        backgroundColor: Colors.black,
+//        actions: <Widget>[
+//          PopupMenuButton<String>(
+//            onSelected: controller.selectMenuItem,
+//            itemBuilder: (context) {
+//              return controller.itensMenu.map((String item) {
+//                return PopupMenuItem<String>(value: item, child: Text(item));
+//              }).toList();
+//            },
+//          )
+//        ],
+//      ),
       body: Container(
         child: Stack(
           children: <Widget>[
             GoogleMapCustomWidget(),
             Positioned(
-              top: 0,
+              top: 30,
               left: 0,
               right: 0,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(20),
                 child: Container(
 //                  height: ,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(color: Color(0xffe6c131),width: 1,),
                       borderRadius: BorderRadius.circular(3),
                       color: Colors.white),
                   child: Observer(
@@ -94,29 +96,78 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xffe6c131),
-        child: Icon(Icons.add_location),
-        onPressed: controller.createNewMarker,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        color: Colors.black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            SizedBox(
-              width: 50,
+            Positioned(
+              bottom: 30,
+              left: 10,
+              right: 10,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Color(0xffe6c131),
+                    width: 2
+                  ),
+                  borderRadius: BorderRadius.circular(32),
+                  color: Colors.transparent,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.add,
+                        size: 35,
+                      ),
+                      color: Colors.black,
+                      onPressed: null,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add,
+                        size: 35,),
+                      color: Colors.black,
+                      onPressed: null,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add,
+                        size: 35,),
+                      color: Colors.black,
+                      onPressed: null,
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.location_searching,
+                        size: 35,
+                      ),
+                      color: Colors.black,
+                      onPressed: controller.recuperarLocaizacaoAtual,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            IconButton(icon: Icon(Icons.location_searching),color: Colors.white,onPressed: controller.recuperarLocaizacaoAtual,),
+            Positioned(
+              bottom: 60,
+              left: 10,
+              right: 10,
+              child: GestureDetector(
+                onTap: controller.createNewMarker,
+                child: CircleAvatar(
+                  foregroundColor: Colors.black,
+                  radius: 35,
+                  backgroundColor: Colors.transparent,
+                  child: Icon(
+                    Icons.add_location,
+                    color: Color(0xffe6c131),
+                    size: 90,
+                  ),
+                ),
+              )
+            ),
+            SidebarWidget(),
           ],
         ),
       ),

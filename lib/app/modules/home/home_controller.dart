@@ -11,11 +11,9 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final AuthController _authController = Modular.get<AuthController>();
   final GoogleMapCustomController _googleMapCustomController =
       Modular.get<GoogleMapCustomController>();
-  @observable
-  List<String> itensMenu = ["Deslogar", "Configurações","Sobre"];
+
 
   @observable
   BuildContext context;
@@ -26,35 +24,10 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<Widget> listWidgetOptionsAddress = ObservableList();
 
-  logoutUser() async {
-    await _authController.logout();
-    pushSplashScreen();
-  }
 
-  pushSplashScreen() {
-    Modular.to.pushReplacementNamed(Modular.initialRoute);
-  }
 
-  pushSettings() {
-    Modular.to.pushNamed("/settings");
-  }
-  pushAbout() {
-    Modular.to.pushNamed("/about");
-  }
 
-  selectMenuItem(String escolha) {
-    switch (escolha) {
-      case "Configurações":
-        pushSettings();
-        break;
-      case "Deslogar":
-        logoutUser();
-        break;
-      case "Sobre":
-        pushAbout();
-        break;
-    }
-  }
+
 
   novaLocalizacao(String address) {
     _googleMapCustomController.novaLocalizacao(address);

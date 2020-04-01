@@ -1,3 +1,4 @@
+import 'package:manausacessivel/app/components/sidebar/sidebar_controller.dart';
 import 'package:manausacessivel/app/modules/marker/marker_controller.dart';
 import 'package:manausacessivel/app/pages/about/about_page.dart';
 import 'package:manausacessivel/app/repositories/type_marker/type_marker_repository_controller.dart';
@@ -26,6 +27,7 @@ import 'package:manausacessivel/app/modules/home/home_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => SidebarController()),
         Bind<TypeMarkerRepositoryController>(
             (i) => TypeMarkerRepositoryController()),
         Bind<MarkerRepositoryController>((i) => MarkerRepositoryController()),
@@ -45,13 +47,14 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, module: SplashScreenModule()),
+//        Router(Modular.initialRoute, module: MenuModule()),
         Router("/home", module: HomeModule()),
         Router("/login", module: LoginModule()),
         Router("/information", module: InformationModule()),
         Router("/marker", module: MarkerModule()),
         Router("/register", module: RegisterModule()),
         Router("/settings", module: SettingsModule()),
-        Router("/about", child: (_,args)=> AboutPage()),
+        Router("/about", child: (_, args) => AboutPage()),
       ];
 
   @override
