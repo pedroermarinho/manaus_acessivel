@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,21 +25,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
     controller.context = context;
     return Scaffold(
       backgroundColor: Color(0xffefeeec),
-//appBar: ,
-//      appBar: AppBar(
-//        title: Text("Manaus Acessível"),
-//        backgroundColor: Colors.black,
-//        actions: <Widget>[
-//          PopupMenuButton<String>(
-//            onSelected: controller.selectMenuItem,
-//            itemBuilder: (context) {
-//              return controller.itensMenu.map((String item) {
-//                return PopupMenuItem<String>(value: item, child: Text(item));
-//              }).toList();
-//            },
-//          )
-//        ],
-//      ),
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -53,12 +39,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 //                  height: ,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xffe6c131),width: 1,),
+                      border: Border.all(
+                        color: Color(0xffe6c131),
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(3),
                       color: Colors.white),
                   child: Observer(
                     builder: (_) {
-//
                       return Column(
                         children: <Widget>[
                           TextField(
@@ -103,10 +91,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Color(0xffe6c131),
-                    width: 2
-                  ),
+                  border: Border.all(color: Color(0xffe6c131), width: 2),
                   borderRadius: BorderRadius.circular(32),
                   color: Colors.transparent,
                 ),
@@ -123,8 +108,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       onPressed: null,
                     ),
                     IconButton(
-                      icon: Icon(Icons.add,
-                        size: 35,),
+                      icon: Icon(
+                        Icons.add,
+                        size: 35,
+                      ),
                       color: Colors.black,
                       onPressed: null,
                     ),
@@ -132,10 +119,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       width: 5,
                     ),
                     IconButton(
-                      icon: Icon(Icons.add,
-                        size: 35,),
+                      icon: Icon(
+                        Icons.error,
+                        size: 35,
+                      ),
                       color: Colors.black,
-                      onPressed: null,
+                      onPressed: controller.teste,
                     ),
                     IconButton(
                       icon: Icon(
@@ -150,23 +139,22 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               ),
             ),
             Positioned(
-              bottom: 60,
-              left: 10,
-              right: 10,
-              child: GestureDetector(
-                onTap: controller.createNewMarker,
-                child: CircleAvatar(
-                  foregroundColor: Colors.black,
-                  radius: 35,
-                  backgroundColor: Colors.transparent,
-                  child: Icon(
-                    Icons.add_location,
-                    color: Color(0xffe6c131),
-                    size: 90,
+                bottom: 60,
+                left: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: controller.createNewMarker,
+                  child: CircleAvatar(
+                    foregroundColor: Colors.black,
+                    radius: 35,
+                    backgroundColor: Colors.transparent,
+                    child: Icon(
+                      Icons.add_location,
+                      color: Color(0xffe6c131),
+                      size: 90,
+                    ),
                   ),
-                ),
-              )
-            ),
+                )),
             SidebarWidget(),
           ],
         ),

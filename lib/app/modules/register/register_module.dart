@@ -1,7 +1,6 @@
 import 'package:manausacessivel/app/modules/register/register_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/modules/register/register_page.dart';
-import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 
 class RegisterModule extends ChildModule {
   @override

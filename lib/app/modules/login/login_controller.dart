@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_controller.g.dart';
@@ -8,7 +7,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  AuthController auth = Modular.get();
+  final _auth = Modular.get();
 
   @observable
   bool loading = false;
@@ -32,7 +31,7 @@ abstract class _LoginControllerBase with Store {
   Future loginWithGoogle() async {
     try {
       loading = true;
-      await auth.loginWithGoogle();
+      await _auth.loginWithGoogle();
       Modular.to.pushReplacementNamed("/home");
     } catch (e) {
       loading = false;
@@ -44,7 +43,7 @@ abstract class _LoginControllerBase with Store {
     messageError = "";
     try {
       loading = true;
-      await auth.loginWithEmailPasswordLogin(email, password).then((_) {
+      await _auth.loginWithEmailPasswordLogin(email, password).then((_) {
         pushHome();
       }).catchError((error) {
         PlatformException exception = error;

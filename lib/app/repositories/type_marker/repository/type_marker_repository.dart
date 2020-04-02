@@ -3,7 +3,7 @@ import 'package:manausacessivel/app/repositories/type_marker/repository/type_mar
 
 class TypeMarkerRepository implements ITypeMarkerRepository {
   final Firestore _firestore = Firestore.instance;
-  final String _collectionDB = "typemarcadores";
+  final String _collectionDB = "typemarkers";
 
   @override
   Stream<QuerySnapshot> getTypeMarkers() {

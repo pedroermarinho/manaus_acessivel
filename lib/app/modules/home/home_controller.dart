@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
@@ -14,7 +13,6 @@ abstract class _HomeControllerBase with Store {
   final GoogleMapCustomController _googleMapCustomController =
       Modular.get<GoogleMapCustomController>();
 
-
   @observable
   BuildContext context;
 
@@ -24,13 +22,12 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<Widget> listWidgetOptionsAddress = ObservableList();
 
-
-
-
-
+  teste() {
+    _googleMapCustomController.test();
+  }
 
   novaLocalizacao(String address) {
-    _googleMapCustomController.novaLocalizacao(address);
+    _googleMapCustomController.newLocation(address);
   }
 
   createNewMarker() {
@@ -38,11 +35,11 @@ abstract class _HomeControllerBase with Store {
   }
 
   recuperarLocaizacaoAtual() {
-    _googleMapCustomController.recuperarLocaizacaoAtual();
+    _googleMapCustomController.recoverLocatingActual();
   }
 
   novaLocalizacaoPlacemark(Placemark address) {
-    _googleMapCustomController.novaLocalizacaoPlacemark(address);
+    _googleMapCustomController.newLocationPlacemark(address);
   }
 
   isValidAddress(String address) {

@@ -6,6 +6,7 @@ import 'splash_screen_controller.dart';
 
 class SplashScreenPage extends StatefulWidget {
   final String title;
+
   const SplashScreenPage({Key key, this.title = "SplashScreen"})
       : super(key: key);
 
@@ -20,12 +21,12 @@ class _SplashScreenPageState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
   }
+
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3),(){
+    Timer(Duration(seconds: 3), () {
       controller.isValid();
     });
   }
@@ -35,6 +36,7 @@ class _SplashScreenPageState
     controller.disposer();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

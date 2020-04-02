@@ -1,11 +1,9 @@
 class TypeUser {
-  static const String novoUsuario = "user";
-  static const String usuarioAutorrevisor = "autoreview";
-  static const String usuarioEliminadores = "eliminator";
-  static const String usuarioAdministradores = "sysop";
-  static const String usuarioBurocratas = "accountcreator";
-  static const String usuarioVerificadores = "checkuser";
-  static const String usuarioDesenvolvedores = "developer";
+  static const String newUser = "user";
+  static const String userAuthorevisor = "autoreview";
+  static const String userErasers = "eliminator";
+  static const String userAdministrators = "sysop";
+  static const String userBurocrats = "accountcreator";
+  static const String userVerifiers = "checkuser";
+  static const String userDevelopers = "developer";
 }
-
-

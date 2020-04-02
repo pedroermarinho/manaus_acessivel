@@ -18,9 +18,9 @@ abstract class _AuthControllerBase with Store {
   AuthStatus status = AuthStatus.loading;
 
   @action
-  setUser(FirebaseUser value){
+  setUser(FirebaseUser value) {
     userAuth = value;
-    status = userAuth == null? AuthStatus.logoff:AuthStatus.login;
+    status = userAuth == null ? AuthStatus.logoff : AuthStatus.login;
   }
 
   _AuthControllerBase() {
@@ -36,7 +36,7 @@ abstract class _AuthControllerBase with Store {
   }
 
   Future logout() {
-    return _authRepository.logout().whenComplete((){
+    return _authRepository.logout().whenComplete(() {
       _authRepository.getUser().then(setUser);
     });
   }

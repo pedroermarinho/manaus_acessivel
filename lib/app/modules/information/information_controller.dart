@@ -3,8 +3,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
-import 'package:manausacessivel/app/models/marker.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/modules/information/components/marker_icon_detector/marker_icon_detector_widget.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
@@ -18,18 +18,15 @@ class InformationController = _InformationControllerBase
 
 abstract class _InformationControllerBase with Store {
   //use 'controller' variable to access controller
-  final MarkerRepositoryController _markerRepositoryController =
-      Modular.get<MarkerRepositoryController>();
-  final UserRepositoryController _userRepositoryController =
-      Modular.get<UserRepositoryController>();
-  final GoogleMapCustomController _googleMapCustomController =
-      Modular.get<GoogleMapCustomController>();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   @observable
-  Marcador marcador;
+  MarkerModel marker;
 
   @observable
-  List<String> itensMenu = [];
+  List<String> itemsMenu = [];
 
   @observable
   ObservableList<Widget> iconsAssList = ObservableList();
@@ -41,30 +38,30 @@ abstract class _InformationControllerBase with Store {
   Placemark placemark;
 
   _InformationControllerBase() {
-    recuperarMarcador();
+    recoverMarker();
     typeUser();
   }
 
-  recuperarMarcador() async {
-    this.marcador = _markerRepositoryController.marker;
+  recoverMarker() async {
+    this.marker = _markerRepositoryController.marker;
     iconsAss();
     placemark = await _googleMapCustomController.addressInformation(
       Position(
-        latitude: marcador.latitude,
-        longitude: marcador.longitude,
+        latitude: marker.latitude,
+        longitude: marker.longitude,
       ),
     );
     loading = false;
   }
 
   iconsAss() {
-    if (marcador.dm) {
+    if (marker.dm) {
       iconsAssList.add(MarkerIconDetectorWidget(
         icon: FontAwesomeIcons.accessibleIcon,
         labelText: "Deficiência Motora",
       ));
     }
-    if (marcador.dv) {
+    if (marker.dv) {
       iconsAssList.add(
         MarkerIconDetectorWidget(
           icon: FontAwesomeIcons.blind,
@@ -72,7 +69,7 @@ abstract class _InformationControllerBase with Store {
         ),
       );
     }
-    if (marcador.da) {
+    if (marker.da) {
       iconsAssList.add(
         MarkerIconDetectorWidget(
           icon: FontAwesomeIcons.signLanguage,
@@ -80,7 +77,7 @@ abstract class _InformationControllerBase with Store {
         ),
       );
     }
-    if (marcador.di) {
+    if (marker.di) {
       iconsAssList.add(MarkerIconDetectorWidget(
         icon: FontAwesomeIcons.brain,
         labelText: "Deficiência Intelectual",
@@ -89,27 +86,27 @@ abstract class _InformationControllerBase with Store {
   }
 
   typeUser() async {
-    Usuario usuario = await _userRepositoryController.getUser();
-    if (usuario.userType == TypeUser.usuarioAdministradores ||
-        usuario.idUsuario == marcador.idUserCreator) {
-      itensMenu.add("Editar");
-      itensMenu.add("Deletar");
+    User user = await _userRepositoryController.getUser();
+    if (user.userType == TypeUser.userAdministrators ||
+        user.idUser == marker.idUserCreator) {
+      itemsMenu.add("Editar");
+      itemsMenu.add("Deletar");
     }
   }
 
-  escolhaMenuItem(String escolha) {
-    switch (escolha) {
+  selectionMenuItem(String selection) {
+    switch (selection) {
       case "Editar":
         print("Editar");
 
-        Modular.to.pushNamed("/marker", arguments: marcador).whenComplete(() {
+        Modular.to.pushNamed("/marker", arguments: marker).whenComplete(() {
           loading = true;
           iconsAssList.clear();
-          recuperarMarcador();
+          recoverMarker();
         });
         break;
       case "Deletar":
-        _markerRepositoryController.setMarker(marcador);
+        _markerRepositoryController.setMarker(marker);
         _markerRepositoryController.deleteMarker();
         _googleMapCustomController.markers.clear();
         _googleMapCustomController.loadMarkers();

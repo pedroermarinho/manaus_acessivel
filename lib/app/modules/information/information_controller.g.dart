@@ -9,38 +9,38 @@ part of 'information_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InformationController on _InformationControllerBase, Store {
-  final _$marcadorAtom = Atom(name: '_InformationControllerBase.marcador');
+  final _$markerAtom = Atom(name: '_InformationControllerBase.marker');
 
   @override
-  Marcador get marcador {
-    _$marcadorAtom.context.enforceReadPolicy(_$marcadorAtom);
-    _$marcadorAtom.reportObserved();
-    return super.marcador;
+  MarkerModel get marker {
+    _$markerAtom.context.enforceReadPolicy(_$markerAtom);
+    _$markerAtom.reportObserved();
+    return super.marker;
   }
 
   @override
-  set marcador(Marcador value) {
-    _$marcadorAtom.context.conditionallyRunInAction(() {
-      super.marcador = value;
-      _$marcadorAtom.reportChanged();
-    }, _$marcadorAtom, name: '${_$marcadorAtom.name}_set');
+  set marker(MarkerModel value) {
+    _$markerAtom.context.conditionallyRunInAction(() {
+      super.marker = value;
+      _$markerAtom.reportChanged();
+    }, _$markerAtom, name: '${_$markerAtom.name}_set');
   }
 
-  final _$itensMenuAtom = Atom(name: '_InformationControllerBase.itensMenu');
+  final _$itemsMenuAtom = Atom(name: '_InformationControllerBase.itemsMenu');
 
   @override
-  List<String> get itensMenu {
-    _$itensMenuAtom.context.enforceReadPolicy(_$itensMenuAtom);
-    _$itensMenuAtom.reportObserved();
-    return super.itensMenu;
+  List<String> get itemsMenu {
+    _$itemsMenuAtom.context.enforceReadPolicy(_$itemsMenuAtom);
+    _$itemsMenuAtom.reportObserved();
+    return super.itemsMenu;
   }
 
   @override
-  set itensMenu(List<String> value) {
-    _$itensMenuAtom.context.conditionallyRunInAction(() {
-      super.itensMenu = value;
-      _$itensMenuAtom.reportChanged();
-    }, _$itensMenuAtom, name: '${_$itensMenuAtom.name}_set');
+  set itemsMenu(List<String> value) {
+    _$itemsMenuAtom.context.conditionallyRunInAction(() {
+      super.itemsMenu = value;
+      _$itemsMenuAtom.reportChanged();
+    }, _$itemsMenuAtom, name: '${_$itemsMenuAtom.name}_set');
   }
 
   final _$iconsAssListAtom =
@@ -98,7 +98,7 @@ mixin _$InformationController on _InformationControllerBase, Store {
   @override
   String toString() {
     final string =
-        'marcador: ${marcador.toString()},itensMenu: ${itensMenu.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
+        'marker: ${marker.toString()},itemsMenu: ${itemsMenu.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
     return '{$string}';
   }
 }

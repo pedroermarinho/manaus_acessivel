@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
@@ -13,20 +13,17 @@ part 'sidebar_controller.g.dart';
 class SidebarController = _SidebarControllerBase with _$SidebarController;
 
 abstract class _SidebarControllerBase with Store {
-
-  final  _userRepositoryController =
-  Modular.get<UserRepositoryController>();
-  final AuthController _authController = Modular.get<AuthController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
+  final _authController = Modular.get<AuthController>();
 
   @observable
-  Usuario user;
+  User user;
 
   @observable
   bool loading = false;
 
   @observable
   AnimationController animationController;
-
 
   @observable
   // ignore: close_sinks
@@ -38,18 +35,17 @@ abstract class _SidebarControllerBase with Store {
   @observable
   StreamSink<bool> isSidebarOpenedSink;
 
-
-  _SidebarControllerBase(){
-      getUser();
+  _SidebarControllerBase() {
+    getUser();
   }
 
   @action
   getUser() async {
     await _userRepositoryController.getUser();
-    autorun((value){
-      if(_userRepositoryController.user != null){
+    autorun((value) {
+      if (_userRepositoryController.user != null) {
         value.dispose();
-        this.user =_userRepositoryController.user;
+        this.user = _userRepositoryController.user;
       }
     });
   }
@@ -58,6 +54,7 @@ abstract class _SidebarControllerBase with Store {
     await _authController.logout();
     pushSplashScreen();
   }
+
   pushSplashScreen() {
     Modular.to.pushReplacementNamed(Modular.initialRoute);
   }
@@ -65,15 +62,12 @@ abstract class _SidebarControllerBase with Store {
   pushSettings() {
     Modular.to.pushNamed("/settings").whenComplete(() => getUser());
   }
+
   pushAbout() {
     Modular.to.pushNamed("/about");
   }
 
   final animationDuration = const Duration(milliseconds: 500);
-
-
-
-
 
   void onIconPressed() {
     final animationStatus = animationController.status;
@@ -87,7 +81,6 @@ abstract class _SidebarControllerBase with Store {
       animationController.forward();
     }
   }
-
 }
 
 class CustomMenuClipper extends CustomClipper<Path> {

@@ -10,7 +10,7 @@ class GoogleMapCustomWidget extends StatelessWidget {
 
   final bool onMapCreated;
 
-  GoogleMapCustomWidget({Key key, this.onMapCreated=true}) : super(key: key);
+  GoogleMapCustomWidget({Key key, this.onMapCreated = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +24,12 @@ class GoogleMapCustomWidget extends StatelessWidget {
           : GoogleMap(
               mapType: MapType.normal,
               initialCameraPosition: controller.cameraPosition,
-              onMapCreated: onMapCreated ?controller.onMapCreated:null,
+              onMapCreated: onMapCreated ? controller.onMapCreated : null,
               markers: controller.markers.values.toSet(),
-
-//              myLocationEnabled: true,
-              // myLocationButtonEnabled: true,
+              mapToolbarEnabled: false,
+              myLocationEnabled: false,
+              compassEnabled: false,
+              myLocationButtonEnabled: false,
             );
     });
   }

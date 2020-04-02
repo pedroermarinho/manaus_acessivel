@@ -94,12 +94,12 @@ mixin _$AboutController on _AboutControllerBase, Store {
     }, _$nameDevelopAtom, name: '${_$nameDevelopAtom.name}_set');
   }
 
-  final _$recuperarInformacoesAsyncAction = AsyncAction('recuperarInformacoes');
+  final _$recoverInformationAsyncAction = AsyncAction('recoverInformation');
 
   @override
-  Future recuperarInformacoes() {
-    return _$recuperarInformacoesAsyncAction
-        .run(() => super.recuperarInformacoes());
+  Future recoverInformation() {
+    return _$recoverInformationAsyncAction
+        .run(() => super.recoverInformation());
   }
 
   @override

@@ -14,21 +14,20 @@ class TextFieldCustomWidget extends StatelessWidget {
   final TextAlign textAlign;
   final bool readOnly;
 
-  TextFieldCustomWidget(
-      {Key key,
-      this.labelText,
-      this.onChanged,
-      this.errorText,
-      this.textInputType = TextInputType.text,
-      this.obscureText = false,
-      this.autofocus = false,
-      this.controller,
-      this.maxLines = 1,
-      this.maxLength,
-      this.readOnly=false,
-      this.textAlign=TextAlign.start,
-      })
-      : super(key: key);
+  TextFieldCustomWidget({
+    Key key,
+    this.labelText,
+    this.onChanged,
+    this.errorText,
+    this.textInputType = TextInputType.text,
+    this.obscureText = false,
+    this.autofocus = false,
+    this.controller,
+    this.maxLines = 1,
+    this.maxLength,
+    this.readOnly = false,
+    this.textAlign = TextAlign.start,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

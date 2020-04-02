@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:manausacessivel/app/models/marker.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
 
 abstract class IMarkerRepository {
   Future<DocumentSnapshot> getMarker(String idMarker);
@@ -10,5 +10,5 @@ abstract class IMarkerRepository {
 
   Future saveMarker(Map<String, dynamic> marker);
 
-  Future updateMarker(Marcador marker);
+  Future updateMarker(MarkerModel marker);
 }

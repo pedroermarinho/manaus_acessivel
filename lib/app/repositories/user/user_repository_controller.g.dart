@@ -12,14 +12,14 @@ mixin _$UserRepositoryController on _UserRepositoryControllerBase, Store {
   final _$userAtom = Atom(name: '_UserRepositoryControllerBase.user');
 
   @override
-  Usuario get user {
+  User get user {
     _$userAtom.context.enforceReadPolicy(_$userAtom);
     _$userAtom.reportObserved();
     return super.user;
   }
 
   @override
-  set user(Usuario value) {
+  set user(User value) {
     _$userAtom.context.conditionallyRunInAction(() {
       super.user = value;
       _$userAtom.reportChanged();
@@ -30,7 +30,7 @@ mixin _$UserRepositoryController on _UserRepositoryControllerBase, Store {
       ActionController(name: '_UserRepositoryControllerBase');
 
   @override
-  dynamic setUser(Usuario value) {
+  dynamic setUser(User value) {
     final _$actionInfo =
         _$_UserRepositoryControllerBaseActionController.startAction();
     try {

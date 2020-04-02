@@ -15,38 +15,38 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   bool get isValid =>
       (_$isValidComputed ??= Computed<bool>(() => super.isValid)).value;
 
-  final _$nomeAtom = Atom(name: '_MarkerControllerBase.nome');
+  final _$nameAtom = Atom(name: '_MarkerControllerBase.name');
 
   @override
-  String get nome {
-    _$nomeAtom.context.enforceReadPolicy(_$nomeAtom);
-    _$nomeAtom.reportObserved();
-    return super.nome;
+  String get name {
+    _$nameAtom.context.enforceReadPolicy(_$nameAtom);
+    _$nameAtom.reportObserved();
+    return super.name;
   }
 
   @override
-  set nome(String value) {
-    _$nomeAtom.context.conditionallyRunInAction(() {
-      super.nome = value;
-      _$nomeAtom.reportChanged();
-    }, _$nomeAtom, name: '${_$nomeAtom.name}_set');
+  set name(String value) {
+    _$nameAtom.context.conditionallyRunInAction(() {
+      super.name = value;
+      _$nameAtom.reportChanged();
+    }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
-  final _$descricaoAtom = Atom(name: '_MarkerControllerBase.descricao');
+  final _$descriptionAtom = Atom(name: '_MarkerControllerBase.description');
 
   @override
-  String get descricao {
-    _$descricaoAtom.context.enforceReadPolicy(_$descricaoAtom);
-    _$descricaoAtom.reportObserved();
-    return super.descricao;
+  String get description {
+    _$descriptionAtom.context.enforceReadPolicy(_$descriptionAtom);
+    _$descriptionAtom.reportObserved();
+    return super.description;
   }
 
   @override
-  set descricao(String value) {
-    _$descricaoAtom.context.conditionallyRunInAction(() {
-      super.descricao = value;
-      _$descricaoAtom.reportChanged();
-    }, _$descricaoAtom, name: '${_$descricaoAtom.name}_set');
+  set description(String value) {
+    _$descriptionAtom.context.conditionallyRunInAction(() {
+      super.description = value;
+      _$descriptionAtom.reportChanged();
+    }, _$descriptionAtom, name: '${_$descriptionAtom.name}_set');
   }
 
   final _$dmAtom = Atom(name: '_MarkerControllerBase.dm');
@@ -117,53 +117,53 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
     }, _$diAtom, name: '${_$diAtom.name}_set');
   }
 
-  final _$marcadorAtom = Atom(name: '_MarkerControllerBase.marcador');
+  final _$markerAtom = Atom(name: '_MarkerControllerBase.marker');
 
   @override
-  Marcador get marcador {
-    _$marcadorAtom.context.enforceReadPolicy(_$marcadorAtom);
-    _$marcadorAtom.reportObserved();
-    return super.marcador;
+  MarkerModel get marker {
+    _$markerAtom.context.enforceReadPolicy(_$markerAtom);
+    _$markerAtom.reportObserved();
+    return super.marker;
   }
 
   @override
-  set marcador(Marcador value) {
-    _$marcadorAtom.context.conditionallyRunInAction(() {
-      super.marcador = value;
-      _$marcadorAtom.reportChanged();
-    }, _$marcadorAtom, name: '${_$marcadorAtom.name}_set');
+  set marker(MarkerModel value) {
+    _$markerAtom.context.conditionallyRunInAction(() {
+      super.marker = value;
+      _$markerAtom.reportChanged();
+    }, _$markerAtom, name: '${_$markerAtom.name}_set');
   }
 
-  final _$selectedMarcadorAtom =
-      Atom(name: '_MarkerControllerBase.selectedMarcador');
+  final _$selectedMarkerAtom =
+      Atom(name: '_MarkerControllerBase.selectedMarker');
 
   @override
-  TypeMarcador get selectedMarcador {
-    _$selectedMarcadorAtom.context.enforceReadPolicy(_$selectedMarcadorAtom);
-    _$selectedMarcadorAtom.reportObserved();
-    return super.selectedMarcador;
+  TypeMarker get selectedMarker {
+    _$selectedMarkerAtom.context.enforceReadPolicy(_$selectedMarkerAtom);
+    _$selectedMarkerAtom.reportObserved();
+    return super.selectedMarker;
   }
 
   @override
-  set selectedMarcador(TypeMarcador value) {
-    _$selectedMarcadorAtom.context.conditionallyRunInAction(() {
-      super.selectedMarcador = value;
-      _$selectedMarcadorAtom.reportChanged();
-    }, _$selectedMarcadorAtom, name: '${_$selectedMarcadorAtom.name}_set');
+  set selectedMarker(TypeMarker value) {
+    _$selectedMarkerAtom.context.conditionallyRunInAction(() {
+      super.selectedMarker = value;
+      _$selectedMarkerAtom.reportChanged();
+    }, _$selectedMarkerAtom, name: '${_$selectedMarkerAtom.name}_set');
   }
 
   final _$dropdownMenuItemsAtom =
       Atom(name: '_MarkerControllerBase.dropdownMenuItems');
 
   @override
-  ObservableList<DropdownMenuItem<TypeMarcador>> get dropdownMenuItems {
+  ObservableList<DropdownMenuItem<TypeMarker>> get dropdownMenuItems {
     _$dropdownMenuItemsAtom.context.enforceReadPolicy(_$dropdownMenuItemsAtom);
     _$dropdownMenuItemsAtom.reportObserved();
     return super.dropdownMenuItems;
   }
 
   @override
-  set dropdownMenuItems(ObservableList<DropdownMenuItem<TypeMarcador>> value) {
+  set dropdownMenuItems(ObservableList<DropdownMenuItem<TypeMarker>> value) {
     _$dropdownMenuItemsAtom.context.conditionallyRunInAction(() {
       super.dropdownMenuItems = value;
       _$dropdownMenuItemsAtom.reportChanged();
@@ -174,52 +174,52 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
       Atom(name: '_MarkerControllerBase.dropdownMenuValue');
 
   @override
-  DropdownMenuItem<TypeMarcador> get dropdownMenuValue {
+  DropdownMenuItem<TypeMarker> get dropdownMenuValue {
     _$dropdownMenuValueAtom.context.enforceReadPolicy(_$dropdownMenuValueAtom);
     _$dropdownMenuValueAtom.reportObserved();
     return super.dropdownMenuValue;
   }
 
   @override
-  set dropdownMenuValue(DropdownMenuItem<TypeMarcador> value) {
+  set dropdownMenuValue(DropdownMenuItem<TypeMarker> value) {
     _$dropdownMenuValueAtom.context.conditionallyRunInAction(() {
       super.dropdownMenuValue = value;
       _$dropdownMenuValueAtom.reportChanged();
     }, _$dropdownMenuValueAtom, name: '${_$dropdownMenuValueAtom.name}_set');
   }
 
-  final _$mensagemErroAtom = Atom(name: '_MarkerControllerBase.mensagemErro');
+  final _$messageErrorAtom = Atom(name: '_MarkerControllerBase.messageError');
 
   @override
-  String get mensagemErro {
-    _$mensagemErroAtom.context.enforceReadPolicy(_$mensagemErroAtom);
-    _$mensagemErroAtom.reportObserved();
-    return super.mensagemErro;
+  String get messageError {
+    _$messageErrorAtom.context.enforceReadPolicy(_$messageErrorAtom);
+    _$messageErrorAtom.reportObserved();
+    return super.messageError;
   }
 
   @override
-  set mensagemErro(String value) {
-    _$mensagemErroAtom.context.conditionallyRunInAction(() {
-      super.mensagemErro = value;
-      _$mensagemErroAtom.reportChanged();
-    }, _$mensagemErroAtom, name: '${_$mensagemErroAtom.name}_set');
+  set messageError(String value) {
+    _$messageErrorAtom.context.conditionallyRunInAction(() {
+      super.messageError = value;
+      _$messageErrorAtom.reportChanged();
+    }, _$messageErrorAtom, name: '${_$messageErrorAtom.name}_set');
   }
 
-  final _$carregandoAtom = Atom(name: '_MarkerControllerBase.carregando');
+  final _$loadingAtom = Atom(name: '_MarkerControllerBase.loading');
 
   @override
-  bool get carregando {
-    _$carregandoAtom.context.enforceReadPolicy(_$carregandoAtom);
-    _$carregandoAtom.reportObserved();
-    return super.carregando;
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
   }
 
   @override
-  set carregando(bool value) {
-    _$carregandoAtom.context.conditionallyRunInAction(() {
-      super.carregando = value;
-      _$carregandoAtom.reportChanged();
-    }, _$carregandoAtom, name: '${_$carregandoAtom.name}_set');
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
   final _$positionAtom = Atom(name: '_MarkerControllerBase.position');
@@ -303,7 +303,7 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   }
 
   @override
-  dynamic setMarker(Marcador value) {
+  dynamic setMarker(MarkerModel value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction();
     try {
       return super.setMarker(value);
@@ -313,7 +313,7 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   }
 
   @override
-  dynamic setSelectedMarker(TypeMarcador value) {
+  dynamic setSelectedMarker(TypeMarker value) {
     final _$actionInfo = _$_MarkerControllerBaseActionController.startAction();
     try {
       return super.setSelectedMarker(value);
@@ -335,7 +335,7 @@ mixin _$MarkerController on _MarkerControllerBase, Store {
   @override
   String toString() {
     final string =
-        'nome: ${nome.toString()},descricao: ${descricao.toString()},dm: ${dm.toString()},dv: ${dv.toString()},da: ${da.toString()},di: ${di.toString()},marcador: ${marcador.toString()},selectedMarcador: ${selectedMarcador.toString()},dropdownMenuItems: ${dropdownMenuItems.toString()},dropdownMenuValue: ${dropdownMenuValue.toString()},mensagemErro: ${mensagemErro.toString()},carregando: ${carregando.toString()},position: ${position.toString()},isValid: ${isValid.toString()}';
+        'name: ${name.toString()},description: ${description.toString()},dm: ${dm.toString()},dv: ${dv.toString()},da: ${da.toString()},di: ${di.toString()},marker: ${marker.toString()},selectedMarker: ${selectedMarker.toString()},dropdownMenuItems: ${dropdownMenuItems.toString()},dropdownMenuValue: ${dropdownMenuValue.toString()},messageError: ${messageError.toString()},loading: ${loading.toString()},position: ${position.toString()},isValid: ${isValid.toString()}';
     return '{$string}';
   }
 }

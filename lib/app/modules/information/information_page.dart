@@ -27,9 +27,9 @@ class _InformationPageState
         title: Text("Informações"),
         actions: <Widget>[
           PopupMenuButton<String>(
-            onSelected: controller.escolhaMenuItem,
+            onSelected: controller.selectionMenuItem,
             itemBuilder: (context) {
-              return controller.itensMenu.map((String item) {
+              return controller.itemsMenu.map((String item) {
                 return PopupMenuItem<String>(value: item, child: Text(item));
               }).toList();
             },
@@ -38,7 +38,7 @@ class _InformationPageState
       ),
       body: Observer(
         builder: (_) {
-          return controller.marcador == null || controller.loading
+          return controller.marker == null || controller.loading
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -53,7 +53,7 @@ class _InformationPageState
                             child: Observer(
                               builder: (_) {
                                 return Text(
-                                  "${controller.marcador.title}",
+                                  "${controller.marker.title}",
                                   style: TextStyle(fontSize: 30),
                                   textAlign: TextAlign.center,
                                 );
@@ -75,7 +75,7 @@ class _InformationPageState
                             child: Observer(
                               builder: (_) {
                                 return Text(
-                                  "${controller.marcador.descricao}",
+                                  "${controller.marker.description}",
                                   style: TextStyle(fontSize: 20),
                                   textAlign: TextAlign.justify,
                                 );

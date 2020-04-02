@@ -4,14 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/repository/user_repository_interface.dart';
 import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 
 class UserRepository implements IUserRepository {
   final Firestore _firestore = Firestore.instance;
-  final String _collectionDB = "usuarios";
-  final String _childProfileUser = "perfil";
+  final String _collectionDB = "users";
+  final String _childProfileUser = "profiles";
   final AuthController _authController = Modular.get();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -33,7 +33,7 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future saveUser(Usuario user) {
+  Future saveUser(User user) {
     return _firestore
         .collection(_collectionDB)
         .document(_authController.userAuth.uid)
@@ -41,7 +41,7 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future updateUser(Usuario user) {
+  Future updateUser(User user) {
     return _firestore
         .collection(_collectionDB)
         .document(_authController.userAuth.uid)
@@ -49,9 +49,10 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future registerUser(Usuario user) {
+  Future registerUser(User user) {
     return _firebaseAuth
-        .createUserWithEmailAndPassword(email: user.email, password: user.senha)
+        .createUserWithEmailAndPassword(
+            email: user.email, password: user.password)
         .then((value) {
       _firestore
           .collection(_collectionDB)

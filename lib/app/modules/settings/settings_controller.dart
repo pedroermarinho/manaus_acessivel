@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -12,11 +12,10 @@ part 'settings_controller.g.dart';
 class SettingsController = _SettingsControllerBase with _$SettingsController;
 
 abstract class _SettingsControllerBase with Store {
-  UserRepositoryController _userRepositoryController =
-      Modular.get<UserRepositoryController>();
+  final _userRepositoryController = Modular.get<UserRepositoryController>();
 
   @observable
-  Usuario user;
+  User user;
 
   @observable
   bool loading = false;
@@ -39,7 +38,7 @@ abstract class _SettingsControllerBase with Store {
     bool isValidImage;
 
     if (validateName() == null) {
-      if (name != user.nome) {
+      if (name != user.name) {
         isValidName = true;
       } else {
         isValidName = false;
@@ -77,7 +76,7 @@ abstract class _SettingsControllerBase with Store {
   getUser() async {
     await _userRepositoryController.getUser();
     this.user = _userRepositoryController.user;
-    this.name = user.nome;
+    this.name = user.name;
   }
 
   Future getImage(String sourceImage) async {
@@ -112,7 +111,7 @@ abstract class _SettingsControllerBase with Store {
 
   updateUser() {
     loading = true;
-    user.nome = name;
+    user.name = name;
 
     _userRepositoryController.setUser(user);
     _userRepositoryController.saveUser().whenComplete(() {
@@ -123,7 +122,7 @@ abstract class _SettingsControllerBase with Store {
 
   save() {
     if (validateName() == null) {
-      if (this.name != this.user.nome) {
+      if (this.name != this.user.name) {
         updateUser();
       }
     }

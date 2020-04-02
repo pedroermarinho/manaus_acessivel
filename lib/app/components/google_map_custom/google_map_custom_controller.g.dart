@@ -119,43 +119,40 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   final _$viewMarkerAsyncAction = AsyncAction('viewMarker');
 
   @override
-  Future viewMarker(Marcador marker) {
+  Future viewMarker(MarkerModel marker) {
     return _$viewMarkerAsyncAction.run(() => super.viewMarker(marker));
   }
 
-  final _$exibirMarcadorLocalizacaoAsyncAction =
-      AsyncAction('exibirMarcadorLocalizacao');
+  final _$showMarkLocationAsyncAction = AsyncAction('showMarkLocation');
 
   @override
-  Future exibirMarcadorLocalizacao(Position position) {
-    return _$exibirMarcadorLocalizacaoAsyncAction
-        .run(() => super.exibirMarcadorLocalizacao(position));
+  Future showMarkLocation(Position position) {
+    return _$showMarkLocationAsyncAction
+        .run(() => super.showMarkLocation(position));
   }
 
-  final _$recuperarLocaizacaoPositionAsyncAction =
-      AsyncAction('recuperarLocaizacaoPosition');
+  final _$recoverLocatingPositionAsyncAction =
+      AsyncAction('recoverLocatingPosition');
 
   @override
-  Future recuperarLocaizacaoPosition(Position position) {
-    return _$recuperarLocaizacaoPositionAsyncAction
-        .run(() => super.recuperarLocaizacaoPosition(position));
+  Future recoverLocatingPosition(Position position) {
+    return _$recoverLocatingPositionAsyncAction
+        .run(() => super.recoverLocatingPosition(position));
   }
 
-  final _$novaLocalizacaoAsyncAction = AsyncAction('novaLocalizacao');
+  final _$newLocationAsyncAction = AsyncAction('newLocation');
 
   @override
-  Future novaLocalizacao(String address) {
-    return _$novaLocalizacaoAsyncAction
-        .run(() => super.novaLocalizacao(address));
+  Future newLocation(String address) {
+    return _$newLocationAsyncAction.run(() => super.newLocation(address));
   }
 
-  final _$novaLocalizacaoPlacemarkAsyncAction =
-      AsyncAction('novaLocalizacaoPlacemark');
+  final _$newLocationPlacemarkAsyncAction = AsyncAction('newLocationPlacemark');
 
   @override
-  Future novaLocalizacaoPlacemark(Placemark address) {
-    return _$novaLocalizacaoPlacemarkAsyncAction
-        .run(() => super.novaLocalizacaoPlacemark(address));
+  Future newLocationPlacemark(Placemark address) {
+    return _$newLocationPlacemarkAsyncAction
+        .run(() => super.newLocationPlacemark(address));
   }
 
   final _$_GoogleMapCustomControllerBaseActionController =
@@ -206,11 +203,11 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   }
 
   @override
-  dynamic adiconarListenerLocalizacao() {
+  dynamic addListenerLocation() {
     final _$actionInfo =
         _$_GoogleMapCustomControllerBaseActionController.startAction();
     try {
-      return super.adiconarListenerLocalizacao();
+      return super.addListenerLocation();
     } finally {
       _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
     }

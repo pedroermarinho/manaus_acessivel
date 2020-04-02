@@ -1,16 +1,14 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
-import 'package:manausacessivel/app/models/marker.dart';
-import 'package:manausacessivel/app/models/type_marker.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
+import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/type_marker/type_marker_repository_controller.dart';
 import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
@@ -21,17 +19,17 @@ part 'marker_controller.g.dart';
 class MarkerController = _MarkerControllerBase with _$MarkerController;
 
 abstract class _MarkerControllerBase with Store {
-  final MarkerRepositoryController _markerRepositoryController = Modular.get();
-  final TypeMarkerRepositoryController _typeMarkerRepositoryController =
-      Modular.get();
-  final AuthController _authController = Modular.get();
-  final GoogleMapCustomController _googleMapController = Modular.get();
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+  final _typeMarkerRepositoryController =
+      Modular.get<TypeMarkerRepositoryController>();
+  final _authController = Modular.get<AuthController>();
+  final _googleMapController = Modular.get<GoogleMapCustomController>();
 
   @observable
-  String nome;
+  String name;
 
   @observable
-  String descricao;
+  String description;
 
   @observable
   bool dm = false; //Deficiência Motora
@@ -58,38 +56,38 @@ abstract class _MarkerControllerBase with Store {
   setDi(bool value) => di = value;
 
   @action
-  setName(String value) => nome = value;
+  setName(String value) => name = value;
 
   @action
-  setDescrcao(String value) => descricao = value;
+  setDescrcao(String value) => description = value;
 
   @observable
-  Marcador marcador;
+  MarkerModel marker;
 
   @observable
-  TypeMarcador selectedMarcador;
+  TypeMarker selectedMarker;
 
   @action
-  setMarker(Marcador value){
-    marcador = value;
-    editarMarcador();
+  setMarker(MarkerModel value) {
+    marker = value;
+    editMarker();
   }
 
   @action
-  setSelectedMarker(TypeMarcador value) => selectedMarcador = value;
+  setSelectedMarker(TypeMarker value) => selectedMarker = value;
 
   @observable
-  ObservableList<DropdownMenuItem<TypeMarcador>> dropdownMenuItems =
+  ObservableList<DropdownMenuItem<TypeMarker>> dropdownMenuItems =
       ObservableList();
 
   @observable
-  DropdownMenuItem<TypeMarcador> dropdownMenuValue;
+  DropdownMenuItem<TypeMarker> dropdownMenuValue;
 
   @observable
-  String mensagemErro = "";
+  String messageError = "";
 
   @observable
-  bool carregando = false;
+  bool loading = false;
 
   @observable
   Position position;
@@ -99,156 +97,153 @@ abstract class _MarkerControllerBase with Store {
 
   _MarkerControllerBase() {
     buildDropdownMenuItems();
-    position =_googleMapController.positionActual;
+    position = _googleMapController.positionActual;
   }
 
   @computed
   bool get isValid {
     return validateName() == null &&
-        validateDescricao() == null &&
-        validateCategoria() == null;
+        validateDescription() == null &&
+        validateCategory() == null;
   }
 
   String validateName() {
-    if (nome == null || nome.isEmpty) {
+    if (name == null || name.isEmpty) {
       return "O campo Nome é obrigatório";
     }
     return null;
   }
 
-  String validateDescricao() {
-    if (descricao == null || descricao.isEmpty) {
+  String validateDescription() {
+    if (description == null || description.isEmpty) {
       return "O campo Descrição é obrigatório";
     }
-    if (descricao.length < 10) {
+    if (description.length < 10) {
       return "A Descrição precisa ter mais de 10 caracteres";
     }
     return null;
   }
 
-  String validateCategoria() {
+  String validateCategory() {
+    String typeMarkerLocal =
+        selectedMarker != null ? selectedMarker.idTypeMarker : null;
 
-    String typeMarcadorLocal = selectedMarcador != null ?
-    selectedMarcador.idTypeMarcador:null;
+    String typeMarkerGlobal = marker != null ? marker.idTypeMarker : null;
 
-    String typeMarcadorGlobal = marcador != null ?
-    marcador.idTypeMarcador:null;
-
-    if (typeMarcadorLocal == null && typeMarcadorGlobal == null ) {
+    if (typeMarkerLocal == null && typeMarkerGlobal == null) {
       return "O campo Categoria é obrigatório";
     }
     return null;
   }
 
-  validarCampos() async {
-
-    String typeMarcador = selectedMarcador == null
-        ? marcador.idTypeMarcador
-        : selectedMarcador.idTypeMarcador;
+  validCampos() async {
+    String typeMarker = selectedMarker == null
+        ? marker.idTypeMarker
+        : selectedMarker.idTypeMarker;
 
     //validar campos
-    if (nome.isNotEmpty) {
-      if (descricao.isNotEmpty) {
-        if (typeMarcador.isNotEmpty) {
-          if (marcador == null) {
-            marcador = Marcador();
-            marcador.idUserCreator = _authController.userAuth.uid;
-            marcador.title = nome;
-            marcador.descricao = descricao;
-            marcador.idTypeMarcador = typeMarcador;
-            marcador.dm = dm;
-            marcador.di = di;
-            marcador.da = da;
-            marcador.dv = dv;
-            marcador.longitude=position.longitude;
-            marcador.latitude=position.latitude;
+    if (name.isNotEmpty) {
+      if (description.isNotEmpty) {
+        if (typeMarker.isNotEmpty) {
+          if (marker == null) {
+            marker = MarkerModel();
+            marker.idUserCreator = _authController.userAuth.uid;
+            marker.title = name;
+            marker.description = description;
+            marker.idTypeMarker = typeMarker;
+            marker.dm = dm;
+            marker.di = di;
+            marker.da = da;
+            marker.dv = dv;
+            marker.longitude = position.longitude;
+            marker.latitude = position.latitude;
 
-            cadastrarMarcador(marcador);
+            loadMarker(marker);
           } else {
-            marcador.title = nome;
-            marcador.descricao = descricao;
-            marcador.idTypeMarcador = typeMarcador;
-            marcador.dm = dm;
-            marcador.di = di;
-            marcador.da = da;
-            marcador.dv = dv;
-            atualizarMarcador();
+            marker.title = name;
+            marker.description = description;
+            marker.idTypeMarker = typeMarker;
+            marker.dm = dm;
+            marker.di = di;
+            marker.da = da;
+            marker.dv = dv;
+            updateMarker();
           }
         } else {
-          mensagemErro = "Selecione uma Categoria";
+          messageError = "Selecione uma Categoria";
         }
       } else {
-        mensagemErro = "Preencha a Descrição";
+        messageError = "Preencha a Descrição";
       }
     } else {
-      mensagemErro = "Preencha o Nome";
+      messageError = "Preencha o Nome";
     }
   }
 
-  cadastrarMarcador(Marcador marcador) {
-    carregando = true;
-    _markerRepositoryController.setMarker(marcador);
+  loadMarker(MarkerModel marker) {
+    loading = true;
+    _markerRepositoryController.setMarker(marker);
     _markerRepositoryController.saveMarker().then((value) {
-      carregando = false;
+      loading = false;
       _googleMapController.markers.clear();
       _googleMapController.loadMarkers();
       Modular.to.pop();
     }).catchError((error) {
       print(error);
-      carregando = false;
-      mensagemErro =
+      loading = false;
+      messageError =
           "Erro ao cadastrar marcador, verifique os campos e tente novamente!";
     });
   }
 
-  atualizarMarcador() {
-    carregando = true;
-    print(marcador.idMarcador);
-    _markerRepositoryController.updateMarker(marcador).then((value) {
-      carregando = false;
+  updateMarker() {
+    loading = true;
+    print(marker.idMarker);
+    _markerRepositoryController.updateMarker(marker).then((value) {
+      loading = false;
       _googleMapController.markers.clear();
       _googleMapController.loadMarkers();
       Modular.to.pop();
     }).catchError((error) {
       PlatformException errorException = error;
       print(errorException.code);
-      carregando = false;
-      mensagemErro =
+      loading = false;
+      messageError =
           "Erro ao atualizar o marcador, verifique os campos e tente novamente!";
     });
   }
 
-  editarMarcador() async {
-    if (marcador != null) {
-      TypeMarcador typeMarcador = await _typeMarkerRepositoryController
-          .getTypeMarker(marcador.idTypeMarcador);
+  editMarker() async {
+    if (marker != null) {
+      TypeMarker typeMarker = await _typeMarkerRepositoryController
+          .getTypeMarker(marker.idTypeMarker);
 
-      nome = marcador.title;
-      descricao = marcador.descricao;
-      dv = marcador.dv;
-      da = marcador.da;
-      di = marcador.di;
-      dm = marcador.dm;
+      name = marker.title;
+      description = marker.description;
+      dv = marker.dv;
+      da = marker.da;
+      di = marker.di;
+      dm = marker.dm;
 
       position = Position(
-          longitude: marcador.longitude,
-          latitude: marcador.latitude,
-        );
+        longitude: marker.longitude,
+        latitude: marker.latitude,
+      );
 
-      dropdownMenuValue = DropdownMenuItem<TypeMarcador>(
-        value: typeMarcador,
+      dropdownMenuValue = DropdownMenuItem<TypeMarker>(
+        value: typeMarker,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Image.asset(
-              "assets/icons/${typeMarcador.icon}.png",
+              "assets/icons/${typeMarker.icon}.png",
               height: 40,
               width: 40,
             ),
             Padding(
               padding: EdgeInsets.only(top: 8),
               child: Text(
-                typeMarcador.nome,
+                typeMarker.name,
                 style: TextStyle(color: Colors.black),
               ),
             ),
@@ -268,13 +263,13 @@ abstract class _MarkerControllerBase with Store {
           (element) {
             Map<String, dynamic> data = element.data;
 
-            TypeMarcador typeMarker = TypeMarcador();
-            typeMarker.idTypeMarcador = element.documentID;
-            typeMarker.nome = data["nome"];
-            typeMarker.icon = data["icon"];
-
+            TypeMarker typeMarker = TypeMarker(
+              idTypeMarker: element.documentID,
+              name: data["name"],
+              icon: data["icon"],
+            );
             dropdownMenuItems.add(
-              DropdownMenuItem<TypeMarcador>(
+              DropdownMenuItem<TypeMarker>(
                 value: typeMarker,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,7 +282,7 @@ abstract class _MarkerControllerBase with Store {
                     Padding(
                       padding: EdgeInsets.only(top: 8),
                       child: Text(
-                        typeMarker.nome,
+                        typeMarker.name,
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
@@ -300,6 +295,4 @@ abstract class _MarkerControllerBase with Store {
       },
     );
   }
-
-
 }

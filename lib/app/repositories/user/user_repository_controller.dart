@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/repository/user_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
@@ -16,10 +16,10 @@ abstract class _UserRepositoryControllerBase with Store {
   final IUserRepository _userRepository = Modular.get<IUserRepository>();
 
   @observable
-  Usuario user;
+  User user;
 
   @action
-  setUser(Usuario value) => user = value;
+  setUser(User value) => user = value;
 
   _UserRepositoryControllerBase() {
     getUser();
@@ -29,19 +29,22 @@ abstract class _UserRepositoryControllerBase with Store {
     return _userRepository.deleteUser();
   }
 
-  Future<Usuario> getUser() async {
+  Future<User> getUser() async {
     DocumentSnapshot snapshot = await _userRepository.getUser();
     Map<String, dynamic> data = snapshot.data;
-    Usuario userLocal = Usuario();
     if (data.length != 0) {
-      userLocal.idUsuario = snapshot.documentID;
-      userLocal.nome = data["nome"];
-      userLocal.email = data["email"];
-      userLocal.userType = data["userType"];
-      userLocal.caminhoFoto = data["caminhoFoto"];
+      User userLocal = User(
+        idUser: snapshot.documentID,
+        name: data["name"],
+        email: data["email"],
+        userType: data["userType"],
+        pathPhoto: data["pathPhoto"],
+      );
       setUser(userLocal);
+      return user;
+    } else {
+      return null;
     }
-    return userLocal;
   }
 
   Future saveUser() {
