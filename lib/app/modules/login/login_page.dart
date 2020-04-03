@@ -35,86 +35,105 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: TextFieldCustomWidget(
-                        labelText: "E-mail",
-                        textInputType: TextInputType.emailAddress,
-                        errorText: controller.validateEmail,
-                        onChanged: controller.setEmail)),
-                Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: TextFieldCustomWidget(
-                        labelText: "Senha",
-                        obscureText: true,
-                        textInputType: TextInputType.visiblePassword,
-                        errorText: controller.validatePassword,
-                        onChanged: controller.setPassword)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: RaisedButton(
-                        child: Text(
-                          "Entrar com Google",
-                          style: TextStyle(color: Colors.white, fontSize: 15),
-                        ),
-                        color: Colors.greenAccent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32)),
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        onPressed: controller.loginWithGoogle,
-                      ),
-                    ),
-                  ],
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: TextFieldCustomWidget(
+                    labelText: "E-mail",
+                    textInputType: TextInputType.emailAddress,
+                    errorText: controller.validateEmail,
+                    onChanged: controller.setEmail,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: Observer(builder: (_) {
-                    return RaisedButton(
-                      child: Text(
-                        "Entrar",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
-                      color: Colors.black87,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32)),
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      onPressed: controller.isValid
-                          ? controller.loginWithEmailPasswordLogin
-                          : null,
-                    );
-                  }),
+                  child: TextFieldCustomWidget(
+                    labelText: "Senha",
+                    obscureText: true,
+                    textInputType: TextInputType.visiblePassword,
+                    errorText: controller.validatePassword,
+                    onChanged: controller.setPassword,
+                  ),
+                ),
+//                Row(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: <Widget>[
+//                    Padding(
+//                      padding: EdgeInsets.only(bottom: 10),
+//                      child: RaisedButton(
+//                        child: Text(
+//                          "Entrar com Google",
+//                          style: TextStyle(color: Colors.white, fontSize: 15),
+//                        ),
+//                        color: Colors.greenAccent,
+//                        shape: RoundedRectangleBorder(
+//                            borderRadius: BorderRadius.circular(32)),
+//                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+//                        onPressed: controller.loginWithGoogle,
+//                      ),
+//                    ),
+//                  ],
+//                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Observer(
+                    builder: (_) {
+                      return RaisedButton(
+                        child: Text(
+                          "Entrar",
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                        color: Colors.black87,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        onPressed: controller.isValid
+                            ? controller.loginWithEmailPasswordLogin
+                            : null,
+                      );
+                    },
+                  ),
                 ),
                 Center(
                   child: GestureDetector(
                     child: Text(
                       "Não tem conta? cadastre-se!",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
                     onTap: controller.pushRegister,
                   ),
                 ),
-                Observer(builder: (_) {
-                  return controller.loading
-                      ? Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Center(
+                Observer(
+                  builder: (_) {
+                    return controller.loading
+                        ? Padding(
+                            padding: EdgeInsets.only(top: 15),
+                            child: Center(
                               child: CircularProgressIndicator(
-                                  backgroundColor: Colors.white)),
-                        )
-                      : Container();
-                }),
+                                  backgroundColor: Colors.white),
+                            ),
+                          )
+                        : Container();
+                  },
+                ),
                 Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Observer(builder: (_) {
+                  padding: EdgeInsets.only(top: 16),
+                  child: Observer(
+                    builder: (_) {
                       return Center(
                         child: Text(
                           controller.messageError,
-                          style: TextStyle(color: Colors.red, fontSize: 18),
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 18,
+                          ),
                         ),
                       );
-                    }))
+                    },
+                  ),
+                ),
               ],
             ),
           ),

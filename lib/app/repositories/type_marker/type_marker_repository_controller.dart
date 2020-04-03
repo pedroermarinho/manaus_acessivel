@@ -37,7 +37,6 @@ abstract class _TypeMarkerRepositoryControllerBase with Store {
       name: data["name"],
       icon: data["icon"],
     );
-
     setTypeMarker(typeMarkerLocal);
 
     return typeMarker;
@@ -45,5 +44,9 @@ abstract class _TypeMarkerRepositoryControllerBase with Store {
 
   Stream<QuerySnapshot> getTypeMarkers() {
     return _typeMarkerRepository.getTypeMarkers();
+  }
+
+  Future saveTypeMarker(TypeMarker typeMarker){
+    return _typeMarkerRepository.saveTypeMarker(typeMarker);
   }
 }

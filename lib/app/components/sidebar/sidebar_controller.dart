@@ -67,6 +67,10 @@ abstract class _SidebarControllerBase with Store {
     Modular.to.pushNamed("/about");
   }
 
+  pushProfile() {
+    Modular.to.pushNamed("/profile");
+  }
+
   final animationDuration = const Duration(milliseconds: 500);
 
   void onIconPressed() {

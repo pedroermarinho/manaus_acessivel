@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
@@ -94,7 +95,7 @@ abstract class _RegisterControllerBase with Store {
     if (email == null || email.isEmpty) {
       return "O campo E-mail é obrigatório";
     }
-    if (!email.contains("@")) {
+    if (!EmailValidator.validate(email)) {
       return "Esse E-mail não é válido";
     }
     return null;

@@ -1,5 +1,7 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_controller.g.dart';
@@ -7,7 +9,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  final _auth = Modular.get();
+  final _auth = Modular.get<AuthController>();
 
   @observable
   bool loading = false;
@@ -87,7 +89,7 @@ abstract class _LoginControllerBase with Store {
     if (email == null || email.isEmpty) {
       return "O campo E-mail é obrigatório";
     }
-    if (!email.contains("@")) {
+    if (!EmailValidator.validate(email)) {
       return "Esse E-mail não é válido";
     }
     return null;

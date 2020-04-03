@@ -10,7 +10,7 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final GoogleMapCustomController _googleMapCustomController =
+  final  _googleMapCustomController =
       Modular.get<GoogleMapCustomController>();
 
   @observable
@@ -22,11 +22,11 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<Widget> listWidgetOptionsAddress = ObservableList();
 
-  teste() {
+  test() {
     _googleMapCustomController.test();
   }
 
-  novaLocalizacao(String address) {
+  newLocation(String address) {
     _googleMapCustomController.newLocation(address);
   }
 
@@ -34,18 +34,18 @@ abstract class _HomeControllerBase with Store {
     _googleMapCustomController.createNewMarker();
   }
 
-  recuperarLocaizacaoAtual() {
+  recoverLocatingActual() {
     _googleMapCustomController.recoverLocatingActual();
   }
 
-  novaLocalizacaoPlacemark(Placemark address) {
+  newLocationPlacemark(Placemark address) {
     _googleMapCustomController.newLocationPlacemark(address);
   }
 
   isValidAddress(String address) {
     this.address = address;
     if (address.isEmpty) {
-      recuperarLocaizacaoAtual();
+      recoverLocatingActual();
     } else {
       optionsAddress(address);
     }
@@ -57,13 +57,13 @@ abstract class _HomeControllerBase with Store {
       _googleMapCustomController
           .optionsAddress(address)
           .then((listaEnderecos) {
-            if (listaEnderecos != null && listaEnderecos.length > 0) {
+            if (listaEnderecos != null && listaEnderecos.isNotEmpty) {
               listWidgetOptionsAddress.clear();
               listWidgetOptionsAddress.add(
                 GestureDetector(
                   onTap: () {
                     listWidgetOptionsAddress.clear();
-                    novaLocalizacaoPlacemark(listaEnderecos[0]);
+                    newLocationPlacemark(listaEnderecos[0]);
                   },
                   child: Column(
                     children: <Widget>[

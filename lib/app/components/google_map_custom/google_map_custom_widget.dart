@@ -16,12 +16,14 @@ class GoogleMapCustomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.context = context;
     return Observer(builder: (_) {
-      return controller.markers.length < 1
-          ? Center(
+      return
+        controller.cameraPosition==null
+        ? Center(
               child: CircularProgressIndicator(
               backgroundColor: Colors.black,
             ))
-          : GoogleMap(
+          :
+        GoogleMap(
               mapType: MapType.normal,
               initialCameraPosition: controller.cameraPosition,
               onMapCreated: onMapCreated ? controller.onMapCreated : null,

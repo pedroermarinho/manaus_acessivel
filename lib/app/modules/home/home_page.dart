@@ -24,7 +24,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
-      backgroundColor: Color(0xffefeeec),
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -51,7 +50,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         children: <Widget>[
                           TextField(
 //                           readOnly: true,
-                            onSubmitted: controller.novaLocalizacao,
+                            onSubmitted: controller.newLocation,
                             onChanged: controller.isValidAddress,
                             keyboardType: TextInputType.url,
                             decoration: InputDecoration(
@@ -71,7 +70,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               ),
                             ),
                           ),
-                          controller.listWidgetOptionsAddress.length > 0
+                          controller.listWidgetOptionsAddress.isNotEmpty
                               ? Column(
                                   children: controller.listWidgetOptionsAddress
                                       .toList(),
@@ -97,64 +96,60 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        Icons.add,
+                        Icons.favorite,
                         size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: null,
+                      onPressed: (){},
                     ),
                     IconButton(
                       icon: Icon(
-                        Icons.add,
+                        Icons.accessible,
                         size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: null,
+                      onPressed: (){},
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     IconButton(
                       icon: Icon(
-                        Icons.error,
+                        Icons.map,
                         size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: controller.teste,
+                      onPressed: controller.test,
                     ),
                     IconButton(
                       icon: Icon(
-                        Icons.location_searching,
+                        Icons.my_location,
                         size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: controller.recuperarLocaizacaoAtual,
+                      onPressed: controller.recoverLocatingActual,
                     ),
                   ],
                 ),
               ),
             ),
             Positioned(
-                bottom: 60,
+                bottom: 90,
                 left: 10,
                 right: 10,
-                child: GestureDetector(
-                  onTap: controller.createNewMarker,
-                  child: CircleAvatar(
-                    foregroundColor: Colors.black,
-                    radius: 35,
-                    backgroundColor: Colors.transparent,
-                    child: Icon(
+                child: IconButton(
+                    icon: Icon(
                       Icons.add_location,
-                      color: Color(0xffe6c131),
                       size: 90,
                     ),
-                  ),
-                )),
+                    onPressed: controller.createNewMarker,
+                ),
+
+      ),
             SidebarWidget(),
           ],
         ),

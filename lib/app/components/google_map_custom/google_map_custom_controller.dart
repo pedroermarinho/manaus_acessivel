@@ -230,7 +230,7 @@ abstract class _GoogleMapCustomControllerBase with Store {
       List<Placemark> listAdresses =
           await Geolocator().placemarkFromAddress(address);
 
-      if (listAdresses != null && listAdresses.length > 0) {
+      if (listAdresses != null && listAdresses.isNotEmpty) {
         Placemark adresses = listAdresses[0];
         Position position = adresses.position;
         setPositionActual(position);
@@ -266,7 +266,7 @@ abstract class _GoogleMapCustomControllerBase with Store {
     List<Placemark> listaEnderecos =
         await Geolocator().placemarkFromPosition(position);
 
-    if (listaEnderecos != null && listaEnderecos.length > 0) {
+    if (listaEnderecos != null && listaEnderecos.isNotEmpty) {
       Placemark endereco = listaEnderecos[0];
 
       String enderecoConfirmacao;

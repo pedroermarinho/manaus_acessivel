@@ -105,6 +105,14 @@ class _SidebarWidgetState extends State<SidebarWidget>
                               endIndent: 32,
                             ),
                             MenuItemWidget(
+                              icon: Icons.person_pin,
+                              title: "Perfil",
+                              onTap: () {
+                                controller.onIconPressed();
+                                controller.pushProfile();
+                              },
+                            ),
+                            MenuItemWidget(
                               icon: Icons.info,
                               title: "Sobre",
                               onTap: () {
@@ -158,7 +166,6 @@ class _SidebarWidgetState extends State<SidebarWidget>
                             child: AnimatedIcon(
                               progress: controller.animationController.view,
                               icon: AnimatedIcons.menu_close,
-                              color: Color(0xffe6c131),
                               size: 22,
                             ),
                           ),

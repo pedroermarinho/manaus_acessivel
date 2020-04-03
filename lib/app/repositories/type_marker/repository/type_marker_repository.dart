@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/type_marker/repository/type_marker_repository_interface.dart';
 
 class TypeMarkerRepository implements ITypeMarkerRepository {
@@ -13,5 +14,10 @@ class TypeMarkerRepository implements ITypeMarkerRepository {
   @override
   Future<DocumentSnapshot> getTypeMarker(String idTypeMarker) {
     return _firestore.collection(_collectionDB).document(idTypeMarker).get();
+  }
+
+  @override
+  Future saveTypeMarker(TypeMarker typeMarker){
+    return _firestore.collection(_collectionDB).document(typeMarker.icon).setData(typeMarker.toMap());
   }
 }
