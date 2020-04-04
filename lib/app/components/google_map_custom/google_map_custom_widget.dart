@@ -24,6 +24,7 @@ class GoogleMapCustomWidget extends StatelessWidget {
             ))
           :
         GoogleMap(
+              onTap: controller.setLatLngActual,
               mapType: MapType.normal,
               initialCameraPosition: controller.cameraPosition,
               onMapCreated: onMapCreated ? controller.onMapCreated : null,

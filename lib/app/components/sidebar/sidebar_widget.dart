@@ -108,16 +108,16 @@ class _SidebarWidgetState extends State<SidebarWidget>
                               icon: Icons.person_pin,
                               title: "Perfil",
                               onTap: () {
-                                controller.onIconPressed();
                                 controller.pushProfile();
+                                controller.onIconPressed();
                               },
                             ),
                             MenuItemWidget(
                               icon: Icons.info,
                               title: "Sobre",
                               onTap: () {
-                                controller.onIconPressed();
                                 controller.pushAbout();
+                                controller.onIconPressed();
                               },
                             ),
                             Divider(
@@ -131,16 +131,16 @@ class _SidebarWidgetState extends State<SidebarWidget>
                               icon: Icons.settings,
                               title: "Configurações",
                               onTap: () {
-                                controller.onIconPressed();
                                 controller.pushSettings();
+                                controller.onIconPressed();
                               },
                             ),
                             MenuItemWidget(
                               icon: Icons.exit_to_app,
                               title: "Deslogar",
                               onTap: () {
-                                controller.onIconPressed();
                                 controller.logoutUser();
+                                controller.onIconPressed();
                               },
                             ),
                           ],

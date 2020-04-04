@@ -84,7 +84,7 @@ class _InformationPageState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 10),
+                          padding: EdgeInsets.only(top: 20, bottom: 10,left: 20),
                           child: Observer(
                             builder: (_) {
                               return controller.placemark == null
@@ -95,38 +95,140 @@ class _InformationPageState
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              "Cidade:",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "${controller.placemark.subAdministrativeArea}",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black54,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              "Bairro:",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "${controller.placemark.subLocality}",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black54,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              "Rua:",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "${controller.placemark.thoroughfare}, ${controller.placemark.subThoroughfare}",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black54,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
+
+                                        Row(
+                                          children: <Widget>[
+                                            Text(
+                                              "Cep:",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black87,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "${controller.placemark.postalCode}",
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.black54,
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+
+                                          ],
+                                        )
+
+                                      ],
+                                    );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10, left: 20),
+                          child: Observer(
+                            builder: (_) {
+                              return controller.userMarker == null
+                                  ? Container()
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
                                         Text(
-                                          "Cidade: ${controller.placemark.subAdministrativeArea}",
+                                          "Criado por:",
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87,
+                                            fontSize: 16,
+                                            color: Colors.black54,
                                           ),
                                           textAlign: TextAlign.justify,
                                         ),
-                                        Text(
-                                          "Bairro: ${controller.placemark.subLocality}",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87,
-                                          ),
-                                          textAlign: TextAlign.justify,
+                                        SizedBox(
+                                          height: 5,
                                         ),
-                                        Text(
-                                          "Rua: ${controller.placemark.thoroughfare}, ${controller.placemark.subThoroughfare}",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87,
-                                          ),
-                                          textAlign: TextAlign.justify,
-                                        ),
-                                        Text(
-                                          "Cep: ${controller.placemark.postalCode}",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87,
-                                          ),
-                                          textAlign: TextAlign.justify,
-                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            CircleAvatar(
+                                              radius: 20,
+                                              backgroundColor:
+                                                  Color(0xffe6c131),
+                                              backgroundImage: NetworkImage(
+                                                  controller
+                                                      .userMarker.pathPhoto),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Flexible(
+                                              child: Text(
+                                                controller.userMarker.name,
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.black,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            )
+                                          ],
+                                        )
                                       ],
                                     );
                             },

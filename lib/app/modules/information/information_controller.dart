@@ -23,6 +23,9 @@ abstract class _InformationControllerBase with Store {
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   @observable
+  User userMarker;
+
+  @observable
   MarkerModel marker;
 
   @observable
@@ -39,13 +42,20 @@ abstract class _InformationControllerBase with Store {
 
   _InformationControllerBase() {
     recoverMarker();
+    getUserMarker();
     typeUser();
   }
 
+  @action
+  getUserMarker() async {
+    this.userMarker = await _userRepositoryController.getUserId(marker.idUserCreator);
+  }
+
+  ///
   recoverMarker() async {
     this.marker = _markerRepositoryController.marker;
     iconsAss();
-    placemark = await _googleMapCustomController.addressInformation(
+    placemark = await _googleMapCustomController.addressPossition(
       Position(
         latitude: marker.latitude,
         longitude: marker.longitude,
@@ -54,6 +64,7 @@ abstract class _InformationControllerBase with Store {
     loading = false;
   }
 
+  ///
   iconsAss() {
     if (marker.dm) {
       iconsAssList.add(MarkerIconDetectorWidget(
@@ -77,6 +88,7 @@ abstract class _InformationControllerBase with Store {
         ),
       );
     }
+    ///
     if (marker.di) {
       iconsAssList.add(MarkerIconDetectorWidget(
         icon: FontAwesomeIcons.brain,
@@ -85,15 +97,19 @@ abstract class _InformationControllerBase with Store {
     }
   }
 
+  ///
   typeUser() async {
     User user = await _userRepositoryController.getUser();
     if (user.userType == TypeUser.userAdministrators ||
         user.idUser == marker.idUserCreator) {
       itemsMenu.add("Editar");
       itemsMenu.add("Deletar");
+    }else{
+
     }
   }
 
+  ///
   selectionMenuItem(String selection) {
     switch (selection) {
       case "Editar":

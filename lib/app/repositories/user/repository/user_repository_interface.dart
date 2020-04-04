@@ -11,6 +11,8 @@ abstract class IUserRepository {
 
   Future saveUser(User user);
 
+  Future<DocumentSnapshot> getUserId(String idUser);
+
   Future updateUser(User user);
 
   Future registerUser(User user);

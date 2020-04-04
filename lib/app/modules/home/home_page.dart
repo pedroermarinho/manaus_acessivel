@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
 import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
 import 'home_controller.dart';
@@ -50,6 +51,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         children: <Widget>[
                           TextField(
 //                           readOnly: true,
+                          autofocus: false,
                             onSubmitted: controller.newLocation,
                             onChanged: controller.isValidAddress,
                             keyboardType: TextInputType.url,
@@ -96,60 +98,70 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     IconButton(
+                      iconSize: 35,
                       icon: Icon(
                         Icons.favorite,
-                        size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: (){},
+                      onPressed: null,
                     ),
                     IconButton(
+                      iconSize: 35,
                       icon: Icon(
                         Icons.accessible,
-                        size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: (){},
+                      onPressed: null,
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.map,
-                        size: 35,
+                    Container(),
+                   IconButton(
+                        iconSize: 35,
+                        icon: Icon(
+                          Icons.map,
+                        ),
+                        color: Colors.black,
+                        onPressed:controller.openMap,
                       ),
-                      color: Colors.black,
-                      onPressed: controller.test,
-                    ),
+
                     IconButton(
+                      iconSize: 35,
+                      padding: EdgeInsets.only(),
                       icon: Icon(
                         Icons.my_location,
-                        size: 35,
                       ),
                       color: Colors.black,
-                      onPressed: controller.recoverLocatingActual,
+                      onPressed:  controller.recoverLocatingActual,
                     ),
                   ],
                 ),
               ),
             ),
             Positioned(
-                bottom: 90,
-                left: 10,
-                right: 10,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.add_location,
-                      size: 90,
-                    ),
-                    onPressed: controller.createNewMarker,
+              bottom: 90,
+              left: 10,
+              right: 10,
+              child: IconButton(
+                icon: Icon(
+                  Icons.add_location,
+                  size: 90,
                 ),
-
-      ),
+                onPressed: controller.createNewMarker,
+              ),
+            ),
+            Positioned(
+              top: 150,
+              right: 22,
+              child: IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.compass,
+                  size: 40,
+                ),
+                onPressed: controller.compassMap,
+              ),
+            ),
             SidebarWidget(),
           ],
         ),

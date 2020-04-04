@@ -9,6 +9,23 @@ part of 'information_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$InformationController on _InformationControllerBase, Store {
+  final _$userMarkerAtom = Atom(name: '_InformationControllerBase.userMarker');
+
+  @override
+  User get userMarker {
+    _$userMarkerAtom.context.enforceReadPolicy(_$userMarkerAtom);
+    _$userMarkerAtom.reportObserved();
+    return super.userMarker;
+  }
+
+  @override
+  set userMarker(User value) {
+    _$userMarkerAtom.context.conditionallyRunInAction(() {
+      super.userMarker = value;
+      _$userMarkerAtom.reportChanged();
+    }, _$userMarkerAtom, name: '${_$userMarkerAtom.name}_set');
+  }
+
   final _$markerAtom = Atom(name: '_InformationControllerBase.marker');
 
   @override
@@ -95,10 +112,17 @@ mixin _$InformationController on _InformationControllerBase, Store {
     }, _$placemarkAtom, name: '${_$placemarkAtom.name}_set');
   }
 
+  final _$getUserMarkerAsyncAction = AsyncAction('getUserMarker');
+
+  @override
+  Future getUserMarker() {
+    return _$getUserMarkerAsyncAction.run(() => super.getUserMarker());
+  }
+
   @override
   String toString() {
     final string =
-        'marker: ${marker.toString()},itemsMenu: ${itemsMenu.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
+        'userMarker: ${userMarker.toString()},marker: ${marker.toString()},itemsMenu: ${itemsMenu.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
     return '{$string}';
   }
 }

@@ -34,6 +34,12 @@ class UserRepository implements IUserRepository {
   }
 
   @override
+  Future<DocumentSnapshot> getUserId(String idUser)async {
+    DocumentSnapshot documentSnapshot = await _firestore.collection(_collectionDB).document(idUser).get();
+    return documentSnapshot;
+  }
+
+  @override
   Future saveUser(User user) {
     return _firestore
         .collection(_collectionDB)
@@ -64,7 +70,6 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<StorageUploadTask> uploadImageUser(File fileImage) async {
-
     File image = await compressImage(fileImage);
 
     StorageReference pastaRaiz = _storage.ref();

@@ -81,6 +81,43 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
     }, _$positionActualAtom, name: '${_$positionActualAtom.name}_set');
   }
 
+  final _$latLngActualAtom =
+      Atom(name: '_GoogleMapCustomControllerBase.latLngActual');
+
+  @override
+  LatLng get latLngActual {
+    _$latLngActualAtom.context.enforceReadPolicy(_$latLngActualAtom);
+    _$latLngActualAtom.reportObserved();
+    return super.latLngActual;
+  }
+
+  @override
+  set latLngActual(LatLng value) {
+    _$latLngActualAtom.context.conditionallyRunInAction(() {
+      super.latLngActual = value;
+      _$latLngActualAtom.reportChanged();
+    }, _$latLngActualAtom, name: '${_$latLngActualAtom.name}_set');
+  }
+
+  final _$latLngMarkerActualAtom =
+      Atom(name: '_GoogleMapCustomControllerBase.latLngMarkerActual');
+
+  @override
+  Observable<LatLng> get latLngMarkerActual {
+    _$latLngMarkerActualAtom.context
+        .enforceReadPolicy(_$latLngMarkerActualAtom);
+    _$latLngMarkerActualAtom.reportObserved();
+    return super.latLngMarkerActual;
+  }
+
+  @override
+  set latLngMarkerActual(Observable<LatLng> value) {
+    _$latLngMarkerActualAtom.context.conditionallyRunInAction(() {
+      super.latLngMarkerActual = value;
+      _$latLngMarkerActualAtom.reportChanged();
+    }, _$latLngMarkerActualAtom, name: '${_$latLngMarkerActualAtom.name}_set');
+  }
+
   final _$contextAtom = Atom(name: '_GoogleMapCustomControllerBase.context');
 
   @override
@@ -123,36 +160,12 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
     return _$viewMarkerAsyncAction.run(() => super.viewMarker(marker));
   }
 
-  final _$showMarkLocationAsyncAction = AsyncAction('showMarkLocation');
+  final _$showMarkerLocationAsyncAction = AsyncAction('showMarkerLocation');
 
   @override
-  Future showMarkLocation(Position position) {
-    return _$showMarkLocationAsyncAction
-        .run(() => super.showMarkLocation(position));
-  }
-
-  final _$recoverLocatingPositionAsyncAction =
-      AsyncAction('recoverLocatingPosition');
-
-  @override
-  Future recoverLocatingPosition(Position position) {
-    return _$recoverLocatingPositionAsyncAction
-        .run(() => super.recoverLocatingPosition(position));
-  }
-
-  final _$newLocationAsyncAction = AsyncAction('newLocation');
-
-  @override
-  Future newLocation(String address) {
-    return _$newLocationAsyncAction.run(() => super.newLocation(address));
-  }
-
-  final _$newLocationPlacemarkAsyncAction = AsyncAction('newLocationPlacemark');
-
-  @override
-  Future newLocationPlacemark(Placemark address) {
-    return _$newLocationPlacemarkAsyncAction
-        .run(() => super.newLocationPlacemark(address));
+  Future showMarkerLocation(Position position) {
+    return _$showMarkerLocationAsyncAction
+        .run(() => super.showMarkerLocation(position));
   }
 
   final _$_GoogleMapCustomControllerBaseActionController =
@@ -170,22 +183,33 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   }
 
   @override
-  dynamic setCameraPosition(Position value) {
+  dynamic setLatLngActual(LatLng value) {
     final _$actionInfo =
         _$_GoogleMapCustomControllerBaseActionController.startAction();
     try {
-      return super.setCameraPosition(value);
+      return super.setLatLngActual(value);
     } finally {
       _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setMarkers(Marker value) {
+  dynamic setLatLngMarkerActual(LatLng value) {
     final _$actionInfo =
         _$_GoogleMapCustomControllerBaseActionController.startAction();
     try {
-      return super.setMarkers(value);
+      return super.setLatLngMarkerActual(value);
+    } finally {
+      _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCameraPosition(Position value) {
+    final _$actionInfo =
+        _$_GoogleMapCustomControllerBaseActionController.startAction();
+    try {
+      return super.setCameraPosition(value);
     } finally {
       _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -203,20 +227,9 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   }
 
   @override
-  dynamic addListenerLocation() {
-    final _$actionInfo =
-        _$_GoogleMapCustomControllerBaseActionController.startAction();
-    try {
-      return super.addListenerLocation();
-    } finally {
-      _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     final string =
-        'googleMapCompleter: ${googleMapCompleter.toString()},markers: ${markers.toString()},locationMarker: ${locationMarker.toString()},positionActual: ${positionActual.toString()},context: ${context.toString()},cameraPosition: ${cameraPosition.toString()}';
+        'googleMapCompleter: ${googleMapCompleter.toString()},markers: ${markers.toString()},locationMarker: ${locationMarker.toString()},positionActual: ${positionActual.toString()},latLngActual: ${latLngActual.toString()},latLngMarkerActual: ${latLngMarkerActual.toString()},context: ${context.toString()},cameraPosition: ${cameraPosition.toString()}';
     return '{$string}';
   }
 }

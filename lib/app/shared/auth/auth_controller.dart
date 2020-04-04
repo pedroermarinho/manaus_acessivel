@@ -28,11 +28,15 @@ abstract class _AuthControllerBase with Store {
   }
 
   Future loginWithGoogle() async {
-    userAuth = await _authRepository.getEmailGoogleLogin();
+    await _authRepository.getEmailGoogleLogin().whenComplete(() {
+      _authRepository.getUser().then(setUser);
+    });
   }
 
   Future loginWithEmailPasswordLogin(String email, String password) async {
-    userAuth = await _authRepository.getEmailPasswordLogin(email, password);
+    _authRepository.getEmailPasswordLogin(email, password).whenComplete(() {
+      _authRepository.getUser().then(setUser);
+    });
   }
 
   Future logout() {

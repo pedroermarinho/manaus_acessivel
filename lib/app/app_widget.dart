@@ -25,6 +25,7 @@ class AppWidget extends StatelessWidget {
         ),
         iconTheme: IconThemeData(
           color: Color(0xffe6c131),
+          size: 35
         ),
 
       ),

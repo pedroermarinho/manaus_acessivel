@@ -53,6 +53,23 @@ abstract class _UserRepositoryControllerBase with Store {
     }
   }
 
+  Future<User> getUserId(String idUser) async{
+    DocumentSnapshot snapshot = await _userRepository.getUserId(idUser);
+    Map<String, dynamic> data = snapshot.data;
+    if (data.isNotEmpty) {
+      User userLocal = User(
+        idUser: snapshot.documentID,
+        name: data["name"],
+        email: data["email"],
+        userType: data["userType"],
+        pathPhoto: data["pathPhoto"],
+      );
+      return userLocal;
+    }else{
+      return null;
+    }
+  }
+
   Future saveUser() {
     return _userRepository.saveUser(user);
   }

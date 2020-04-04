@@ -3,15 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
+import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final  _googleMapCustomController =
-      Modular.get<GoogleMapCustomController>();
+  final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   @observable
   BuildContext context;
@@ -22,24 +23,24 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<Widget> listWidgetOptionsAddress = ObservableList();
 
-  test() {
-    _googleMapCustomController.test();
+  compassMap() async {
+    await _googleMapCustomController.mapCompass();
   }
 
-  newLocation(String address) {
-    _googleMapCustomController.newLocation(address);
+  newLocation(String address) async {
+    await _googleMapCustomController.newLocation(address);
   }
 
-  createNewMarker() {
-    _googleMapCustomController.createNewMarker();
+  createNewMarker() async {
+    await _googleMapCustomController.createNewMarker();
   }
 
-  recoverLocatingActual() {
-    _googleMapCustomController.recoverLocatingActual();
+  recoverLocatingActual() async {
+    await _googleMapCustomController.recoverLocatingActual();
   }
 
-  newLocationPlacemark(Placemark address) {
-    _googleMapCustomController.newLocationPlacemark(address);
+  newLocationPlacemark(Placemark address) async {
+    await _googleMapCustomController.newLocationPlacemark(address);
   }
 
   isValidAddress(String address) {
@@ -85,6 +86,7 @@ abstract class _HomeControllerBase with Store {
                 ),
               );
             }
+
           })
           .catchError((_) {})
           .whenComplete(() {
@@ -94,6 +96,27 @@ abstract class _HomeControllerBase with Store {
           });
 
       return null;
+    }
+  }
+
+  openMap() async {
+    if (_googleMapCustomController.latLngMarkerActual != null &&
+        _googleMapCustomController.latLngMarkerActual.value != null) {
+      String url =
+          "https://www.google.com/maps/search/?api=1&query=${_googleMapCustomController.latLngMarkerActual.value.latitude},${_googleMapCustomController.latLngMarkerActual.value.longitude}";
+      if (await canLaunch(url)) {
+        await launch(url);
+        _googleMapCustomController.setLatLngMarkerActual(null);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else {
+      ShowDialogCustomWidget(
+        context,
+        title: "Marcador",
+        labelText: "Selecione um Marcador",
+        icon: Icons.not_listed_location
+      );
     }
   }
 }

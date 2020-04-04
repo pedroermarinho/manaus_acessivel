@@ -52,6 +52,8 @@ abstract class _SidebarControllerBase with Store {
 
   logoutUser() async {
     await _authController.logout();
+    _authController.setUser(null);
+    _userRepositoryController.setUser(null);
     pushSplashScreen();
   }
 
