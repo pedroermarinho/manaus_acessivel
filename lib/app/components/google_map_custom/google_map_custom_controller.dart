@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -131,7 +132,55 @@ abstract class _GoogleMapCustomControllerBase with Store {
       });
     });
   }
+  /// Carregar Macadores por categoria
+  loadMarkersCategories(String category) async {
+    markers.clear();
+    _markerRepositoryController.getMarkers().listen((event) {
+      List<DocumentSnapshot> list =  event.documents;
 
+      List<DocumentSnapshot> listCategory=list.where((element){
+        switch (category){
+          case "da":
+            return element.data["da"]== true;
+            break;
+          case "di":
+            return element.data["di"]== true;
+            break;
+          case "dm":
+            return element.data["dm"]== true;
+            break;
+          case "dv":
+            return element.data["dv"]== true;
+            break;
+          case "all":
+            return true;
+            break;
+          default:
+            return false;
+        }
+      }).toList();
+
+      listCategory.forEach((element) {
+        Map<String, dynamic> data = element.data;
+        if (element != null) {
+          MarkerModel markerLocal = MarkerModel(
+            idMarker: element.documentID,
+            idUserCreator: data["idUserCreator"],
+            idTypeMarker: data["idTypeMarker"],
+            title: data["title"],
+            description: data["description"],
+            da: data["da"],
+            di: data["di"],
+            dm: data["dm"],
+            dv: data["dv"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+          );
+          viewMarker(markerLocal);
+        }
+      });
+    });
+  }
   /// Obter bytes do ativo
   ///
   /// recuperar icone para o mapa

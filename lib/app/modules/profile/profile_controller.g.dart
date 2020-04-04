@@ -43,6 +43,24 @@ mixin _$ProfileController on _ProfileControllerBase, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
+  final _$markersLengthAtom =
+      Atom(name: '_ProfileControllerBase.markersLength');
+
+  @override
+  int get markersLength {
+    _$markersLengthAtom.context.enforceReadPolicy(_$markersLengthAtom);
+    _$markersLengthAtom.reportObserved();
+    return super.markersLength;
+  }
+
+  @override
+  set markersLength(int value) {
+    _$markersLengthAtom.context.conditionallyRunInAction(() {
+      super.markersLength = value;
+      _$markersLengthAtom.reportChanged();
+    }, _$markersLengthAtom, name: '${_$markersLengthAtom.name}_set');
+  }
+
   final _$getUserAsyncAction = AsyncAction('getUser');
 
   @override
@@ -52,7 +70,8 @@ mixin _$ProfileController on _ProfileControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'user: ${user.toString()},loading: ${loading.toString()}';
+    final string =
+        'user: ${user.toString()},loading: ${loading.toString()},markersLength: ${markersLength.toString()}';
     return '{$string}';
   }
 }

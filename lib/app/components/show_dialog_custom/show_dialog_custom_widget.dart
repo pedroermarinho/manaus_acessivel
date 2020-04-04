@@ -10,7 +10,7 @@ class ShowDialogCustomWidget {
   ShowDialogCustomWidget(this.context,
       {this.labelText = "",
       this.icon = Icons.info,
-      this.title = "Informação"}) {
+      this.title = "Informação",}) {
     showDialog(
       context: context,
       builder: (context) {

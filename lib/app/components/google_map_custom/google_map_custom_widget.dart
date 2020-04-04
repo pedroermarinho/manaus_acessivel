@@ -29,6 +29,7 @@ class GoogleMapCustomWidget extends StatelessWidget {
               initialCameraPosition: controller.cameraPosition,
               onMapCreated: onMapCreated ? controller.onMapCreated : null,
               markers: controller.markers.values.toSet(),
+              minMaxZoomPreference: MinMaxZoomPreference(11,30),
               mapToolbarEnabled: false,
               myLocationEnabled: false,
               compassEnabled: false,

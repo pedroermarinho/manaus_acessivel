@@ -12,25 +12,32 @@ class MarkerRepositoryController = _MarkerRepositoryControllerBase
 abstract class _MarkerRepositoryControllerBase with Store {
   final IMarkerRepository _markerRepository = Modular.get();
 
+  ///
   @observable
   MarkerModel marker;
 
+  ///
   @observable
   ObservableList<MarkerModel> markerList = ObservableList();
 
+  ///
   @observable
   bool loading = false;
 
+  ///
   _MarkerRepositoryControllerBase() {
     getMarkers();
   }
 
+  ///
   @action
   setMarker(MarkerModel value) => marker = value;
 
+  ///
   @action
   setMarkers(ObservableList<MarkerModel> value) async => markerList = value;
 
+  ///
   Future getMarker(String idMarker) async {
     DocumentSnapshot snapshot = await _markerRepository.getMarker(idMarker);
 
@@ -53,18 +60,27 @@ abstract class _MarkerRepositoryControllerBase with Store {
     return marker;
   }
 
+  ///
   Stream<QuerySnapshot> getMarkers() {
     return _markerRepository.getMarkers();
   }
 
+  ///
+  Stream<QuerySnapshot> getMarkerUser(String idUser){
+    return _markerRepository.getMarkerUser(idUser);
+  }
+
+  ///
   Future deleteMarker() {
     return _markerRepository.deleteMarker(marker.idMarker);
   }
 
+  ///
   Future saveMarker() {
     return _markerRepository.saveMarker(marker.toMap());
   }
 
+  ///
   Future updateMarker(MarkerModel marker) {
     return _markerRepository.updateMarker(marker);
   }

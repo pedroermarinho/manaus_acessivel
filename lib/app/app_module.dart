@@ -1,5 +1,6 @@
 import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_controller.dart';
 import 'package:manausacessivel/app/components/sidebar/sidebar_controller.dart';
+import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_controller.dart';
 import 'package:manausacessivel/app/modules/marker/marker_controller.dart';
 import 'package:manausacessivel/app/modules/profile/profile_module.dart';
 import 'package:manausacessivel/app/pages/about/about_page.dart';
@@ -29,6 +30,7 @@ import 'package:manausacessivel/app/modules/home/home_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => ShowMarkersListController()),
         Bind((i) => ShowDialogCustomController()),
         Bind<SidebarController>((i) => SidebarController()),
         Bind<TypeMarkerRepositoryController>(
@@ -49,25 +51,48 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router(Modular.initialRoute,
-            module: SplashScreenModule(), transition: TransitionType.scale),
+        Router(
+          Modular.initialRoute,
+          module: SplashScreenModule(),
+          transition: TransitionType.scale,
+        ),
 //        Router(Modular.initialRoute, module: ProfileModule()),
-        Router("/home",
-            module: HomeModule(), transition: TransitionType.noTransition),
-        Router("/login",
-            module: LoginModule(), transition: TransitionType.noTransition),
-        Router("/information",
-            module: InformationModule(), transition: TransitionType.downToUp),
-        Router("/marker",
-            module: MarkerModule(), transition: TransitionType.downToUp),
+        Router(
+          "/home",
+          module: HomeModule(),
+          transition: TransitionType.noTransition,
+        ),
+        Router(
+          "/login",
+          module: LoginModule(),
+          transition: TransitionType.noTransition,
+        ),
+        Router(
+          "/information",
+          module: InformationModule(),
+          transition: TransitionType.downToUp,
+        ),
+        Router(
+          "/marker",
+          module: MarkerModule(),
+          transition: TransitionType.downToUp,
+        ),
         Router("/register", module: RegisterModule()),
-        Router("/settings",
-            module: SettingsModule(), transition: TransitionType.leftToRight),
-        Router("/profile",
-            module: ProfileModule(), transition: TransitionType.leftToRight),
-        Router("/about",
-            child: (_, args) => AboutPage(),
-            transition: TransitionType.leftToRight),
+        Router(
+          "/settings",
+          module: SettingsModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        Router(
+          "/profile",
+          module: ProfileModule(),
+          transition: TransitionType.leftToRight,
+        ),
+        Router(
+          "/about",
+          child: (_, args) => AboutPage(),
+          transition: TransitionType.leftToRight,
+        ),
       ];
 
   @override

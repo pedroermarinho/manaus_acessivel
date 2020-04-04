@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
+import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,15 +11,17 @@ class ProfileController = _ProfileControllerBase with _$ProfileController;
 
 abstract class _ProfileControllerBase with Store {
   final _userRepositoryController = Modular.get<UserRepositoryController>();
-
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
   @observable
   User user;
 
   @observable
   bool loading = false;
 
+  @observable
+  int markersLength=0;
 
-  _ProfileControllerBase(){
+  _ProfileControllerBase() {
     getUser();
   }
 
@@ -29,14 +32,17 @@ abstract class _ProfileControllerBase with Store {
       if (_userRepositoryController.user != null) {
         value.dispose();
         this.user = _userRepositoryController.user;
+        getMarkerUser(user.idUser);
       }
     });
   }
 
-
-
+  getMarkerUser(String idUser) {
+    _markerRepositoryController.getMarkerUser(idUser).listen((event) {
+      markersLength = event.documents.length;
+    });
+  }
 }
-
 
 class ClipProfile extends CustomClipper<Path> {
   @override

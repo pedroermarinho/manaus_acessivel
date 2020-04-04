@@ -6,6 +6,8 @@ abstract class IMarkerRepository {
 
   Stream<QuerySnapshot> getMarkers();
 
+  Stream<QuerySnapshot> getMarkerUser(String idUser) ;
+
   Future deleteMarker(String idMarker);
 
   Future saveMarker(Map<String, dynamic> marker);

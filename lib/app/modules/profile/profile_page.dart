@@ -91,13 +91,15 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          "Marcadores",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
+                        Observer(builder: (_){
+                          return Text(
+                            "Marcadores: ${controller.markersLength}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          );
+                        })
                       ],
                     ),
                     SizedBox(
@@ -113,7 +115,7 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                           width: 5,
                         ),
                         Text(
-                          "Favoritos",
+                          "Favoritos:",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

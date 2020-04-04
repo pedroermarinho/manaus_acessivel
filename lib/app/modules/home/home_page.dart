@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
 import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
+import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_widget.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Icons.accessible,
                       ),
                       color: Colors.black,
-                      onPressed: null,
+                      onPressed: (){
+                        ShowMarkersListWidget(context);
+                      },
                     ),
                     Container(),
                    IconButton(

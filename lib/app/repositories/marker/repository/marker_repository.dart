@@ -22,6 +22,11 @@ class MarkerRepository implements IMarkerRepository {
   }
 
   @override
+  Stream<QuerySnapshot> getMarkerUser(String idUser) {
+    return _firestore.collection(_collectionDB).where("idUserCreator",isEqualTo: idUser).snapshots();
+  }
+
+  @override
   Future saveMarker(Map<String, dynamic> marker) {
     return _firestore.collection(_collectionDB).document().setData(marker);
   }
