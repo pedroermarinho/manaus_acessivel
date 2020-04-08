@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
+import 'package:manausacessivel/app/models/favorite_model.dart';
 import 'package:manausacessivel/app/models/marker_model.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/modules/information/components/marker_icon_detector/marker_icon_detector_widget.dart';
+import 'package:manausacessivel/app/repositories/favorite/favorite_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 import 'package:manausacessivel/app/shared/utils/type_user.dart';
 import 'package:mobx/mobx.dart';
+
+import 'repositories/comment/comment_repository_controller.dart';
 
 part 'information_controller.g.dart';
 
@@ -21,6 +26,8 @@ abstract class _InformationControllerBase with Store {
   final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
   final _userRepositoryController = Modular.get<UserRepositoryController>();
   final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
+  final _favoriteRepositoryController = Modular.get<FavoriteRepositoryController>();
+  final _commentRepositoryController =Modular.get<CommentRepositoryController>();
 
   @observable
   User userMarker;
@@ -30,6 +37,11 @@ abstract class _InformationControllerBase with Store {
 
   @observable
   List<String> itemsMenu = [];
+
+  @observable
+  FavoriteModel favorite;
+
+  setFavorite(FavoriteModel value) => favorite = value;
 
   @observable
   ObservableList<Widget> iconsAssList = ObservableList();
@@ -44,11 +56,13 @@ abstract class _InformationControllerBase with Store {
     recoverMarker();
     getUserMarker();
     typeUser();
+    getFavorite();
   }
 
   @action
   getUserMarker() async {
-    this.userMarker = await _userRepositoryController.getUserId(marker.idUserCreator);
+    this.userMarker =
+        await _userRepositoryController.getUserId(marker.idUserCreator);
   }
 
   ///
@@ -88,6 +102,7 @@ abstract class _InformationControllerBase with Store {
         ),
       );
     }
+
     ///
     if (marker.di) {
       iconsAssList.add(MarkerIconDetectorWidget(
@@ -104,17 +119,13 @@ abstract class _InformationControllerBase with Store {
         user.idUser == marker.idUserCreator) {
       itemsMenu.add("Editar");
       itemsMenu.add("Deletar");
-    }else{
-
-    }
+    } else {}
   }
 
   ///
   selectionMenuItem(String selection) {
     switch (selection) {
       case "Editar":
-        print("Editar");
-
         Modular.to.pushNamed("/marker", arguments: marker).whenComplete(() {
           loading = true;
           iconsAssList.clear();
@@ -130,4 +141,22 @@ abstract class _InformationControllerBase with Store {
         break;
     }
   }
+
+
+  /// Deleta um favorito
+  Future deleteFavoriteMarker() {
+    return _favoriteRepositoryController.deleteFavoriteMarker(marker.idMarker).whenComplete((){
+      setFavorite(null);
+    });
+  }
+
+  /// Salva um novo favorito
+  Future saveFavoriteMarker() {
+    return _favoriteRepositoryController.saveFavoriteMarker(marker.idMarker).whenComplete(getFavorite);
+  }
+
+  getFavorite() async {
+    _favoriteRepositoryController.getFavoriteMarker(marker.idMarker).then(setFavorite);
+  }
+
 }

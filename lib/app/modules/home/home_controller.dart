@@ -86,7 +86,6 @@ abstract class _HomeControllerBase with Store {
                 ),
               );
             }
-
           })
           .catchError((_) {})
           .whenComplete(() {
@@ -111,12 +110,10 @@ abstract class _HomeControllerBase with Store {
         throw 'Could not launch $url';
       }
     } else {
-      ShowDialogCustomWidget(
-        context,
-        title: "Marcador",
-        labelText: "Selecione um Marcador",
-        icon: Icons.not_listed_location
-      );
+      ShowDialogCustomWidget(context,
+          title: "Marcador",
+          labelText: "Selecione um Marcador",
+          icon: Icons.not_listed_location);
     }
   }
 }

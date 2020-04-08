@@ -7,13 +7,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/repository/user_repository_interface.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 
 class UserRepository implements IUserRepository {
   final Firestore _firestore = Firestore.instance;
   final String _collectionDB = "users";
   final String _childProfileUser = "profiles";
-  final AuthController _authController = Modular.get();
+  final AuthRepositoryController _authController = Modular.get();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
@@ -34,8 +34,9 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<DocumentSnapshot> getUserId(String idUser)async {
-    DocumentSnapshot documentSnapshot = await _firestore.collection(_collectionDB).document(idUser).get();
+  Future<DocumentSnapshot> getUserId(String idUser) async {
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection(_collectionDB).document(idUser).get();
     return documentSnapshot;
   }
 

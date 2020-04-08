@@ -36,6 +36,8 @@ dependencies:
   flutter_modular: ^0.5.6
   email_validator: ^1.0.4
   flutter_native_image: ^0.0.5+2
+  mysql1: ^0.17.1
+  firebase_remote_config: ^0.3.0+3
   flutter:
     sdk: flutter
 
@@ -192,4 +194,4 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 scripts:
-  mobx: flutter pub run build_runner watch --delete-conflicting-outputs
+  mobx: flutter pub run build_runner watch

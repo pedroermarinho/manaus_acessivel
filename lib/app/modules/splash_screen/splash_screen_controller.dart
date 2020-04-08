@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:manausacessivel/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
 
@@ -9,7 +9,8 @@ class SplashScreenController = _SplashScreenControllerBase
     with _$SplashScreenController;
 
 abstract class _SplashScreenControllerBase with Store {
-  final AuthController _authController = Modular.get<AuthController>();
+  final AuthRepositoryController _authController =
+      Modular.get<AuthRepositoryController>();
 
   @observable
   ReactionDisposer disposer;

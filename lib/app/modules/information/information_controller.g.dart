@@ -60,6 +60,23 @@ mixin _$InformationController on _InformationControllerBase, Store {
     }, _$itemsMenuAtom, name: '${_$itemsMenuAtom.name}_set');
   }
 
+  final _$favoriteAtom = Atom(name: '_InformationControllerBase.favorite');
+
+  @override
+  FavoriteModel get favorite {
+    _$favoriteAtom.context.enforceReadPolicy(_$favoriteAtom);
+    _$favoriteAtom.reportObserved();
+    return super.favorite;
+  }
+
+  @override
+  set favorite(FavoriteModel value) {
+    _$favoriteAtom.context.conditionallyRunInAction(() {
+      super.favorite = value;
+      _$favoriteAtom.reportChanged();
+    }, _$favoriteAtom, name: '${_$favoriteAtom.name}_set');
+  }
+
   final _$iconsAssListAtom =
       Atom(name: '_InformationControllerBase.iconsAssList');
 
@@ -122,7 +139,7 @@ mixin _$InformationController on _InformationControllerBase, Store {
   @override
   String toString() {
     final string =
-        'userMarker: ${userMarker.toString()},marker: ${marker.toString()},itemsMenu: ${itemsMenu.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
+        'userMarker: ${userMarker.toString()},marker: ${marker.toString()},itemsMenu: ${itemsMenu.toString()},favorite: ${favorite.toString()},iconsAssList: ${iconsAssList.toString()},loading: ${loading.toString()},placemark: ${placemark.toString()}';
     return '{$string}';
   }
 }

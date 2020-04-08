@@ -23,7 +23,10 @@ class MarkerRepository implements IMarkerRepository {
 
   @override
   Stream<QuerySnapshot> getMarkerUser(String idUser) {
-    return _firestore.collection(_collectionDB).where("idUserCreator",isEqualTo: idUser).snapshots();
+    return _firestore
+        .collection(_collectionDB)
+        .where("idUserCreator", isEqualTo: idUser)
+        .snapshots();
   }
 
   @override

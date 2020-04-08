@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/repository/user_repository_interface.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:manausacessivel/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
 
@@ -15,8 +15,8 @@ class UserRepositoryController = _UserRepositoryControllerBase
     with _$UserRepositoryController;
 
 abstract class _UserRepositoryControllerBase with Store {
-  final  _userRepository = Modular.get<IUserRepository>();
-  final _authController = Modular.get<AuthController>();
+  final _userRepository = Modular.get<IUserRepository>();
+  final _authController = Modular.get<AuthRepositoryController>();
 
   @observable
   User user;
@@ -53,7 +53,7 @@ abstract class _UserRepositoryControllerBase with Store {
     }
   }
 
-  Future<User> getUserId(String idUser) async{
+  Future<User> getUserId(String idUser) async {
     DocumentSnapshot snapshot = await _userRepository.getUserId(idUser);
     Map<String, dynamic> data = snapshot.data;
     if (data.isNotEmpty) {
@@ -65,7 +65,7 @@ abstract class _UserRepositoryControllerBase with Store {
         pathPhoto: data["pathPhoto"],
       );
       return userLocal;
-    }else{
+    } else {
       return null;
     }
   }

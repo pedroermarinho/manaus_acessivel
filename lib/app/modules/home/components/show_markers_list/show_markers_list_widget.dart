@@ -14,10 +14,9 @@ class ShowMarkersListWidget {
       Function onTap}) {
     return ListTile(
       onTap: onTap,
-      title:  Text(
-          labelText,
-          style: TextStyle(fontSize: 16),
-
+      title: Text(
+        labelText,
+        style: TextStyle(fontSize: 16),
       ),
       leading: Icon(
         icon,

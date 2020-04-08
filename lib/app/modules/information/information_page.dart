@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/information/components/comments/comments_widget.dart';
+import 'package:manausacessivel/app/modules/information/components/stars_icon/stars_icon_widget.dart';
 import 'information_controller.dart';
 
 class InformationPage extends StatefulWidget {
@@ -26,6 +28,16 @@ class _InformationPageState
       appBar: AppBar(
         title: Text("Informações"),
         actions: <Widget>[
+          Observer(builder: (_) {
+            return IconButton(
+              icon: Icon(controller.favorite == null
+                  ? Icons.favorite_border
+                  : Icons.favorite),
+              onPressed: controller.favorite == null
+                  ? controller.saveFavoriteMarker
+                  : controller.deleteFavoriteMarker,
+            );
+          }),
           PopupMenuButton<String>(
             onSelected: controller.selectionMenuItem,
             itemBuilder: (context) {
@@ -33,7 +45,7 @@ class _InformationPageState
                 return PopupMenuItem<String>(value: item, child: Text(item));
               }).toList();
             },
-          )
+          ),
         ],
       ),
       body: Observer(
@@ -84,7 +96,8 @@ class _InformationPageState
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 10,left: 20),
+                          padding:
+                              EdgeInsets.only(top: 20, bottom: 10, left: 20),
                           child: Observer(
                             builder: (_) {
                               return controller.placemark == null
@@ -155,7 +168,6 @@ class _InformationPageState
                                             ),
                                           ],
                                         ),
-
                                         Row(
                                           children: <Widget>[
                                             Text(
@@ -174,14 +186,16 @@ class _InformationPageState
                                               ),
                                               textAlign: TextAlign.start,
                                             ),
-
                                           ],
                                         )
-
                                       ],
                                     );
                             },
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(),
+                          child: StarsIconWidget(),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10, left: 20),
@@ -233,6 +247,10 @@ class _InformationPageState
                                     );
                             },
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 15),
+                          child: CommentsWidget(),
                         ),
                       ],
                     ),

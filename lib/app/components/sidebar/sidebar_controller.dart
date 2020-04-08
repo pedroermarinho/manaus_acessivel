@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'sidebar_controller.g.dart';
@@ -14,7 +14,7 @@ class SidebarController = _SidebarControllerBase with _$SidebarController;
 
 abstract class _SidebarControllerBase with Store {
   final _userRepositoryController = Modular.get<UserRepositoryController>();
-  final _authController = Modular.get<AuthController>();
+  final _authController = Modular.get<AuthRepositoryController>();
 
   @observable
   User user;

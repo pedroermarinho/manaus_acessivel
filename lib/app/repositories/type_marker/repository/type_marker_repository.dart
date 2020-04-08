@@ -17,7 +17,10 @@ class TypeMarkerRepository implements ITypeMarkerRepository {
   }
 
   @override
-  Future saveTypeMarker(TypeMarker typeMarker){
-    return _firestore.collection(_collectionDB).document(typeMarker.icon).setData(typeMarker.toMap());
+  Future saveTypeMarker(TypeMarker typeMarker) {
+    return _firestore
+        .collection(_collectionDB)
+        .document(typeMarker.icon)
+        .setData(typeMarker.toMap());
   }
 }

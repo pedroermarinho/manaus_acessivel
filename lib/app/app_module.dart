@@ -1,3 +1,9 @@
+import 'package:manausacessivel/app/shared/mysql/mysql_repository_controller.dart';
+import 'package:manausacessivel/app/shared/mysql/repository/mysql_repository.dart';
+import 'package:manausacessivel/app/repositories/favorite/favorite_repository_controller.dart';
+import 'package:manausacessivel/app/repositories/favorite/repository/favorite_repository.dart';
+import 'package:manausacessivel/app/shared/config/config_repository_controller.dart';
+import 'package:manausacessivel/app/shared/config/repository/config_repository.dart';
 import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_controller.dart';
 import 'package:manausacessivel/app/components/sidebar/sidebar_controller.dart';
 import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_controller.dart';
@@ -20,7 +26,7 @@ import 'package:manausacessivel/app/repositories/marker/repository/marker_reposi
 import 'package:manausacessivel/app/pages/about/about_controller.dart';
 import 'package:manausacessivel/app/modules/login/login_module.dart';
 import 'package:manausacessivel/app/shared/auth/repository/auth_repository.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:manausacessivel/app/app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +36,15 @@ import 'package:manausacessivel/app/modules/home/home_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => ConfigRepositoryController(),lazy: false),
+        Bind((i) => ConfigRepository(),lazy: false),
+        Bind((i) => MysqlRepositoryController()),
+        Bind((i) => MysqlRepository()),
+        Bind((i) => FavoriteRepositoryController()),
+        Bind((i) => FavoriteRepository()),
         Bind((i) => ShowMarkersListController()),
         Bind((i) => ShowDialogCustomController()),
-        Bind<SidebarController>((i) => SidebarController()),
+        Bind((i) => SidebarController()),
         Bind<TypeMarkerRepositoryController>(
             (i) => TypeMarkerRepositoryController()),
         Bind<MarkerRepositoryController>((i) => MarkerRepositoryController()),
@@ -45,7 +57,7 @@ class AppModule extends MainModule {
         Bind<MarkerController>((i) => MarkerController()),
         Bind<AboutController>((i) => AboutController()),
         Bind<AuthRepository>((i) => AuthRepository()),
-        Bind<AuthController>((i) => AuthController()),
+        Bind<AuthRepositoryController>((i) => AuthRepositoryController()),
         Bind<AppController>((i) => AppController()),
       ];
 

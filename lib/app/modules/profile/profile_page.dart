@@ -91,15 +91,17 @@ class _ProfilePageState extends ModularState<ProfilePage, ProfileController> {
                         SizedBox(
                           width: 5,
                         ),
-                        Observer(builder: (_){
-                          return Text(
-                            "Marcadores: ${controller.markersLength}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          );
-                        })
+                        Observer(
+                          builder: (_) {
+                            return Text(
+                              "Marcadores: ${controller.markersLength}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            );
+                          },
+                        )
                       ],
                     ),
                     SizedBox(

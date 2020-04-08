@@ -19,12 +19,8 @@ class MarkerIconDetectorWidget extends StatelessWidget {
           color: Colors.black,
         ),
         onTap: () {
-          ShowDialogCustomWidget(
-              context,
-              title: "Categoria",
-              labelText: labelText,
-              icon: icon
-          );
+          ShowDialogCustomWidget(context,
+              title: "Categoria", labelText: labelText, icon: icon);
         },
       ),
     );

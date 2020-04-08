@@ -38,9 +38,9 @@ class _SettingsPageState
                             return CircleAvatar(
                               radius: 100,
                               backgroundColor: Color(0xffe6c131),
-                              backgroundImage: controller.images == null ?
-                                  NetworkImage(controller.user.pathPhoto)
-                                  :FileImage(controller.images),
+                              backgroundImage: controller.images == null
+                                  ? NetworkImage(controller.user.pathPhoto)
+                                  : FileImage(controller.images),
                             );
                           }),
                           Row(

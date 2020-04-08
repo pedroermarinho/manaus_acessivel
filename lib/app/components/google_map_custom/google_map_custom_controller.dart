@@ -63,12 +63,12 @@ abstract class _GoogleMapCustomControllerBase with Store {
   setLatLngActual(LatLng value) {
     latLngActual = value;
   }
+
   /// Latitude e Longitude do Marcador Atual
   ///
   /// Provinda de um marcador
   @observable
   Observable<LatLng> latLngMarkerActual;
-
 
   /// Inserir um nova Latitude e Longitude
   @action
@@ -132,25 +132,26 @@ abstract class _GoogleMapCustomControllerBase with Store {
       });
     });
   }
+
   /// Carregar Macadores por categoria
   loadMarkersCategories(String category) async {
     markers.clear();
     _markerRepositoryController.getMarkers().listen((event) {
-      List<DocumentSnapshot> list =  event.documents;
+      List<DocumentSnapshot> list = event.documents;
 
-      List<DocumentSnapshot> listCategory=list.where((element){
-        switch (category){
+      List<DocumentSnapshot> listCategory = list.where((element) {
+        switch (category) {
           case "da":
-            return element.data["da"]== true;
+            return element.data["da"] == true;
             break;
           case "di":
-            return element.data["di"]== true;
+            return element.data["di"] == true;
             break;
           case "dm":
-            return element.data["dm"]== true;
+            return element.data["dm"] == true;
             break;
           case "dv":
-            return element.data["dv"]== true;
+            return element.data["dv"] == true;
             break;
           case "all":
             return true;
@@ -181,6 +182,7 @@ abstract class _GoogleMapCustomControllerBase with Store {
       });
     });
   }
+
   /// Obter bytes do ativo
   ///
   /// recuperar icone para o mapa
@@ -330,8 +332,11 @@ abstract class _GoogleMapCustomControllerBase with Store {
 
   /// Opções Endereço
   Future<List<Placemark>> optionsAddress(String address) async {
-    List<Placemark> listAdresses = await Geolocator().placemarkFromAddress(address+" Manaus");
-    return listAdresses.where((element) => element.subAdministrativeArea=="Manaus").toList();
+    List<Placemark> listAdresses =
+        await Geolocator().placemarkFromAddress(address + " Manaus");
+    return listAdresses
+        .where((element) => element.subAdministrativeArea == "Manaus")
+        .toList();
   }
 
   /// Nova Localização
@@ -359,8 +364,6 @@ abstract class _GoogleMapCustomControllerBase with Store {
     return listAdresses[0];
   }
 
-
-
   /// Novo marcador de local
   newLocationPlacemark(Placemark address) async {
     if (address != null) {
@@ -372,15 +375,19 @@ abstract class _GoogleMapCustomControllerBase with Store {
       moveCamera();
     }
   }
+  newLocationPosition(Position position) async {
+    if (position != null) {
+      setCameraPosition(position);
+      moveCamera();
+    }
+  }
 
   /// Criar novo marcador
   createNewMarker() async {
     Position position = await getLocation();
-    Placemark endereco =
-        await addressPossition(position);
+    Placemark endereco = await addressPossition(position);
 
     if (endereco != null) {
-
       String enderecoConfirmacao;
       enderecoConfirmacao = "\n Cidade: " + endereco.subAdministrativeArea;
       enderecoConfirmacao += "\n Rua: " + endereco.thoroughfare;
@@ -422,24 +429,25 @@ abstract class _GoogleMapCustomControllerBase with Store {
 
   /// Bússola do mapa
   mapCompass() async {
-    if(latLngActual != null) {
+    if (latLngActual != null) {
       GoogleMapController googleMapController = await googleMapCompleter.future;
       double zoom = await googleMapController.getZoomLevel();
       googleMapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-            target:latLngActual,
+            target: latLngActual,
             bearing: 0,
             zoom: zoom,
           ),
         ),
       );
       setLatLngActual(null);
-    }else {
+    } else {
       ShowDialogCustomWidget(
         context,
         title: "Ponto de Referência",
-        labelText: "Clique no mapa para selecionar um ponto de Referência e tente novamente",
+        labelText:
+            "Clique no mapa para selecionar um ponto de Referência e tente novamente",
         icon: Icons.add_to_home_screen,
       );
     }

@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
 import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
+import 'package:manausacessivel/app/modules/home/components/show_favorite_list/show_favorite_list_widget.dart';
 import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_widget.dart';
 import 'home_controller.dart';
 
@@ -21,7 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         children: <Widget>[
                           TextField(
 //                           readOnly: true,
-                          autofocus: false,
+                            autofocus: false,
                             onSubmitted: controller.newLocation,
                             onChanged: controller.isValidAddress,
                             keyboardType: TextInputType.url,
@@ -108,7 +108,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Icons.favorite,
                       ),
                       color: Colors.black,
-                      onPressed: null,
+                      onPressed:(){
+                        ShowFavoriteListWidget(context);
+                      },
                     ),
                     IconButton(
                       iconSize: 35,
@@ -116,20 +118,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Icons.accessible,
                       ),
                       color: Colors.black,
-                      onPressed: (){
+                      onPressed: () {
                         ShowMarkersListWidget(context);
                       },
                     ),
                     Container(),
-                   IconButton(
-                        iconSize: 35,
-                        icon: Icon(
-                          Icons.map,
-                        ),
-                        color: Colors.black,
-                        onPressed:controller.openMap,
+                    IconButton(
+                      iconSize: 35,
+                      icon: Icon(
+                        Icons.map,
                       ),
-
+                      color: Colors.black,
+                      onPressed: controller.openMap,
+                    ),
                     IconButton(
                       iconSize: 35,
                       padding: EdgeInsets.only(),
@@ -137,7 +138,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Icons.my_location,
                       ),
                       color: Colors.black,
-                      onPressed:  controller.recoverLocatingActual,
+                      onPressed: controller.recoverLocatingActual,
                     ),
                   ],
                 ),

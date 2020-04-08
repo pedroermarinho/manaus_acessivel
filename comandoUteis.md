@@ -95,7 +95,7 @@ modules/<nome do modulo>/components/<nome do widget>
 ```
 Comando para criar widget
 ```
-slidy generate widget <caminho>/<nome do widget> -b
+slidy generate widget <caminho>/<nome do widget> 
 ```
 
 ## Arvore do projeto

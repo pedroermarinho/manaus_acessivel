@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'login_controller.g.dart';
@@ -9,7 +9,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  final _auth = Modular.get<AuthController>();
+  final _auth = Modular.get<AuthRepositoryController>();
 
   @observable
   bool loading = false;

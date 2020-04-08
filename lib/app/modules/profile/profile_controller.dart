@@ -19,7 +19,7 @@ abstract class _ProfileControllerBase with Store {
   bool loading = false;
 
   @observable
-  int markersLength=0;
+  int markersLength = 0;
 
   _ProfileControllerBase() {
     getUser();

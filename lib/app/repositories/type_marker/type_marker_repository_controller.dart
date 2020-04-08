@@ -46,7 +46,7 @@ abstract class _TypeMarkerRepositoryControllerBase with Store {
     return _typeMarkerRepository.getTypeMarkers();
   }
 
-  Future saveTypeMarker(TypeMarker typeMarker){
+  Future saveTypeMarker(TypeMarker typeMarker) {
     return _typeMarkerRepository.saveTypeMarker(typeMarker);
   }
 }

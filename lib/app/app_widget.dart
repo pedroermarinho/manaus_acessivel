@@ -15,19 +15,14 @@ class AppWidget extends StatelessWidget {
         accentColor: Color(0xffBBBCBC),
         backgroundColor: Color(0xffefeeec),
         appBarTheme: AppBarTheme(
-          color: Colors.black,
-          iconTheme: IconThemeData(
-            color: Color(0xffe6c131),
-          )
-        ),
+            color: Colors.black,
+            iconTheme: IconThemeData(
+              color: Color(0xffe6c131),
+            )),
         accentIconTheme: IconThemeData(
           color: Color(0xffe6c131),
         ),
-        iconTheme: IconThemeData(
-          color: Color(0xffe6c131),
-          size: 35
-        ),
-
+        iconTheme: IconThemeData(color: Color(0xffe6c131), size: 35),
       ),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,

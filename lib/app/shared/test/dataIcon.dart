@@ -1,7 +1,7 @@
 import 'package:manausacessivel/app/models/type_marker_model.dart';
 
-class DataIcon{
-    static final List<TypeMarker> listDataicon = [
+class DataIcon {
+  static final List<TypeMarker> listDataicon = [
 //      TypeMarker(name:"Aeroporto",icon: "airport"),
 //      TypeMarker(name:"Banco",icon: "bank"),
 //      TypeMarker(name:"Igreja",icon: "church"),
@@ -22,5 +22,5 @@ class DataIcon{
 //      TypeMarker(name:"Mercearia", icon:"grocery-or-supermarket"),
 //      TypeMarker(name:"BibliotecaF",icon: "library"),
 //      TypeMarker(name:"Escola", icon:"school"),
-    ];
+  ];
 }

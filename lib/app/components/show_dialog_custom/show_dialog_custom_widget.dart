@@ -7,10 +7,12 @@ class ShowDialogCustomWidget {
   final IconData icon;
   final BuildContext context;
 
-  ShowDialogCustomWidget(this.context,
-      {this.labelText = "",
-      this.icon = Icons.info,
-      this.title = "Informação",}) {
+  ShowDialogCustomWidget(
+    this.context, {
+    this.labelText = "",
+    this.icon = Icons.info,
+    this.title = "Informação",
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -23,14 +25,14 @@ class ShowDialogCustomWidget {
                 icon,
                 size: 40,
               ),
-                SizedBox(
-                  width: 5,
+              SizedBox(
+                width: 5,
+              ),
+              Flexible(
+                child: Text(
+                  labelText,
+                  style: TextStyle(fontSize: 18),
                 ),
-                Flexible(
-                  child: Text(
-                    labelText,
-                    style: TextStyle(fontSize: 18),
-                  ),
               )
             ],
           ),

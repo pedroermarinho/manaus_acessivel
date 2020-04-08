@@ -11,7 +11,7 @@ import 'package:manausacessivel/app/models/marker_model.dart';
 import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/type_marker/type_marker_repository_controller.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'marker_controller.g.dart';
@@ -22,7 +22,7 @@ abstract class _MarkerControllerBase with Store {
   final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
   final _typeMarkerRepositoryController =
       Modular.get<TypeMarkerRepositoryController>();
-  final _authController = Modular.get<AuthController>();
+  final _authController = Modular.get<AuthRepositoryController>();
   final _googleMapController = Modular.get<GoogleMapCustomController>();
 
   @observable

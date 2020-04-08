@@ -66,7 +66,7 @@ abstract class _MarkerRepositoryControllerBase with Store {
   }
 
   ///
-  Stream<QuerySnapshot> getMarkerUser(String idUser){
+  Stream<QuerySnapshot> getMarkerUser(String idUser) {
     return _markerRepository.getMarkerUser(idUser);
   }
 
