@@ -1,7 +1,7 @@
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/modules/home/components/show_favorite_list/show_favorite_list_controller.dart';
 import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_controller.dart';
 import 'package:manausacessivel/app/modules/home/home_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/modules/home/home_page.dart';
 
 class HomeModule extends ChildModule {

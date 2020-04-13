@@ -9,6 +9,7 @@ import 'package:manausacessivel/app/components/google_map_custom/google_map_cust
 import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
 import 'package:manausacessivel/app/modules/home/components/show_favorite_list/show_favorite_list_widget.dart';
 import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_widget.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -108,7 +109,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         Icons.favorite,
                       ),
                       color: Colors.black,
-                      onPressed:(){
+                      onPressed: () {
                         ShowFavoriteListWidget(context);
                       },
                     ),

@@ -1,14 +1,16 @@
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/modules/information/models/comment_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:manausacessivel/app/modules/information/models/stars_model.dart';
-import 'package:mysql1/mysql1.dart';
 
-abstract class IStarsRepository{
-  Future<Results> getStars(String idMarker);
+abstract class IStarsRepository {
+  Stream<QuerySnapshot> getStars(String idMarker);
 
-  Future<Results> saveStars(StarsModel stars);
+  Future<DocumentSnapshot> getStarsUser(String idMarker);
 
-  Future<Results> deleteStars(StarsModel stars);
+  Future saveStars(StarsModel stars);
 
-  Future<Results> deleteAllStars(String idMarker);
+  Future updateStars(StarsModel stars);
+
+  Future deleteStars(String idStars);
+
+  deleteAllStars(String idMarker);
 }

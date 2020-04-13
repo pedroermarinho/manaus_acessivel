@@ -14,6 +14,7 @@ import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/type_marker/type_marker_repository_controller.dart';
 import 'package:mobx/mobx.dart';
+
 import 'Dart:ui' as ui;
 
 part 'google_map_custom_controller.g.dart';
@@ -375,6 +376,7 @@ abstract class _GoogleMapCustomControllerBase with Store {
       moveCamera();
     }
   }
+
   newLocationPosition(Position position) async {
     if (position != null) {
       setCameraPosition(position);

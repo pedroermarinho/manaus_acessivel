@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/modules/home/components/show_favorite_list/show_favorite_list_controller.dart';
 
-class ShowFavoriteListWidget  {
+class ShowFavoriteListWidget {
   final controller = Modular.get<ShowFavoriteListController>();
   final BuildContext context;
 
@@ -21,9 +21,7 @@ class ShowFavoriteListWidget  {
             child: Center(
               child: Observer(
                 builder: (_) {
-                  return Column(
-                    children: controller.listWidget.toList()
-                  );
+                  return Column(children: controller.listWidget.toList());
                 },
               ),
             ),

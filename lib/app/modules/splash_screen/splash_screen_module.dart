@@ -1,5 +1,5 @@
-import 'package:manausacessivel/app/modules/splash_screen/splash_screen_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/splash_screen/splash_screen_controller.dart';
 import 'package:manausacessivel/app/modules/splash_screen/splash_screen_page.dart';
 import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 

@@ -14,15 +14,14 @@ abstract class _MysqlRepositoryControllerBase with Store {
   @observable
   MySqlConnection conn;
 
-
-  _MysqlRepositoryControllerBase(){
+  _MysqlRepositoryControllerBase() {
     getConnection();
   }
 
-  Future<MySqlConnection> getConnection()async{
-    conn =  await _mysqlRepository.getConnection();
-    print(conn);
+  Future<MySqlConnection> getConnection() async {
+    if (conn == null) {
+      conn = await _mysqlRepository.getConnection();
+    }
     return conn;
   }
-
 }

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/shared/utils/user_util.dart';
+
 import 'profile_controller.dart';
 
 class ProfilePage extends StatefulWidget {

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:manausacessivel/app/models/favorite_model.dart';
 
 abstract class IFavoriteRepository {
   /// Retorna o favorito com a relação entre usuario e marcador

@@ -1,6 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:dio/dio.dart';
 
 
 class MockClient extends Mock implements Dio {}

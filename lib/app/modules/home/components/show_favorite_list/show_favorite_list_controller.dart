@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
 import 'package:manausacessivel/app/models/favorite_model.dart';

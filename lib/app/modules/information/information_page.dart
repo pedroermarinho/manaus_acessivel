@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/modules/information/components/comments/comments_widget.dart';
 import 'package:manausacessivel/app/modules/information/components/stars_icon/stars_icon_widget.dart';
+
 import 'information_controller.dart';
 
 class InformationPage extends StatefulWidget {
@@ -195,7 +195,39 @@ class _InformationPageState
                         ),
                         Padding(
                           padding: EdgeInsets.only(),
-                          child: StarsIconWidget(),
+                          child: StarsIconWidget(
+                            star1: controller.star1,
+                            star2: controller.star2,
+                            star3: controller.star3,
+                            star4: controller.star4,
+                            star5: controller.star5,
+                            function: controller.salveStars,
+                          ),
+                        ),
+
+                        Padding(
+                          padding: EdgeInsets.only(left: 20,top: 5,bottom: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Text(
+                                    "Media de Estrelas: ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  Text(controller.media.toString(),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),)
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10, left: 20),
@@ -248,10 +280,10 @@ class _InformationPageState
                             },
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: CommentsWidget(),
-                        ),
+//                        Padding(
+//                          padding: EdgeInsets.only(top: 15),
+//                          child: CommentsWidget(),
+//                        ),
                       ],
                     ),
                   ),

@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/modules/information/models/stars_model.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mysql1/mysql1.dart';
 
 import 'repository/stars_repository_interface.dart';
 
@@ -16,16 +16,15 @@ abstract class _StarsRepositoryControllerBase with Store {
   /// Estrelas do Marcador
   ///
   /// A busca é feita atraves do id do marcador e do usuario
-  Future<StarsModel> getStars(String idMarker) async {
-    Results results = await _starsRepository.getStars(idMarker);
-    print(results.toList());
-    if(results.isNotEmpty) {
-      var data = results.toList()[0];
-      print(data);
+  Future<StarsModel> getStarsUser(String idMarker) async {
+    var results = await _starsRepository.getStarsUser(idMarker);
+    if(results.data!=null) {
+      var data = results.data;
       StarsModel stars = StarsModel(
         idStars: data["idStars"],
         idMarker: data["idMarker"],
         idUser: data["idUser"],
+        stars: data["stars"],
       );
       return stars;
     }else{
@@ -33,24 +32,35 @@ abstract class _StarsRepositoryControllerBase with Store {
     }
   }
 
+  Stream<QuerySnapshot> getStars(String idMarker){
+    return _starsRepository.getStars(idMarker);
+  }
+
   /// Salvar novo comentario
   ///
   /// A ação é feita atravez de um instacia do objeto
-  Future<Results> saveStars(StarsModel stars) {
+  Future saveStars(StarsModel stars) {
     return _starsRepository.saveStars(stars);
+  }
+
+  /// Atualizar estrelas
+  ///
+  /// A ação é feita atravez de um instacia do objeto
+  Future updateStars(StarsModel stars) {
+    return _starsRepository.updateStars(stars);
   }
 
   /// Deletar um comentario
   ///
   /// A ação é feita atravez de um instacia do objeto
-  Future<Results> deleteStars(StarsModel stars) {
-    return _starsRepository.deleteStars(stars);
+  Future deleteStars(StarsModel stars) {
+    return _starsRepository.deleteStars(stars.idStars);
   }
 
   /// Deletar todos comentarios
   ///
   /// A ação é feita atravez do id do Marcador
-  Future<Results> deleteAllStars(String idMarker) {
+  Future deleteAllStars(String idMarker) {
     return _starsRepository.deleteAllStars(idMarker);
   }
 }

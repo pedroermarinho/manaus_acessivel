@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/models/myql_model.dart';
 import 'package:manausacessivel/app/shared/config/repository/config_repository_interface.dart';
 import 'package:mobx/mobx.dart';
-import 'dart:convert';
 
 part 'config_repository_controller.g.dart';
 
@@ -18,16 +19,15 @@ abstract class _ConfigRepositoryControllerBase with Store {
   @action
   setMysql(MysqlModel value) => mysql = value;
 
-
-  _ConfigRepositoryControllerBase(){
-    getMysql();
+  _ConfigRepositoryControllerBase() {
+//    getMysql();//
   }
 
   Future<MysqlModel> getMysql() async {
     if (mysql == null) {
       String mysql = await _configRepository.getMysql();
+      print(mysql);
       Map<String, dynamic> data = json.decode(mysql);
-      print(data);
       MysqlModel modelLocal = MysqlModel(
         user: data["user"],
         password: data["password"],

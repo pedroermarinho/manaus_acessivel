@@ -1,13 +1,12 @@
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:manausacessivel/app/modules/information/models/comment_model.dart';
-import 'package:mysql1/mysql1.dart';
 
-abstract class ICommentRepository extends Disposable {
-  Future<Results> getComments(String idMarker);
+abstract class ICommentRepository {
+  Stream<QuerySnapshot> getComments(String idMarker);
 
-  Future<Results> saveComment(CommentModel comment);
+  Future saveComment(CommentModel comment);
 
-  Future<Results> deleteComment(CommentModel comment);
+  Future deleteComment(String idComment);
 
-  Future<Results> deleteAllComment(String idMarker);
+  deleteAllComment(String idMarker);
 }

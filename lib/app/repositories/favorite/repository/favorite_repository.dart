@@ -12,13 +12,17 @@ class FavoriteRepository implements IFavoriteRepository {
   @override
   Future deleteFavoriteMarker(String idMarker) {
     return _firestore
-        .collection(_collectionDB).document(idMarker+_authController.userAuth.uid).delete();
+        .collection(_collectionDB)
+        .document(idMarker + _authController.userAuth.uid)
+        .delete();
   }
 
   @override
   Future<DocumentSnapshot> getFavoriteMarker(String idMarker) {
     return _firestore
-        .collection(_collectionDB).document(idMarker+_authController.userAuth.uid).get();
+        .collection(_collectionDB)
+        .document(idMarker + _authController.userAuth.uid)
+        .get();
   }
 
   @override
@@ -45,7 +49,7 @@ class FavoriteRepository implements IFavoriteRepository {
     );
     return _firestore
         .collection(_collectionDB)
-        .document(idMarker+_authController.userAuth.uid)
+        .document(idMarker + _authController.userAuth.uid)
         .setData(favoriteModel.toMap());
   }
 }

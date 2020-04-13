@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
 import 'package:manausacessivel/app/components/text_field_custom/text_field_custom_widget.dart';
 import 'package:manausacessivel/app/models/marker_model.dart';
+
 import 'marker_controller.dart';
 
 class MarkerPage extends StatefulWidget {

@@ -35,7 +35,7 @@ abstract class _AuthRepositoryControllerBase with Store {
   }
 
   Future loginWithEmailPasswordLogin(String email, String password) async {
-    _authRepository.getEmailPasswordLogin(email, password).whenComplete(() {
+    return _authRepository.getEmailPasswordLogin(email, password).whenComplete(() {
       _authRepository.getUser().then(setUser);
     });
   }

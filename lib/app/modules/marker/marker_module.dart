@@ -1,5 +1,5 @@
-import 'package:manausacessivel/app/modules/marker/marker_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/marker/marker_controller.dart';
 import 'package:manausacessivel/app/modules/marker/marker_page.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 

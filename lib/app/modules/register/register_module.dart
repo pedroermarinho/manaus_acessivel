@@ -1,5 +1,5 @@
-import 'package:manausacessivel/app/modules/register/register_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/register/register_controller.dart';
 import 'package:manausacessivel/app/modules/register/register_page.dart';
 
 class RegisterModule extends ChildModule {

@@ -18,17 +18,17 @@ abstract class _CommentRepositoryControllerBase with Store {
   /// A busca é feita atraves do id do marcador
   Future<List<CommentModel>> getComments(String idMarker) async {
     List<CommentModel> list = List();
-    Results results = await _commentRepository.getComments(idMarker);
-    for (var data in results) {
-      CommentModel comment = CommentModel(
-        idComment: data["idComment"],
-        idMarker: data["idMarker"],
-        idUser: data["idUser"],
-        comment: data["comment"],
-        dateTime: data["dateTime"],
-      );
-      list.add(comment);
-    }
+//    Results results = await _commentRepository.getComments(idMarker);
+//    for (var data in results) {
+//      CommentModel comment = CommentModel(
+//        idComment: data["idComment"],
+//        idMarker: data["idMarker"],
+//        idUser: data["idUser"],
+//        comment: data["comment"],
+//        dateTime: data["dateTime"],
+//      );
+//      list.add(comment);
+//    }
     return list;
   }
 
@@ -43,7 +43,7 @@ abstract class _CommentRepositoryControllerBase with Store {
   ///
   /// A ação é feita atravez de um instacia do objeto
   Future<Results> deleteComment(CommentModel comment) {
-    return _commentRepository.deleteComment(comment);
+    return _commentRepository.deleteComment(comment.idComment);
   }
 
   /// Deletar todos comentarios

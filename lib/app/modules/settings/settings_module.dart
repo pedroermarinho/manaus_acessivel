@@ -1,5 +1,5 @@
-import 'package:manausacessivel/app/modules/settings/settings_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/settings/settings_controller.dart';
 import 'package:manausacessivel/app/modules/settings/settings_page.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
 
