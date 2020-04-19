@@ -1,7 +1,5 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
 import 'package:manausacessivel/app/app_module.dart';
 
 void main() {

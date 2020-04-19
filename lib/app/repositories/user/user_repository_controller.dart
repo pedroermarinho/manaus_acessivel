@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/repository/user_repository_interface.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
+import 'package:manausacessivel/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
 
 part 'user_repository_controller.g.dart';
@@ -13,13 +15,14 @@ class UserRepositoryController = _UserRepositoryControllerBase
     with _$UserRepositoryController;
 
 abstract class _UserRepositoryControllerBase with Store {
-  final IUserRepository _userRepository = Modular.get<IUserRepository>();
+  final _userRepository = Modular.get<IUserRepository>();
+  final _authController = Modular.get<AuthRepositoryController>();
 
   @observable
-  Usuario user;
+  User user;
 
   @action
-  setUser(Usuario value) => user = value;
+  setUser(User value) => user = value;
 
   _UserRepositoryControllerBase() {
     getUser();
@@ -29,19 +32,42 @@ abstract class _UserRepositoryControllerBase with Store {
     return _userRepository.deleteUser();
   }
 
-  Future<Usuario> getUser() async {
-    DocumentSnapshot snapshot = await _userRepository.getUser();
-    Map<String, dynamic> data = snapshot.data;
-    Usuario userLocal = Usuario();
-    if (data.length != 0) {
-      userLocal.idUsuario = snapshot.documentID;
-      userLocal.nome = data["nome"];
-      userLocal.email = data["email"];
-      userLocal.userType = data["userType"];
-      userLocal.caminhoFoto = data["caminhoFoto"];
-      setUser(userLocal);
+  // ignore: missing_return
+  Future<User> getUser() async {
+    if (_authController.status == AuthStatus.login) {
+      DocumentSnapshot snapshot = await _userRepository.getUser();
+      Map<String, dynamic> data = snapshot.data;
+      if (data.isNotEmpty) {
+        User userLocal = User(
+          idUser: snapshot.documentID,
+          name: data["name"],
+          email: data["email"],
+          userType: data["userType"],
+          pathPhoto: data["pathPhoto"],
+        );
+        setUser(userLocal);
+        return user;
+      }
+    } else {
+      return null;
     }
-    return userLocal;
+  }
+
+  Future<User> getUserId(String idUser) async {
+    DocumentSnapshot snapshot = await _userRepository.getUserId(idUser);
+    Map<String, dynamic> data = snapshot.data;
+    if (data.isNotEmpty) {
+      User userLocal = User(
+        idUser: snapshot.documentID,
+        name: data["name"],
+        email: data["email"],
+        userType: data["userType"],
+        pathPhoto: data["pathPhoto"],
+      );
+      return userLocal;
+    } else {
+      return null;
+    }
   }
 
   Future saveUser() {

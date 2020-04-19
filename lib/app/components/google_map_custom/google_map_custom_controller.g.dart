@@ -81,6 +81,43 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
     }, _$positionActualAtom, name: '${_$positionActualAtom.name}_set');
   }
 
+  final _$latLngActualAtom =
+      Atom(name: '_GoogleMapCustomControllerBase.latLngActual');
+
+  @override
+  LatLng get latLngActual {
+    _$latLngActualAtom.context.enforceReadPolicy(_$latLngActualAtom);
+    _$latLngActualAtom.reportObserved();
+    return super.latLngActual;
+  }
+
+  @override
+  set latLngActual(LatLng value) {
+    _$latLngActualAtom.context.conditionallyRunInAction(() {
+      super.latLngActual = value;
+      _$latLngActualAtom.reportChanged();
+    }, _$latLngActualAtom, name: '${_$latLngActualAtom.name}_set');
+  }
+
+  final _$latLngMarkerActualAtom =
+      Atom(name: '_GoogleMapCustomControllerBase.latLngMarkerActual');
+
+  @override
+  Observable<LatLng> get latLngMarkerActual {
+    _$latLngMarkerActualAtom.context
+        .enforceReadPolicy(_$latLngMarkerActualAtom);
+    _$latLngMarkerActualAtom.reportObserved();
+    return super.latLngMarkerActual;
+  }
+
+  @override
+  set latLngMarkerActual(Observable<LatLng> value) {
+    _$latLngMarkerActualAtom.context.conditionallyRunInAction(() {
+      super.latLngMarkerActual = value;
+      _$latLngMarkerActualAtom.reportChanged();
+    }, _$latLngMarkerActualAtom, name: '${_$latLngMarkerActualAtom.name}_set');
+  }
+
   final _$contextAtom = Atom(name: '_GoogleMapCustomControllerBase.context');
 
   @override
@@ -119,43 +156,16 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   final _$viewMarkerAsyncAction = AsyncAction('viewMarker');
 
   @override
-  Future viewMarker(Marcador marker) {
+  Future viewMarker(MarkerModel marker) {
     return _$viewMarkerAsyncAction.run(() => super.viewMarker(marker));
   }
 
-  final _$exibirMarcadorLocalizacaoAsyncAction =
-      AsyncAction('exibirMarcadorLocalizacao');
+  final _$showMarkerLocationAsyncAction = AsyncAction('showMarkerLocation');
 
   @override
-  Future exibirMarcadorLocalizacao(Position position) {
-    return _$exibirMarcadorLocalizacaoAsyncAction
-        .run(() => super.exibirMarcadorLocalizacao(position));
-  }
-
-  final _$recuperarLocaizacaoPositionAsyncAction =
-      AsyncAction('recuperarLocaizacaoPosition');
-
-  @override
-  Future recuperarLocaizacaoPosition(Position position) {
-    return _$recuperarLocaizacaoPositionAsyncAction
-        .run(() => super.recuperarLocaizacaoPosition(position));
-  }
-
-  final _$novaLocalizacaoAsyncAction = AsyncAction('novaLocalizacao');
-
-  @override
-  Future novaLocalizacao(String address) {
-    return _$novaLocalizacaoAsyncAction
-        .run(() => super.novaLocalizacao(address));
-  }
-
-  final _$novaLocalizacaoPlacemarkAsyncAction =
-      AsyncAction('novaLocalizacaoPlacemark');
-
-  @override
-  Future novaLocalizacaoPlacemark(Placemark address) {
-    return _$novaLocalizacaoPlacemarkAsyncAction
-        .run(() => super.novaLocalizacaoPlacemark(address));
+  Future showMarkerLocation(Position position) {
+    return _$showMarkerLocationAsyncAction
+        .run(() => super.showMarkerLocation(position));
   }
 
   final _$_GoogleMapCustomControllerBaseActionController =
@@ -173,22 +183,33 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   }
 
   @override
-  dynamic setCameraPosition(Position value) {
+  dynamic setLatLngActual(LatLng value) {
     final _$actionInfo =
         _$_GoogleMapCustomControllerBaseActionController.startAction();
     try {
-      return super.setCameraPosition(value);
+      return super.setLatLngActual(value);
     } finally {
       _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setMarkers(Marker value) {
+  dynamic setLatLngMarkerActual(LatLng value) {
     final _$actionInfo =
         _$_GoogleMapCustomControllerBaseActionController.startAction();
     try {
-      return super.setMarkers(value);
+      return super.setLatLngMarkerActual(value);
+    } finally {
+      _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCameraPosition(Position value) {
+    final _$actionInfo =
+        _$_GoogleMapCustomControllerBaseActionController.startAction();
+    try {
+      return super.setCameraPosition(value);
     } finally {
       _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -206,20 +227,9 @@ mixin _$GoogleMapCustomController on _GoogleMapCustomControllerBase, Store {
   }
 
   @override
-  dynamic adiconarListenerLocalizacao() {
-    final _$actionInfo =
-        _$_GoogleMapCustomControllerBaseActionController.startAction();
-    try {
-      return super.adiconarListenerLocalizacao();
-    } finally {
-      _$_GoogleMapCustomControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     final string =
-        'googleMapCompleter: ${googleMapCompleter.toString()},markers: ${markers.toString()},locationMarker: ${locationMarker.toString()},positionActual: ${positionActual.toString()},context: ${context.toString()},cameraPosition: ${cameraPosition.toString()}';
+        'googleMapCompleter: ${googleMapCompleter.toString()},markers: ${markers.toString()},locationMarker: ${locationMarker.toString()},positionActual: ${positionActual.toString()},latLngActual: ${latLngActual.toString()},latLngMarkerActual: ${latLngMarkerActual.toString()},context: ${context.toString()},cameraPosition: ${cameraPosition.toString()}';
     return '{$string}';
   }
 }

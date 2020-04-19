@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:manausacessivel/app/models/marker.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
 import 'package:manausacessivel/app/repositories/marker/repository/marker_repository_interface.dart';
 
 class MarkerRepository implements IMarkerRepository {
   final Firestore _firestore = Firestore.instance;
-  final String _collectionDB = "marcadores";
+  final String _collectionDB = "markers";
 
   @override
   Future deleteMarker(String idMarker) {
@@ -22,15 +22,23 @@ class MarkerRepository implements IMarkerRepository {
   }
 
   @override
+  Stream<QuerySnapshot> getMarkerUser(String idUser) {
+    return _firestore
+        .collection(_collectionDB)
+        .where("idUserCreator", isEqualTo: idUser)
+        .snapshots();
+  }
+
+  @override
   Future saveMarker(Map<String, dynamic> marker) {
     return _firestore.collection(_collectionDB).document().setData(marker);
   }
 
   @override
-  Future updateMarker(Marcador marker) {
+  Future updateMarker(MarkerModel marker) {
     return _firestore
         .collection(_collectionDB)
-        .document(marker.idMarcador)
+        .document(marker.idMarker)
         .updateData(marker.toMap());
   }
 }

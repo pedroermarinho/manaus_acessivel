@@ -1,17 +1,20 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:manausacessivel/app/models/marker.dart';
-import 'package:manausacessivel/app/models/type_marker.dart';
+import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
+import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/marker/marker_repository_controller.dart';
 import 'package:manausacessivel/app/repositories/type_marker/type_marker_repository_controller.dart';
 import 'package:mobx/mobx.dart';
+
 import 'Dart:ui' as ui;
 
 part 'google_map_custom_controller.g.dart';
@@ -20,82 +23,170 @@ class GoogleMapCustomController = _GoogleMapCustomControllerBase
     with _$GoogleMapCustomController;
 
 abstract class _GoogleMapCustomControllerBase with Store {
-  final MarkerRepositoryController _markerRepositoryController =
-      Modular.get<MarkerRepositoryController>();
-  final TypeMarkerRepositoryController _typeMarkerRepositoryController =
+  ///
+  final _markerRepositoryController = Modular.get<MarkerRepositoryController>();
+
+  ///
+  final _typeMarkerRepositoryController =
       Modular.get<TypeMarkerRepositoryController>();
 
+  ///
   @observable
   Completer<GoogleMapController> googleMapCompleter;
 
+  ///
   @observable
   ObservableMap<String, Marker> markers = ObservableMap();
 
+  ///
   @observable
   Position locationMarker = Position();
 
+  ///
   @observable
-  Position positionActual =Position(
-    latitude:-3.0970296,
-    longitude:  -60.0285807
-  );
+  Position positionActual =
+      Position(latitude: -3.0970296, longitude: -60.0285807);
 
+  ///
   @action
-  setPositionActual(Position value){
+  setPositionActual(Position value) {
     positionActual = value;
   }
+
+  /// Latitude e Longitude Atual
+  ///
+  /// Provinda de um marcador ou um toque na no mapa
+  @observable
+  LatLng latLngActual;
+
+  /// Inserir um nova Latitude e Longitude
+  @action
+  setLatLngActual(LatLng value) {
+    latLngActual = value;
+  }
+
+  /// Latitude e Longitude do Marcador Atual
+  ///
+  /// Provinda de um marcador
+  @observable
+  Observable<LatLng> latLngMarkerActual;
+
+  /// Inserir um nova Latitude e Longitude
+  @action
+  setLatLngMarkerActual(LatLng value) {
+    latLngMarkerActual = Observable(value);
+  }
+
+  ///
   @observable
   BuildContext context;
 
+  ///
   @observable
   CameraPosition cameraPosition;
 
+  ///
   @action
-  setCameraPosition(Position value){
-    cameraPosition= CameraPosition(target: LatLng(value.latitude, value.longitude), zoom: 17);
+  setCameraPosition(Position value) {
+    cameraPosition = CameraPosition(
+        target: LatLng(value.latitude, value.longitude), zoom: 17);
   }
 
+//  ///
+//  @action
+//  setMarkers(Marker value) => markers.addAll({value.markerId.value: value});
 
-  @action
-  setMarkers(Marker value) => markers.addAll({value.markerId.value: value});
-
+  /// Construdor
   _GoogleMapCustomControllerBase() {
     loadMarkers();
-    recuperarUltimaLocaizacaoConhecida();
+    recoverLastKnownLocation();
   }
 
+  /// Mapa Criado
   @action
-  onMapCreated(GoogleMapController googleMapController){
-//    if(googleMapCompleter == null) {
-      print("googleMapController");
-      googleMapCompleter = Completer();
-      googleMapCompleter.complete(googleMapController);
-//    }
+  onMapCreated(GoogleMapController googleMapController) {
+    googleMapCompleter = Completer();
+    googleMapCompleter.complete(googleMapController);
   }
 
+  /// Carregar Macadores
   loadMarkers() async {
     _markerRepositoryController.getMarkers().listen((event) {
       event.documents.forEach((element) {
         Map<String, dynamic> data = element.data;
         if (element != null) {
-          Marcador markerLocal = Marcador();
-          markerLocal.idMarcador = element.documentID;
-          markerLocal.idUserCreator = data["idTypeMarcador"];
-          markerLocal.idTypeMarcador = data["idTypeMarcador"];
-          markerLocal.title = data["title"];
-          markerLocal.descricao = data["descricao"];
-          markerLocal.dv = data["dv"];
-          markerLocal.da = data["da"];
-          markerLocal.di = data["di"];
-          markerLocal.dm = data["dm"];
-          markerLocal.latitude = data["latitude"];
-          markerLocal.longitude = data["longitude"];
+          MarkerModel markerLocal = MarkerModel(
+            idMarker: element.documentID,
+            idUserCreator: data["idUserCreator"],
+            idTypeMarker: data["idTypeMarker"],
+            title: data["title"],
+            description: data["description"],
+            da: data["da"],
+            di: data["di"],
+            dm: data["dm"],
+            dv: data["dv"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+          );
           viewMarker(markerLocal);
         }
       });
     });
   }
 
+  /// Carregar Macadores por categoria
+  loadMarkersCategories(String category) async {
+    markers.clear();
+    _markerRepositoryController.getMarkers().listen((event) {
+      List<DocumentSnapshot> list = event.documents;
+
+      List<DocumentSnapshot> listCategory = list.where((element) {
+        switch (category) {
+          case "da":
+            return element.data["da"] == true;
+            break;
+          case "di":
+            return element.data["di"] == true;
+            break;
+          case "dm":
+            return element.data["dm"] == true;
+            break;
+          case "dv":
+            return element.data["dv"] == true;
+            break;
+          case "all":
+            return true;
+            break;
+          default:
+            return false;
+        }
+      }).toList();
+
+      listCategory.forEach((element) {
+        Map<String, dynamic> data = element.data;
+        if (element != null) {
+          MarkerModel markerLocal = MarkerModel(
+            idMarker: element.documentID,
+            idUserCreator: data["idUserCreator"],
+            idTypeMarker: data["idTypeMarker"],
+            title: data["title"],
+            description: data["description"],
+            da: data["da"],
+            di: data["di"],
+            dm: data["dm"],
+            dv: data["dv"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+          );
+          viewMarker(markerLocal);
+        }
+      });
+    });
+  }
+
+  /// Obter bytes do ativo
+  ///
+  /// recuperar icone para o mapa
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
@@ -106,51 +197,61 @@ abstract class _GoogleMapCustomControllerBase with Store {
         .asUint8List();
   }
 
+  /// Mostrar marcador
   @action
-  viewMarker(Marcador marker) async {
-    await _typeMarkerRepositoryController.getTypeMarker(marker.idTypeMarcador);
+  viewMarker(MarkerModel marker) async {
+    await _typeMarkerRepositoryController.getTypeMarker(marker.idTypeMarker);
+    TypeMarker typeMarker = _typeMarkerRepositoryController.typeMarker;
 
-    TypeMarcador typeMarcador = _typeMarkerRepositoryController.typeMarker;
-
-    getBytesFromAsset('assets/icons/${typeMarcador.icon}.png', 60)
-        .then((value) {
+    getBytesFromAsset('assets/icons/${typeMarker.icon}.png', 60).then((value) {
       BitmapDescriptor icon = BitmapDescriptor.fromBytes(value);
 
-      Marker marcadorMap = Marker(
-        markerId: MarkerId(marker.idMarcador),
+      Marker markerMap = Marker(
+        markerId: MarkerId(marker.idMarker),
         position: LatLng(marker.latitude, marker.longitude),
         icon: icon,
+        onTap: () {
+          setLatLngActual(LatLng(marker.latitude, marker.longitude));
+          setLatLngMarkerActual(LatLng(marker.latitude, marker.longitude));
+        },
         infoWindow: InfoWindow(
             title: marker.title,
             onTap: () {
-              setCameraPosition(Position(latitude: marker.latitude,longitude:marker.longitude));
+              setCameraPosition(Position(
+                  latitude: marker.latitude, longitude: marker.longitude));
               _markerRepositoryController.setMarker(marker);
               Modular.to.pushNamed("/information").whenComplete(() {
                 loadMarkers();
-                exibirMarcadorLocalizacao(positionActual);
+                showMarkerLocation(positionActual);
               });
             }),
       );
-      markers.addAll({marcadorMap.markerId.value: marcadorMap});
+      markers.addAll({markerMap.markerId.value: markerMap});
     });
   }
 
+  /// Mostrar Localização do Marcador
   @action
-  exibirMarcadorLocalizacao(Position position) async {
+  showMarkerLocation(Position position) async {
     getBytesFromAsset('assets/icons/location-on.png', 70).then((value) {
       BitmapDescriptor icon = BitmapDescriptor.fromBytes(value);
-      Marker marcadorMap = Marker(
+      Marker markerMap = Marker(
         markerId: MarkerId("posicao"),
         infoWindow: InfoWindow(title: "Sua Localização"),
         position: LatLng(position.latitude, position.longitude),
         icon: icon,
+        onTap: () {
+          setLatLngActual(LatLng(position.latitude, position.longitude));
+          setLatLngMarkerActual(LatLng(position.latitude, position.longitude));
+        },
       );
-      markers.addAll({marcadorMap.markerId.value: marcadorMap});
+      markers.addAll({markerMap.markerId.value: markerMap});
       setPositionActual(position);
     });
   }
 
-  Future<Position> getLocaizacao() async {
+  /// Obter Localização
+  Future<Position> getLocation() async {
     if (positionActual == null) {
       return await Geolocator()
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
@@ -159,47 +260,52 @@ abstract class _GoogleMapCustomControllerBase with Store {
     }
   }
 
-  recuperarLocaizacaoAtual() async {
-    Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
-    recuperarLocaizacaoPosition(position);
+  /// Recuperar Localização Atual
+  recoverLocatingActual() async {
+    Position position = await recoverPositionActual();
+    recoverLocatingPosition(position);
   }
 
-  @action
-  recuperarLocaizacaoPosition(Position position) async {
+  /// Recuperar Posição da Localização
+  recoverLocatingPosition(Position position) async {
     if (position != null) {
       setPositionActual(position);
       setCameraPosition(position);
-      exibirMarcadorLocalizacao(position);
+      showMarkerLocation(position);
       setCameraPosition(position);
-      movimentarCamera();
+      moveCamera();
     }
   }
 
-  Future<Position> recuperarPositionAtual() async {
+  /// Recuperar Posição da Localização Atual
+  Future<Position> recoverPositionActual() async {
     Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
     return position;
   }
 
-  recuperarUltimaLocaizacaoConhecida() async {
+  /// Recupera Ultima Localização Conhecida
+  ///
+  /// Localização salva pelo android
+  /// Acesso mais rapido
+  recoverLastKnownLocation() async {
     Position position = await Geolocator()
         .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
-      setCameraPosition(position);
-      autorun((Reaction value){
-      if(googleMapCompleter!=null) {
+    setCameraPosition(position);
+    autorun((Reaction value) {
+      if (googleMapCompleter != null) {
         if (position != null) {
-          recuperarLocaizacaoPosition(position);
+          recoverLocatingPosition(position);
         } else {
-          recuperarLocaizacaoAtual();
+          recoverLocatingActual();
         }
         value.dispose();
       }
     });
-
   }
 
-  movimentarCamera() async {
+  /// Mover a Câmera
+  moveCamera() async {
     GoogleMapController googleMapController = await googleMapCompleter.future;
     googleMapController.animateCamera(
       CameraUpdate.newCameraPosition(
@@ -208,10 +314,10 @@ abstract class _GoogleMapCustomControllerBase with Store {
     );
   }
 
-  @action
-  adiconarListenerLocalizacao() {
-    //localização atual do usario em movimento
-
+  /// Adicionar ouvinte de localização
+  ///
+  /// localização atual do usario em movimento
+  addListenerLocation() {
     var geolocator = Geolocator();
     var locationOptions =
         LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
@@ -220,58 +326,70 @@ abstract class _GoogleMapCustomControllerBase with Store {
       (Position position) {
         setPositionActual(position);
         setCameraPosition(position);
-        movimentarCamera();
+        moveCamera();
       },
     );
   }
 
+  /// Opções Endereço
   Future<List<Placemark>> optionsAddress(String address) async {
-    return Geolocator().placemarkFromAddress(address);
+    List<Placemark> listAdresses =
+        await Geolocator().placemarkFromAddress(address + " Manaus");
+    return listAdresses
+        .where((element) => element.subAdministrativeArea == "Manaus")
+        .toList();
   }
 
-  @action
-  novaLocalizacao(String address) async {
+  /// Nova Localização
+  newLocation(String address) async {
     if (address.isNotEmpty) {
-      List<Placemark> listaEnderecos =
-          await Geolocator().placemarkFromAddress(address);
+      List<Placemark> listAdresses = await optionsAddress(address);
 
-      if (listaEnderecos != null && listaEnderecos.length > 0) {
-        Placemark endereco = listaEnderecos[0];
-        Position position = endereco.position;
+      if (listAdresses != null && listAdresses.isNotEmpty) {
+        Placemark adresses = listAdresses[0];
+        Position position = adresses.position;
         setPositionActual(position);
         setCameraPosition(position);
-        movimentarCamera();
-        exibirMarcadorLocalizacao(position);
+        moveCamera();
+        showMarkerLocation(position);
       }
     } else {
-      recuperarLocaizacaoAtual();
+      recoverLocatingActual();
     }
   }
-  Future<Placemark> addressInformation(Position position)async{
-    List<Placemark> listaEnderecos = await Geolocator().placemarkFromPosition(position);
-    return listaEnderecos[0];
+
+  /// Informação do Endereço
+  Future<Placemark> addressPossition(Position position) async {
+    List<Placemark> listAdresses =
+        await Geolocator().placemarkFromPosition(position);
+    return listAdresses[0];
   }
 
-  @action
-  novaLocalizacaoPlacemark(Placemark address) async {
+  /// Novo marcador de local
+  newLocationPlacemark(Placemark address) async {
     if (address != null) {
       Placemark endereco = address;
       Position position = endereco.position;
       setPositionActual(position);
       setCameraPosition(position);
-      exibirMarcadorLocalizacao(position);
-      movimentarCamera();
+      showMarkerLocation(position);
+      moveCamera();
     }
   }
 
+  newLocationPosition(Position position) async {
+    if (position != null) {
+      setCameraPosition(position);
+      moveCamera();
+    }
+  }
+
+  /// Criar novo marcador
   createNewMarker() async {
-    Position position = await getLocaizacao();
-    List<Placemark> listaEnderecos =
-        await Geolocator().placemarkFromPosition(position);
+    Position position = await getLocation();
+    Placemark endereco = await addressPossition(position);
 
-    if (listaEnderecos != null && listaEnderecos.length > 0) {
-      Placemark endereco = listaEnderecos[0];
-
+    if (endereco != null) {
       String enderecoConfirmacao;
       enderecoConfirmacao = "\n Cidade: " + endereco.subAdministrativeArea;
       enderecoConfirmacao += "\n Rua: " + endereco.thoroughfare;
@@ -310,6 +428,30 @@ abstract class _GoogleMapCustomControllerBase with Store {
       );
     }
   }
+
+  /// Bússola do mapa
+  mapCompass() async {
+    if (latLngActual != null) {
+      GoogleMapController googleMapController = await googleMapCompleter.future;
+      double zoom = await googleMapController.getZoomLevel();
+      googleMapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: latLngActual,
+            bearing: 0,
+            zoom: zoom,
+          ),
+        ),
+      );
+      setLatLngActual(null);
+    } else {
+      ShowDialogCustomWidget(
+        context,
+        title: "Ponto de Referência",
+        labelText:
+            "Clique no mapa para selecionar um ponto de Referência e tente novamente",
+        icon: Icons.add_to_home_screen,
+      );
+    }
+  }
 }
-
-

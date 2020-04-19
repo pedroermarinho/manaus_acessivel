@@ -3,12 +3,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
 import 'package:manausacessivel/app/components/text_field_custom/text_field_custom_widget.dart';
-import 'package:manausacessivel/app/models/marker.dart';
+import 'package:manausacessivel/app/models/marker_model.dart';
+
 import 'marker_controller.dart';
 
 class MarkerPage extends StatefulWidget {
   final String title;
-  final Marcador marker;
+  final MarkerModel marker;
 
   const MarkerPage({Key key, this.title = "Marker", this.marker})
       : super(key: key);
@@ -44,15 +45,17 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                   child: Container(
                     width: 150,
                     height: 150,
-                    child: GoogleMapCustomWidget(onMapCreated: false,),
+                    child: GoogleMapCustomWidget(
+                      onMapCreated: false,
+                    ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: TextFieldCustomWidget(
                     controller: TextEditingController(
-                        text: controller.marcador != null
-                            ? controller.marcador.title
+                        text: controller.marker != null
+                            ? controller.marker.title
                             : ""),
                     labelText: "Nome do local",
                     textInputType: TextInputType.text,
@@ -64,14 +67,14 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                   padding: EdgeInsets.only(bottom: 10),
                   child: TextFieldCustomWidget(
                     controller: TextEditingController(
-                        text: controller.marcador != null
-                            ? controller.marcador.descricao
+                        text: controller.marker != null
+                            ? controller.marker.description
                             : ""),
                     labelText: "Descrição",
                     textInputType: TextInputType.multiline,
                     maxLines: null,
                     onChanged: controller.setDescrcao,
-                    errorText: controller.validateDescricao,
+                    errorText: controller.validateDescription,
                   ),
                 ),
                 Padding(
@@ -87,12 +90,12 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                     child: Observer(
                       builder: (_) {
                         return DropdownButton(
-                          value: controller.selectedMarcador,
+                          value: controller.selectedMarker,
                           items: controller.dropdownMenuItems.toList(),
                           isExpanded: true,
                           underline: Container(),
                           iconEnabledColor: Colors.black,
-                          hint: controller.marcador != null
+                          hint: controller.marker != null
                               ? controller.dropdownMenuValue
                               : Padding(
                                   padding: EdgeInsets.only(left: 30),
@@ -201,7 +204,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                 ),
                 Observer(
                   builder: (_) {
-                    return controller.carregando
+                    return controller.loading
                         ? Padding(
                             padding: EdgeInsets.only(top: 5, bottom: 10),
                             child: Center(
@@ -226,7 +229,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                                   TextStyle(color: Colors.white, fontSize: 25),
                             ),
                             color: Colors.black87,
-                            onPressed: controller.validarCampos,
+                            onPressed: controller.validCampos,
                           ));
                     },
                   ),
@@ -237,7 +240,7 @@ class _MarkerPageState extends ModularState<MarkerPage, MarkerController> {
                     child: Observer(
                       builder: (_) {
                         return Text(
-                          controller.mensagemErro,
+                          controller.messageError,
                           style: TextStyle(color: Colors.red, fontSize: 18),
                         );
                       },

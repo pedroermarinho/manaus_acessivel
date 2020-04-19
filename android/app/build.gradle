@@ -32,8 +32,6 @@ if (keystorePropertiesFile.exists()) {
 }
 
 
-
-
 android {
     compileSdkVersion 28
 

@@ -12,14 +12,14 @@ mixin _$SettingsController on _SettingsControllerBase, Store {
   final _$userAtom = Atom(name: '_SettingsControllerBase.user');
 
   @override
-  Usuario get user {
+  User get user {
     _$userAtom.context.enforceReadPolicy(_$userAtom);
     _$userAtom.reportObserved();
     return super.user;
   }
 
   @override
-  set user(Usuario value) {
+  set user(User value) {
     _$userAtom.context.conditionallyRunInAction(() {
       super.user = value;
       _$userAtom.reportChanged();

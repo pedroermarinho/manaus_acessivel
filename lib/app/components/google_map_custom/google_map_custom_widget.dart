@@ -10,25 +10,28 @@ class GoogleMapCustomWidget extends StatelessWidget {
 
   final bool onMapCreated;
 
-  GoogleMapCustomWidget({Key key, this.onMapCreated=true}) : super(key: key);
+  GoogleMapCustomWidget({Key key, this.onMapCreated = true}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     controller.context = context;
     return Observer(builder: (_) {
-      return controller.markers.length < 1
+      return controller.cameraPosition == null
           ? Center(
               child: CircularProgressIndicator(
               backgroundColor: Colors.black,
             ))
           : GoogleMap(
+              onTap: controller.setLatLngActual,
               mapType: MapType.normal,
               initialCameraPosition: controller.cameraPosition,
-              onMapCreated: onMapCreated ?controller.onMapCreated:null,
+              onMapCreated: onMapCreated ? controller.onMapCreated : null,
               markers: controller.markers.values.toSet(),
-
-//              myLocationEnabled: true,
-              // myLocationButtonEnabled: true,
+              minMaxZoomPreference: MinMaxZoomPreference(11, 30),
+              mapToolbarEnabled: false,
+              myLocationEnabled: false,
+              compassEnabled: false,
+              myLocationButtonEnabled: false,
             );
     });
   }

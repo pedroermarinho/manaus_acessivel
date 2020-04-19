@@ -1,13 +1,13 @@
-import 'package:manausacessivel/app/modules/login/login_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:manausacessivel/app/modules/login/login_controller.dart';
 import 'package:manausacessivel/app/modules/login/login_page.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/shared/auth/auth_repository_controller.dart';
 
 class LoginModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => LoginController()),
-        Bind((i) => AuthController()),
+        Bind((i) => AuthRepositoryController()),
       ];
 
   @override

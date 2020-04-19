@@ -4,11 +4,12 @@ import 'package:manausacessivel/app/shared/auth/repository/auth_repository_inter
 import 'package:manausacessivel/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
 
-part 'auth_controller.g.dart';
+part 'auth_repository_controller.g.dart';
 
-class AuthController = _AuthControllerBase with _$AuthController;
+class AuthRepositoryController = _AuthRepositoryControllerBase
+    with _$AuthRepositoryController;
 
-abstract class _AuthControllerBase with Store {
+abstract class _AuthRepositoryControllerBase with Store {
   final IAuthRepository _authRepository = Modular.get();
 
   @observable
@@ -18,25 +19,29 @@ abstract class _AuthControllerBase with Store {
   AuthStatus status = AuthStatus.loading;
 
   @action
-  setUser(FirebaseUser value){
+  setUser(FirebaseUser value) {
     userAuth = value;
-    status = userAuth == null? AuthStatus.logoff:AuthStatus.login;
+    status = userAuth == null ? AuthStatus.logoff : AuthStatus.login;
   }
 
-  _AuthControllerBase() {
+  _AuthRepositoryControllerBase() {
     _authRepository.getUser().then(setUser);
   }
 
   Future loginWithGoogle() async {
-    userAuth = await _authRepository.getEmailGoogleLogin();
+    await _authRepository.getEmailGoogleLogin().whenComplete(() {
+      _authRepository.getUser().then(setUser);
+    });
   }
 
   Future loginWithEmailPasswordLogin(String email, String password) async {
-    userAuth = await _authRepository.getEmailPasswordLogin(email, password);
+    return _authRepository.getEmailPasswordLogin(email, password).whenComplete(() {
+      _authRepository.getUser().then(setUser);
+    });
   }
 
   Future logout() {
-    return _authRepository.logout().whenComplete((){
+    return _authRepository.logout().whenComplete(() {
       _authRepository.getUser().then(setUser);
     });
   }

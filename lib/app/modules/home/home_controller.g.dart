@@ -9,23 +9,6 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$itensMenuAtom = Atom(name: '_HomeControllerBase.itensMenu');
-
-  @override
-  List<String> get itensMenu {
-    _$itensMenuAtom.context.enforceReadPolicy(_$itensMenuAtom);
-    _$itensMenuAtom.reportObserved();
-    return super.itensMenu;
-  }
-
-  @override
-  set itensMenu(List<String> value) {
-    _$itensMenuAtom.context.conditionallyRunInAction(() {
-      super.itensMenu = value;
-      _$itensMenuAtom.reportChanged();
-    }, _$itensMenuAtom, name: '${_$itensMenuAtom.name}_set');
-  }
-
   final _$contextAtom = Atom(name: '_HomeControllerBase.context');
 
   @override
@@ -90,7 +73,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     final string =
-        'itensMenu: ${itensMenu.toString()},context: ${context.toString()},address: ${address.toString()},listWidgetOptionsAddress: ${listWidgetOptionsAddress.toString()}';
+        'context: ${context.toString()},address: ${address.toString()},listWidgetOptionsAddress: ${listWidgetOptionsAddress.toString()}';
     return '{$string}';
   }
 }

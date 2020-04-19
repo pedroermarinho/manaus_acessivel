@@ -1,13 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:dio/dio.dart';
-
-import 'package:manausacessivel/app/repositories/marker/repository/marker_repository.dart';
 
 class MockClient extends Mock implements Dio {}
 
 void main() {
-  MarkerRepository repository;
   // MockClient client;
 
   setUp(() {

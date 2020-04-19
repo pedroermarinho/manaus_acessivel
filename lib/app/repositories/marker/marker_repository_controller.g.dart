@@ -12,14 +12,14 @@ mixin _$MarkerRepositoryController on _MarkerRepositoryControllerBase, Store {
   final _$markerAtom = Atom(name: '_MarkerRepositoryControllerBase.marker');
 
   @override
-  Marcador get marker {
+  MarkerModel get marker {
     _$markerAtom.context.enforceReadPolicy(_$markerAtom);
     _$markerAtom.reportObserved();
     return super.marker;
   }
 
   @override
-  set marker(Marcador value) {
+  set marker(MarkerModel value) {
     _$markerAtom.context.conditionallyRunInAction(() {
       super.marker = value;
       _$markerAtom.reportChanged();
@@ -30,14 +30,14 @@ mixin _$MarkerRepositoryController on _MarkerRepositoryControllerBase, Store {
       Atom(name: '_MarkerRepositoryControllerBase.markerList');
 
   @override
-  ObservableList<Marcador> get markerList {
+  ObservableList<MarkerModel> get markerList {
     _$markerListAtom.context.enforceReadPolicy(_$markerListAtom);
     _$markerListAtom.reportObserved();
     return super.markerList;
   }
 
   @override
-  set markerList(ObservableList<Marcador> value) {
+  set markerList(ObservableList<MarkerModel> value) {
     _$markerListAtom.context.conditionallyRunInAction(() {
       super.markerList = value;
       _$markerListAtom.reportChanged();
@@ -61,18 +61,25 @@ mixin _$MarkerRepositoryController on _MarkerRepositoryControllerBase, Store {
     }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
   }
 
-  final _$setMarkerAsyncAction = AsyncAction('setMarker');
-
-  @override
-  Future setMarker(Marcador value) {
-    return _$setMarkerAsyncAction.run(() => super.setMarker(value));
-  }
-
   final _$setMarkersAsyncAction = AsyncAction('setMarkers');
 
   @override
-  Future setMarkers(ObservableList<Marcador> value) {
+  Future setMarkers(ObservableList<MarkerModel> value) {
     return _$setMarkersAsyncAction.run(() => super.setMarkers(value));
+  }
+
+  final _$_MarkerRepositoryControllerBaseActionController =
+      ActionController(name: '_MarkerRepositoryControllerBase');
+
+  @override
+  dynamic setMarker(MarkerModel value) {
+    final _$actionInfo =
+        _$_MarkerRepositoryControllerBaseActionController.startAction();
+    try {
+      return super.setMarker(value);
+    } finally {
+      _$_MarkerRepositoryControllerBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

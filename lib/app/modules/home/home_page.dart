@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_widget.dart';
+import 'package:manausacessivel/app/components/sidebar/sidebar_widget.dart';
+import 'package:manausacessivel/app/modules/home/components/show_favorite_list/show_favorite_list_widget.dart';
+import 'package:manausacessivel/app/modules/home/components/show_markers_list/show_markers_list_widget.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,46 +28,34 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return Scaffold(
-      backgroundColor: Color(0xffefeeec),
-      appBar: AppBar(
-        title: Text("Manaus Acessível"),
-        backgroundColor: Colors.black,
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: controller.selectMenuItem,
-            itemBuilder: (context) {
-              return controller.itensMenu.map((String item) {
-                return PopupMenuItem<String>(value: item, child: Text(item));
-              }).toList();
-            },
-          )
-        ],
-      ),
       body: Container(
         child: Stack(
           children: <Widget>[
             GoogleMapCustomWidget(),
             Positioned(
-              top: 0,
+              top: 30,
               left: 0,
               right: 0,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(20),
                 child: Container(
 //                  height: ,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(
+                        color: Color(0xffe6c131),
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(3),
                       color: Colors.white),
                   child: Observer(
                     builder: (_) {
-//
                       return Column(
                         children: <Widget>[
                           TextField(
 //                           readOnly: true,
-                            onSubmitted: controller.novaLocalizacao,
+                            autofocus: false,
+                            onSubmitted: controller.newLocation,
                             onChanged: controller.isValidAddress,
                             keyboardType: TextInputType.url,
                             decoration: InputDecoration(
@@ -81,7 +75,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                               ),
                             ),
                           ),
-                          controller.listWidgetOptionsAddress.length > 0
+                          controller.listWidgetOptionsAddress.isNotEmpty
                               ? Column(
                                   children: controller.listWidgetOptionsAddress
                                       .toList(),
@@ -94,29 +88,87 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        foregroundColor: Color(0xffe6c131),
-        child: Icon(Icons.add_location),
-        onPressed: controller.createNewMarker,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        color: Colors.black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            SizedBox(
-              width: 50,
+            Positioned(
+              bottom: 30,
+              left: 10,
+              right: 10,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffe6c131), width: 2),
+                  borderRadius: BorderRadius.circular(32),
+                  color: Colors.transparent,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      iconSize: 35,
+                      icon: Icon(
+                        Icons.favorite,
+                      ),
+                      color: Colors.black,
+                      onPressed: () {
+                        ShowFavoriteListWidget(context);
+                      },
+                    ),
+                    IconButton(
+                      iconSize: 35,
+                      icon: Icon(
+                        Icons.accessible,
+                      ),
+                      color: Colors.black,
+                      onPressed: () {
+                        ShowMarkersListWidget(context);
+                      },
+                    ),
+                    Container(),
+                    IconButton(
+                      iconSize: 35,
+                      icon: Icon(
+                        Icons.map,
+                      ),
+                      color: Colors.black,
+                      onPressed: controller.openMap,
+                    ),
+                    IconButton(
+                      iconSize: 35,
+                      padding: EdgeInsets.only(),
+                      icon: Icon(
+                        Icons.my_location,
+                      ),
+                      color: Colors.black,
+                      onPressed: controller.recoverLocatingActual,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            IconButton(icon: Icon(Icons.add),color: Colors.white,onPressed: null,),
-            IconButton(icon: Icon(Icons.location_searching),color: Colors.white,onPressed: controller.recuperarLocaizacaoAtual,),
+            Positioned(
+              bottom: 90,
+              left: 10,
+              right: 10,
+              child: IconButton(
+                icon: Icon(
+                  Icons.add_location,
+                  size: 90,
+                ),
+                onPressed: controller.createNewMarker,
+              ),
+            ),
+            Positioned(
+              top: 150,
+              right: 22,
+              child: IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.compass,
+                  size: 40,
+                ),
+                onPressed: controller.compassMap,
+              ),
+            ),
+            SidebarWidget(),
           ],
         ),
       ),

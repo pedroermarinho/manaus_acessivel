@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/type_marker.dart';
+import 'package:manausacessivel/app/models/type_marker_model.dart';
 import 'package:manausacessivel/app/repositories/type_marker/repository/type_marker_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,33 +13,40 @@ abstract class _TypeMarkerRepositoryControllerBase with Store {
   final ITypeMarkerRepository _typeMarkerRepository = Modular.get();
 
   @observable
-  TypeMarcador typeMarker;
+  TypeMarker typeMarker;
 
   @observable
-  ObservableList<TypeMarcador> typeMarkerList = ObservableList();
+  ObservableList<TypeMarker> typeMarkerList = ObservableList();
 
   _TypeMarkerRepositoryControllerBase() {
 //    getTypeMarked();
   }
 
   @action
-  setUser(String value) async => typeMarker = await getTypeMarker(value);
+  setTypeMarker(TypeMarker value) => typeMarker = value;
 
-  Future<TypeMarcador> getTypeMarker(String idTypeMarker) async {
+  @action
+  Future<TypeMarker> getTypeMarker(String idTypeMarker) async {
     DocumentSnapshot snapshot =
         await _typeMarkerRepository.getTypeMarker(idTypeMarker);
 
     Map<String, dynamic> data = snapshot.data;
 
-    typeMarker = TypeMarcador();
-    typeMarker.idTypeMarcador = snapshot.documentID;
-    typeMarker.nome = data["nome"];
-    typeMarker.icon = data["icon"];
+    var typeMarkerLocal = TypeMarker(
+      idTypeMarker: snapshot.documentID,
+      name: data["name"],
+      icon: data["icon"],
+    );
+    setTypeMarker(typeMarkerLocal);
 
     return typeMarker;
   }
 
   Stream<QuerySnapshot> getTypeMarkers() {
     return _typeMarkerRepository.getTypeMarkers();
+  }
+
+  Future saveTypeMarker(TypeMarker typeMarker) {
+    return _typeMarkerRepository.saveTypeMarker(typeMarker);
   }
 }

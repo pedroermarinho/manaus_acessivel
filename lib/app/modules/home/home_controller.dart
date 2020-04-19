@@ -3,19 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:manausacessivel/app/components/google_map_custom/google_map_custom_controller.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
+import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final AuthController _authController = Modular.get<AuthController>();
-  final GoogleMapCustomController _googleMapCustomController =
-      Modular.get<GoogleMapCustomController>();
-  @observable
-  List<String> itensMenu = ["Deslogar", "Configurações","Sobre"];
+  final _googleMapCustomController = Modular.get<GoogleMapCustomController>();
 
   @observable
   BuildContext context;
@@ -26,56 +23,30 @@ abstract class _HomeControllerBase with Store {
   @observable
   ObservableList<Widget> listWidgetOptionsAddress = ObservableList();
 
-  logoutUser() async {
-    await _authController.logout();
-    pushSplashScreen();
+  compassMap() async {
+    await _googleMapCustomController.mapCompass();
   }
 
-  pushSplashScreen() {
-    Modular.to.pushReplacementNamed(Modular.initialRoute);
+  newLocation(String address) async {
+    await _googleMapCustomController.newLocation(address);
   }
 
-  pushSettings() {
-    Modular.to.pushNamed("/settings");
-  }
-  pushAbout() {
-    Modular.to.pushNamed("/about");
+  createNewMarker() async {
+    await _googleMapCustomController.createNewMarker();
   }
 
-  selectMenuItem(String escolha) {
-    switch (escolha) {
-      case "Configurações":
-        pushSettings();
-        break;
-      case "Deslogar":
-        logoutUser();
-        break;
-      case "Sobre":
-        pushAbout();
-        break;
-    }
+  recoverLocatingActual() async {
+    await _googleMapCustomController.recoverLocatingActual();
   }
 
-  novaLocalizacao(String address) {
-    _googleMapCustomController.novaLocalizacao(address);
-  }
-
-  createNewMarker() {
-    _googleMapCustomController.createNewMarker();
-  }
-
-  recuperarLocaizacaoAtual() {
-    _googleMapCustomController.recuperarLocaizacaoAtual();
-  }
-
-  novaLocalizacaoPlacemark(Placemark address) {
-    _googleMapCustomController.novaLocalizacaoPlacemark(address);
+  newLocationPlacemark(Placemark address) async {
+    await _googleMapCustomController.newLocationPlacemark(address);
   }
 
   isValidAddress(String address) {
     this.address = address;
     if (address.isEmpty) {
-      recuperarLocaizacaoAtual();
+      recoverLocatingActual();
     } else {
       optionsAddress(address);
     }
@@ -87,13 +58,13 @@ abstract class _HomeControllerBase with Store {
       _googleMapCustomController
           .optionsAddress(address)
           .then((listaEnderecos) {
-            if (listaEnderecos != null && listaEnderecos.length > 0) {
+            if (listaEnderecos != null && listaEnderecos.isNotEmpty) {
               listWidgetOptionsAddress.clear();
               listWidgetOptionsAddress.add(
                 GestureDetector(
                   onTap: () {
                     listWidgetOptionsAddress.clear();
-                    novaLocalizacaoPlacemark(listaEnderecos[0]);
+                    newLocationPlacemark(listaEnderecos[0]);
                   },
                   child: Column(
                     children: <Widget>[
@@ -124,6 +95,25 @@ abstract class _HomeControllerBase with Store {
           });
 
       return null;
+    }
+  }
+
+  openMap() async {
+    if (_googleMapCustomController.latLngMarkerActual != null &&
+        _googleMapCustomController.latLngMarkerActual.value != null) {
+      String url =
+          "https://www.google.com/maps/search/?api=1&query=${_googleMapCustomController.latLngMarkerActual.value.latitude},${_googleMapCustomController.latLngMarkerActual.value.longitude}";
+      if (await canLaunch(url)) {
+        await launch(url);
+        _googleMapCustomController.setLatLngMarkerActual(null);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } else {
+      ShowDialogCustomWidget(context,
+          title: "Marcador",
+          labelText: "Selecione um Marcador",
+          icon: Icons.not_listed_location);
     }
   }
 }

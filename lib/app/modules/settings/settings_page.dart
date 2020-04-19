@@ -1,16 +1,9 @@
-import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:manausacessivel/app/components/text_field_custom/text_field_custom_widget.dart';
-import 'package:manausacessivel/app/models/user.dart';
-import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
-import 'package:manausacessivel/app/shared/utils/user_util.dart';
-import 'package:mobx/mobx.dart';
+
 import 'settings_controller.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -46,8 +39,9 @@ class _SettingsPageState
                             return CircleAvatar(
                               radius: 100,
                               backgroundColor: Color(0xffe6c131),
-                              backgroundImage:
-                                  NetworkImage(controller.user.caminhoFoto),
+                              backgroundImage: controller.images == null
+                                  ? NetworkImage(controller.user.pathPhoto)
+                                  : FileImage(controller.images),
                             );
                           }),
                           Row(
@@ -79,7 +73,7 @@ class _SettingsPageState
                             padding: EdgeInsets.only(bottom: 10, top: 20),
                             child: TextFieldCustomWidget(
                               controller: TextEditingController(
-                                  text: controller.user.nome),
+                                  text: controller.user.name),
                               onChanged: controller.setName,
                               errorText: controller.validateName,
                               labelText: "Nome Completo",

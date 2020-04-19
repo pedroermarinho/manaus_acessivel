@@ -1,8 +1,8 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:manausacessivel/app/models/user.dart';
+import 'package:manausacessivel/app/models/user_model.dart';
 import 'package:manausacessivel/app/repositories/user/user_repository_controller.dart';
-import 'package:manausacessivel/app/shared/auth/auth_controller.dart';
 import 'package:manausacessivel/app/shared/utils/type_user.dart';
 import 'package:manausacessivel/app/shared/utils/user_util.dart';
 import 'package:mobx/mobx.dart';
@@ -12,8 +12,7 @@ part 'register_controller.g.dart';
 class RegisterController = _RegisterControllerBase with _$RegisterController;
 
 abstract class _RegisterControllerBase with Store {
-  UserRepositoryController _userController =
-      Modular.get<UserRepositoryController>();
+  final _userController = Modular.get<UserRepositoryController>();
 
   @observable
   bool loading = false;
@@ -45,12 +44,12 @@ abstract class _RegisterControllerBase with Store {
     try {
       loading = true;
 
-      Usuario user = Usuario();
-      user.nome = name;
+      User user = User();
+      user.name = name;
       user.email = email;
-      user.senha = password;
-      user.userType = TypeUser.novoUsuario;
-      user.caminhoFoto = UserUtil.caminhoFotoUser;
+      user.password = password;
+      user.userType = TypeUser.newUser;
+      user.pathPhoto = UserUtil.caminhoFotoUser;
 
       await _userController.setUser(user);
 
@@ -59,22 +58,22 @@ abstract class _RegisterControllerBase with Store {
       }).catchError((error) {
         PlatformException exception = error;
         print(exception.code);
-        String mensagemException = "";
+        String messageException = "";
 
         if (exception.code == "ERROR_USER_NOT_FOUND") {
-          mensagemException += "\nUsuário não encontrado!";
+          messageException += "\nUsuário não encontrado!";
         }
         if (exception.code == "ERROR_WRONG_PASSWORD") {
-          mensagemException += "\nSenha incorreta!";
+          messageException += "\nSenha incorreta!";
         }
         if (exception.code == "ERROR_EMAIL_ALREADY_IN_USE") {
-          mensagemException += "\nE-mail já cadastrado!";
+          messageException += "\nE-mail já cadastrado!";
         }
         loading = false;
 
         messageError =
             "Erro ao autenticar usuário, verifique e-mail e senha e tente novamente!" +
-                mensagemException;
+                messageException;
       });
     } catch (e) {
       loading = false;
@@ -96,7 +95,7 @@ abstract class _RegisterControllerBase with Store {
     if (email == null || email.isEmpty) {
       return "O campo E-mail é obrigatório";
     }
-    if (!email.contains("@")) {
+    if (!EmailValidator.validate(email)) {
       return "Esse E-mail não é válido";
     }
     return null;

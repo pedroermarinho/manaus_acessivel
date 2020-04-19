@@ -7,7 +7,6 @@ part 'about_controller.g.dart';
 class AboutController = _AboutControllerBase with _$AboutController;
 
 abstract class _AboutControllerBase with Store {
-
   @observable
   String appName = "";
 
@@ -23,12 +22,11 @@ abstract class _AboutControllerBase with Store {
   @observable
   String nameDevelop = "Pedro Marinho";
 
-
-  _AboutControllerBase(){
-    recuperarInformacoes();
+  _AboutControllerBase() {
+    recoverInformation();
   }
 
-  pushGithub() async{
+  pushGithub() async {
     const url = 'https://github.com/pedroermarinho/manaus_acessivel';
     if (await canLaunch(url)) {
       await launch(url);
@@ -37,7 +35,7 @@ abstract class _AboutControllerBase with Store {
     }
   }
 
-  pushLinkedin() async{
+  pushLinkedin() async {
     const url = 'https://www.linkedin.com/in/pedro-ermarinho/';
     if (await canLaunch(url)) {
       await launch(url);
@@ -46,7 +44,7 @@ abstract class _AboutControllerBase with Store {
     }
   }
 
-  pushWeb() async{
+  pushWeb() async {
     const url = 'https://pedroermarinho.github.io/';
     if (await canLaunch(url)) {
       await launch(url);
@@ -56,8 +54,8 @@ abstract class _AboutControllerBase with Store {
   }
 
   @action
-  recuperarInformacoes() async{
-    PackageInfo.fromPlatform().then((packageInfo){
+  recoverInformation() async {
+    PackageInfo.fromPlatform().then((packageInfo) {
       appName = packageInfo.appName;
       packageName = packageInfo.packageName;
       version = packageInfo.version;

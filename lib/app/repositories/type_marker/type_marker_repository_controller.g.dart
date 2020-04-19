@@ -14,14 +14,14 @@ mixin _$TypeMarkerRepositoryController
       Atom(name: '_TypeMarkerRepositoryControllerBase.typeMarker');
 
   @override
-  TypeMarcador get typeMarker {
+  TypeMarker get typeMarker {
     _$typeMarkerAtom.context.enforceReadPolicy(_$typeMarkerAtom);
     _$typeMarkerAtom.reportObserved();
     return super.typeMarker;
   }
 
   @override
-  set typeMarker(TypeMarcador value) {
+  set typeMarker(TypeMarker value) {
     _$typeMarkerAtom.context.conditionallyRunInAction(() {
       super.typeMarker = value;
       _$typeMarkerAtom.reportChanged();
@@ -32,25 +32,41 @@ mixin _$TypeMarkerRepositoryController
       Atom(name: '_TypeMarkerRepositoryControllerBase.typeMarkerList');
 
   @override
-  ObservableList<TypeMarcador> get typeMarkerList {
+  ObservableList<TypeMarker> get typeMarkerList {
     _$typeMarkerListAtom.context.enforceReadPolicy(_$typeMarkerListAtom);
     _$typeMarkerListAtom.reportObserved();
     return super.typeMarkerList;
   }
 
   @override
-  set typeMarkerList(ObservableList<TypeMarcador> value) {
+  set typeMarkerList(ObservableList<TypeMarker> value) {
     _$typeMarkerListAtom.context.conditionallyRunInAction(() {
       super.typeMarkerList = value;
       _$typeMarkerListAtom.reportChanged();
     }, _$typeMarkerListAtom, name: '${_$typeMarkerListAtom.name}_set');
   }
 
-  final _$setUserAsyncAction = AsyncAction('setUser');
+  final _$getTypeMarkerAsyncAction = AsyncAction('getTypeMarker');
 
   @override
-  Future setUser(String value) {
-    return _$setUserAsyncAction.run(() => super.setUser(value));
+  Future<TypeMarker> getTypeMarker(String idTypeMarker) {
+    return _$getTypeMarkerAsyncAction
+        .run(() => super.getTypeMarker(idTypeMarker));
+  }
+
+  final _$_TypeMarkerRepositoryControllerBaseActionController =
+      ActionController(name: '_TypeMarkerRepositoryControllerBase');
+
+  @override
+  dynamic setTypeMarker(TypeMarker value) {
+    final _$actionInfo =
+        _$_TypeMarkerRepositoryControllerBaseActionController.startAction();
+    try {
+      return super.setTypeMarker(value);
+    } finally {
+      _$_TypeMarkerRepositoryControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
   }
 
   @override

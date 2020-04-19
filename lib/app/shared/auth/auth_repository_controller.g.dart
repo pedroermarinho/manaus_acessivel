@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_controller.dart';
+part of 'auth_repository_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'auth_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$AuthController on _AuthControllerBase, Store {
-  final _$userAuthAtom = Atom(name: '_AuthControllerBase.userAuth');
+mixin _$AuthRepositoryController on _AuthRepositoryControllerBase, Store {
+  final _$userAuthAtom = Atom(name: '_AuthRepositoryControllerBase.userAuth');
 
   @override
   FirebaseUser get userAuth {
@@ -26,7 +26,7 @@ mixin _$AuthController on _AuthControllerBase, Store {
     }, _$userAuthAtom, name: '${_$userAuthAtom.name}_set');
   }
 
-  final _$statusAtom = Atom(name: '_AuthControllerBase.status');
+  final _$statusAtom = Atom(name: '_AuthRepositoryControllerBase.status');
 
   @override
   AuthStatus get status {
@@ -43,16 +43,17 @@ mixin _$AuthController on _AuthControllerBase, Store {
     }, _$statusAtom, name: '${_$statusAtom.name}_set');
   }
 
-  final _$_AuthControllerBaseActionController =
-      ActionController(name: '_AuthControllerBase');
+  final _$_AuthRepositoryControllerBaseActionController =
+      ActionController(name: '_AuthRepositoryControllerBase');
 
   @override
   dynamic setUser(FirebaseUser value) {
-    final _$actionInfo = _$_AuthControllerBaseActionController.startAction();
+    final _$actionInfo =
+        _$_AuthRepositoryControllerBaseActionController.startAction();
     try {
       return super.setUser(value);
     } finally {
-      _$_AuthControllerBaseActionController.endAction(_$actionInfo);
+      _$_AuthRepositoryControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

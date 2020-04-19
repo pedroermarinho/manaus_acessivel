@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
-
-import 'package:manausacessivel/app/modules/marker/marker_page.dart';
 
 main() {
   testWidgets('MarkerPage has title', (WidgetTester tester) async {

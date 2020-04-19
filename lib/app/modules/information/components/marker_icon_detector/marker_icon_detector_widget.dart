@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:manausacessivel/app/components/show_dialog_custom/show_dialog_custom_widget.dart';
 
 class MarkerIconDetectorWidget extends StatelessWidget {
   final String labelText;
@@ -18,45 +19,8 @@ class MarkerIconDetectorWidget extends StatelessWidget {
           color: Colors.black,
         ),
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Categoria"),
-                content: Row(
-                  children: <Widget>[
-                    FaIcon(
-                      icon,
-                      size: 40,
-                      color: Color(0xffe6c131),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        labelText,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    )
-                  ],
-                ),
-                contentPadding: EdgeInsets.all(20),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text(
-                      "Ok",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              );
-            },
-          );
+          ShowDialogCustomWidget(context,
+              title: "Categoria", labelText: labelText, icon: icon);
         },
       ),
     );
