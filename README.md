@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Manaus Acessivel 👋</h1>
+<h1 align="center">Bem vindo a Manaus Acessivel 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.2.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://pedroermarinho.github.io/manaus_acessivel/" target="_blank">
@@ -47,11 +47,11 @@ flutter test
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/pedroermarinho/manaus_acessivel/issues). You can also take a look at the [contributing guide](https://github.com/pedroermarinho/manaus_acessivel/blob/master/docs/contributing.md).
+Contribuições, problemas e solicitações de recursos são bem-vindos!<br />Sinta-se livre para verificar a [página de problemas](https://github.com/pedroermarinho/manaus_acessivel/issues). Você também pode dar uma olhada no [guia de contribuição](https://github.com/pedroermarinho/manaus_acessivel/blob/master/docs/contributing.md).
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Dar uma ⭐️ se este projeto ajudou você!
 
 ## 📝 License
 
