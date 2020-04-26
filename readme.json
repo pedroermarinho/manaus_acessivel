@@ -1,0 +1,32 @@
+{
+  "project_name": "manaus_acessivel",
+  "version": "1.1.0+2",
+  "description": "Mapa com marcadores de estabelecimento com suporte para pessoas com necessidades especiais.",
+  "icon_src": "icon.png",
+  "snap_store_name": null,
+  "screenshot_src": [],
+  "author": "Pedro Marinho",
+  "github_username": "pedroermarinho",
+  "author_linkedin_username": "pedroermarinho",
+  "author_twitter_username": "pedroermarinho",
+  "author_website": "https://pedroermarinho.github.io/",
+  "homepage": "https://github.com/pedroermarinho/manaus_acessivel#readme",
+  "project_demo_url": "https://github.com/pedroermarinho/manaus_acessivel#readme",
+  "repository_url": "https://github.com/pedroermarinho/manaus_acessivel",
+  "contributing_url": "https://github.com/pedroermarinho/manaus_acessivel/blob/master/CONTRIBUTING.md",
+  "documentation_url": "https://github.com/pedroermarinho/manaus_acessivel#readme",
+  "license_url": "https://github.com/pedroermarinho/manaus_acessivel/blob/master/LICENSE",
+  "issues_url": "https://github.com/pedroermarinho/manaus_acessivel/issues",
+  "license": "MIT",
+  "install_command": ["flutter install"],
+  "usage_command": ["flutter run"],
+  "test_command": null,
+
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pedroermarinho/manaus_acessivel.git"
+  },
+  "is_github_repos": true,
+  "has_start_command": true,
+  "has_test_command": false
+}
