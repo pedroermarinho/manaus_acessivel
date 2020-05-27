@@ -11,7 +11,6 @@ Welcome to manaus_acessivel 👋
 <a href="https://github.com/pedroermarinho/manaus_acessivel/graphs/commit-activity" target="_blank"><img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
 <a href="https://github.com/pedroermarinho/manaus_acessivel/blob/master/LICENSE" target="_blank"><img alt="License:MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
 <a href="https://twitter.com/pedroermarinho" target="_blank"><img alt="Twitter: pedroermarinho" src="https://img.shields.io/twitter/follow/pedroermarinho.svg?style=social" /></a>
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/pedroermarinho/manaus_acessivel) 
 </p>
 
 > Mapa com marcadores de estabelecimento com suporte para pessoas com necessidades especiais.
